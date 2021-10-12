@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+
+<link rel="stylesheet" href="/next/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cnhuazhu.gitee.io","root":"/next/","images":"/next/images","scheme":"Mist","version":"8.6.1","exturl":false,"sidebar":{"position":"left","Muse | Mist":320,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/next/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/next/js/config.js"></script>
+<meta name="description" content="记录操作系统学习历程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习笔记-线程、对称多处理（SMP）和微内核">
+<meta property="og:url" content="https://cnhuazhu.gitee.io/next/2021/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8/index.html">
+<meta property="og:site_name" content="花猪のBlog">
+<meta property="og:description" content="记录操作系统学习历程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8D%95%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%A4%9A%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9B%BE%E6%B3%A8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BF%90%E8%A1%8C.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BA%AF%E7%B2%B9%E7%9A%84%E7%94%A8%E6%88%B7%E7%BA%A7%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%92%8C%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E6%AF%94%E8%BE%83%E8%A1%A8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OSSMP%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E5%B1%82%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%BE%AE%E5%86%85%E6%A0%B8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%B8%AD%E6%96%AD%E9%80%9A%E7%94%A8%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2021-04-09T10:58:57.000Z">
+<meta property="article:modified_time" content="2021-04-10T04:32:00.192Z">
+<meta property="article:author" content="花猪">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B.png">
+
+
+<link rel="canonical" href="https://cnhuazhu.gitee.io/next/2021/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cnhuazhu.gitee.io/next/2021/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8/","path":"2021/04/09/操作系统/操作系统学习笔记-线程、对称多处理（SMP）和微内核/","title":"操作系统学习笔记-线程、对称多处理（SMP）和微内核"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统学习笔记-线程、对称多处理（SMP）和微内核 | 花猪のBlog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/next/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/next/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花猪のBlog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主站"><a href="https://cnhuazhu.top/" rel="noopener" target="_blank"><i class="fas fa-chevron-right fa-fw"></i>主站</a></li>
+        <li class="menu-item menu-item-home"><a href="/next/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/next/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/next/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/next/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">53</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BC%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">2.</span> <span class="nav-text">第四章：线程、对称多处理（SMP）和微内核</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%BC%95%E5%85%A5"><span class="nav-number">2.1.1.</span> <span class="nav-text">线程的引入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88Multithreading%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">多线程（Multithreading）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7%EF%BC%88Thread-Functionality%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">线程的功能特性（Thread Functionality）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E5%92%8C%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B%EF%BC%88User-Level-and-Kernel-Level-Thread%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">用户级和内核级线程（User-Level and Kernel-Level Thread）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88Symmetric-Multiprocessing%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">对称多处理（Symmetric Multiprocessing）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMP%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.1.</span> <span class="nav-text">SMP体系结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMP%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84%EF%BC%88SMP-Organization%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">SMP系统的组织结构（SMP Organization）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%A4%84%E7%90%86%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.2.3.</span> <span class="nav-text">多处理操作系统设计的注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%EF%BC%88Microkernel%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">微内核（Microkernel）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%88Microkernel-Architecture%EF%BC%89"><span class="nav-number">2.3.1.</span> <span class="nav-text">微内核体系结构（Microkernel Architecture）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84%E7%9A%84%E4%BC%98%E7%82%B9%EF%BC%88Benefits-of-a-Microkernel-Organization%EF%BC%89"><span class="nav-number">2.3.2.</span> <span class="nav-text">微内核组织结构的优点（Benefits of a Microkernel Organization）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%E6%80%A7%E8%83%BD%EF%BC%88Microkernel-Performance%EF%BC%89"><span class="nav-number">2.3.3.</span> <span class="nav-text">微内核性能（Microkernel Performance）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%EF%BC%88Microkernel-Design%EF%BC%89"><span class="nav-number">2.3.4.</span> <span class="nav-text">微内核设计（Microkernel Design）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="花猪"
+      src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+  <p class="site-author-name" itemprop="name">花猪</p>
+  <div class="site-description" itemprop="description">为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/next/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/next/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/next/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CNhuazhu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CNhuazhu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/CNhuazhu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cnhuazhu.gitee.io/next/2021/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+      <meta itemprop="name" content="花猪">
+      <meta itemprop="description" content="为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花猪のBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统学习笔记-线程、对称多处理（SMP）和微内核
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-09 18:58:57" itemprop="dateCreated datePublished" datetime="2021-04-09T18:58:57+08:00">2021-04-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-10 12:32:00" itemprop="dateModified" datetime="2021-04-10T12:32:00+08:00">2021-04-10</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/next/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/next/2021/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统学习笔记-线程、对称多处理（SMP）和微内核" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span id="/next/2021/04/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AF%B9%E7%A7%B0%E5%A4%9A%E5%A4%84%E7%90%86%EF%BC%88SMP%EF%BC%89%E5%92%8C%E5%BE%AE%E5%86%85%E6%A0%B8/" class="post-meta-item twikoo_visitors" data-flag-title="操作系统学习笔记-线程、对称多处理（SMP）和微内核" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="twikoo_visitors"></span>
+    </span>
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">记录操作系统学习历程</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><em>正在学习操作系统，记录笔记。</em></p>
+<blockquote>
+<p>参考资料：</p>
+<p>《操作系统（精髓与设计原理 第6版） 》</p>
+</blockquote>
+<hr>
+<h1 id="第四章：线程、对称多处理（SMP）和微内核"><a href="#第四章：线程、对称多处理（SMP）和微内核" class="headerlink" title="第四章：线程、对称多处理（SMP）和微内核"></a>第四章：线程、对称多处理（SMP）和微内核</h1><h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><h3 id="线程的引入"><a href="#线程的引入" class="headerlink" title="线程的引入"></a>线程的引入</h3><p>上一章涉及到进程的两个特点：</p>
+<ul>
+<li>资源所有权（Resource ownership）：一个进程包括一个存放进程映像的虚拟地址空间。进程映像是程序、数据、栈和进程控制块中定义的属性的集合。（一个进程总是拥有对资源的控制或所有权）</li>
+<li>调度/执行（Scheduling/Execution）：一个进程沿着通过一个或多个程序的一条执行路径（轨迹）执行。其执行过程可能与其他进程的执行过程交替进行。</li>
+</ul>
+<p>上述两个特点是独立的，因此操作系统可以独立地处理它们。为了区分这两个特点，分派的单位通常称做<strong>线程</strong>（thread）或<strong>轻量级进程</strong>（light weight process，LWP）；拥有资源所有权的单位通常仍称作<strong>进程</strong>（process）或<strong>任务</strong>（task）。</p>
+<blockquote>
+<p>进程的优势就是带来了并发的实现，可以提高计算机资源的利用率，但同时这也带来了问题：由于计算机的内存大小受限，并不可能开启任意数量的进程（并发度），如果这样操作，反而会降低计算机系统的运行效率。</p>
+</blockquote>
+<p>这里先用一个描述来通俗地理解何为线程：线程就是程序当中一个正在独立运行的函数。</p>
+<blockquote>
+<p>再来一个奇妙的比喻理解下为何要引入线程的概念，或者说线程的引入较进程提高计算机系统的运行效率有何不同：</p>
+<p>作为一个早八🐶，每天起床的唯一动力就是肉包子。有一天突发奇想，我不要读书了，我要去校门口卖包子，于是说干就干，休学去校门口创业。好在天赋异禀，做得一手的好包子，生意那是蒸蒸日上，随着名气逐渐在学生间流传开来，每天的包子销量供不应求。我又重新累成🐶，但是为了提高包子的产量，我又想了两个办法：</p>
+<ol>
+<li>开连锁店，分摊销售压力。</li>
+<li>只一家店不变，增派人手，每个人负责制作包子的不同流程。</li>
+</ol>
+<p>下面我们来分析一下这两种方案的优劣：</p>
+<p>方案一，开连锁店。我需要再去找其他店铺，商量租金事宜，装修，招募店主，培训等等。这样是可以提高总体包子的产量，但是感觉稍微有“亿些”麻烦。我还得重新安排各种资源，想想看身为懒🐶的我，要不要考虑一下第二个方案。</p>
+<p>方案二，不增设店铺，只招募人手，每个人负责不同的工作。我可以招募个早起买食材的人、和面的、处理食材的、做包子的等等，每个人专注于一个小任务。这样大家干起活来轻松愉快，既提升了包子的产量，又免去了方案一中安排各种资源的繁杂，💰💰💰💰还“哗哗”往腰包里流，岂不美哉。</p>
+<p>方案一的实现就映射了“进程”的概念，虽然可以提高计算机系统的效率，但是会占用大量资源；方案二的实现就映射了“线程”的概念，不必分配大量的资源，只优化实现流程。</p>
+</blockquote>
+<h3 id="多线程（Multithreading）"><a href="#多线程（Multithreading）" class="headerlink" title="多线程（Multithreading）"></a>多线程（Multithreading）</h3><p>多线程指的是操作系统在一个进程中支持多个线程执行（多个并发执行路径）的能力。</p>
+<blockquote>
+<p>Windows, Solaris, Linux, Mach, 以及 OS/2 都支持多线程。</p>
+</blockquote>
+<p>单线程（Single-Thread）：每个进程中只有一个线程在执行的传统方法。</p>
+<blockquote>
+<p>MS-DOS就是一个支持单用户进程和单线程的操作系统的例子。</p>
+<p>一些版本的UNIX操作系统支持多用户进程，但只支持每个进程一个线程。</p>
+<p>Java的运行环境（JVM）是单进程多线程的一个例子。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B.png"></p>
+<p>进程与线程的差异：</p>
+<p>我们可以从本文最开始的文字去区分进程与线程，即：</p>
+<ul>
+<li><p>进程：资源分配和保护的单位。</p>
+<ul>
+<li>有一个虚拟地址空间（virtual address space），用来存放进程映像。（包括：数据、代码、栈和PCB）</li>
+<li>受保护地对处理器、其他进程（用于进程间通信）、文件和I/O资源（设备和通道）的访问。</li>
+<li>每个进程包含一个或多个线程。</li>
+</ul>
+</li>
+<li><p>线程：执行/调度的单位。每个线程都包含：</p>
+<ul>
+<li>线程执行状态（运行、就绪等）</li>
+<li>在未运行时保存的线程上下文（从某种意义上来看，线程可以被看做进程内的一个被独立地操作的程序计数器）</li>
+<li>一个执行栈</li>
+<li>用于每个线程局部变量的静态存储空间</li>
+<li>与进程内的其他线程共享的对该进程的内存和资源的访问。</li>
+</ul>
+<blockquote>
+<p>如下图为单线程和多线程的进程模型</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png"></p>
+</blockquote>
+</li>
+</ul>
+<p>线程的优点（简记为“4快”）：</p>
+<ul>
+<li><p>创建快：在一个已有进程中创建一个新线程比创建一个全新进程的时间要少许多。</p>
+</li>
+<li><p>结束快：终止一个线程比终止一个进程花费的时间少。</p>
+</li>
+<li><p>切换快：同一进程内线程间切换比进程间切换花费的时间少。</p>
+</li>
+<li><p>通信快：线程提高了不同的执行程序间通信的效率。由于在同一个进程中的线程共享内存和文件，因此它们无需调用内核就可以互相通信。</p>
+<blockquote>
+<p>在大多数的操作系统中，独立进程间的通信需要内核的介入。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>如果一个应用程序或函数被实现为一组相关联的执行单位，那么用一组线程比用一组分离的进程更加有效。</p>
+</blockquote>
+<p>线程在单用户多处理系统（Single-User Multiprocessing System）中的应用：</p>
+<ul>
+<li><p>前/后台工作（Foreground to background work）：</p>
+<p>例如：在电子表格中，一个线程可以显示菜单并读取用户输入，而另一个线程执行用户命令并更新电子表格。（这种方案允许程序在前一条命令完成前提示输入下一条命令，因而常常会使用户感觉到应用程序的响应速度有所提高）</p>
+</li>
+<li><p>异步处理（Asynchronous processing）：程序中的异步元素可以用线程实现。</p>
+<p>例如：为避免掉电带来的损失，往往把文字处理程序（word 程序）设计成每隔一分钟将随机存取存储器（RAM）缓冲区中的数据写入磁盘一次。可以创建一个线程，其任务是周期性地进行备份，并且直接由操作系统调度该线程。</p>
+</li>
+<li><p>加速执行（Speed of execution）：一个多线程进程在计算这批数据的同时可以从设备读取下一批数据。</p>
+<p>在多处理器系统中，同一个进程中的多个线程可以同时执行。这样，即便一个线程在读取数据时由于I/O操作被阻塞，另外一个线程仍然可以继续运行。</p>
+</li>
+<li><p>模块化程序结构（Modular program structure）：涉及多种活动或多种输入输出的源和目的地的程序更易于用线程设计和实现。</p>
+</li>
+</ul>
+<p>进程的活动会影响线程：</p>
+<ul>
+<li>因为所有线程共享同一个地址空间，所以当一个进程被挂起，其中的所有线程都会被挂起。</li>
+<li>进程的终止会导致进程中所有线程的终止。</li>
+</ul>
+<h3 id="线程的功能特性（Thread-Functionality）"><a href="#线程的功能特性（Thread-Functionality）" class="headerlink" title="线程的功能特性（Thread Functionality）"></a>线程的功能特性（Thread Functionality）</h3><p>和进程一样，线程具有执行状态，且可以相互之间进行同步。</p>
+<p>执行状态（4种）：</p>
+<ul>
+<li><p>派生（Spawn）：在典型情况下，当派生一个新进程时，同时也为该进程派生了一个线程。随后，进程中的线程可以在同一个进程中派生另一个线程，并为新线程提供指令指针和参数；新线程拥有自己的寄存器上下文和栈空间，且被放置在就绪队列中。</p>
+</li>
+<li><p>阻塞（Block）：当线程需要等待一个事件时，它将被阻塞（保存它的用户寄存器、程序计数器和栈指针），此时处理器转而执行另一个处于同一进程中或不同进程中的就绪线程。</p>
+</li>
+<li><p>解除阻塞（Unblock）：当阻塞一个线程的事件发生时，该线程被转移到就绪队列中。</p>
+</li>
+<li><p>结束（Finish）：当一个线程完成时，其寄存器上下文和栈都被释放。</p>
+<blockquote>
+<p>我们以一个例子来分析多线程的性能获益（暂且考虑线程不会阻塞的情况）：如下图展示，一个执行了两个远程过程调用（RPC）的程序，这两个调用分别涉及两个不同的主机，用于获得一个组合的结果。</p>
+<ul>
+<li><p>在单线程程序中，其结果是按顺序获得的，因此程序必须依次等待来自每个服务器的响应。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8D%95%E7%BA%BF%E7%A8%8B.png"></p>
+</li>
+<li><p>如果重写这个程序，为每个RPC使用一个独立的线程，可以使速度得到实质性的提高。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%A4%9A%E7%BA%BF%E7%A8%8B.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9B%BE%E6%B3%A8.png"></p>
+</li>
+<li><p>需要注意的是：如果这个程序在单处理器上运行，那么必须顺序地产生请求并且顺序地处理结果，但是对两个应答的等待是并发的。</p>
+</li>
+</ul>
+<p>在单处理器中，多道程序设计使得在多个进程中的多个线程可以交替执行。在下图所示的例子中，两个进程中的三个线程在处理器中交替执行。在当前正在运行的线程阻塞或它的时间片用完时，执行传递到另一个线程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BF%90%E8%A1%8C.png"></p>
+</blockquote>
+</li>
+</ul>
+<p>线程同步：</p>
+<p>一个进程中的所有线程共享同一个地址空间和诸如打开的文件之类的其他资源。一个线程对资源的任何修改都会影响同一个进程中其他线程的环境。因此，需要同步各种线程的活动，以便它们互不干涉且不破坏数据结构。</p>
+<h3 id="用户级和内核级线程（User-Level-and-Kernel-Level-Thread）"><a href="#用户级和内核级线程（User-Level-and-Kernel-Level-Thread）" class="headerlink" title="用户级和内核级线程（User-Level and Kernel-Level Thread）"></a>用户级和内核级线程（User-Level and Kernel-Level Thread）</h3><p>线程的实现可以分为两大类：用户级线程（User-Level Thread，ULT）和内核级线程（Kernel-Level Thread，KLT）。后者又称做内核支持的线程或轻量级进程。</p>
+<ul>
+<li><p>用户级线程（User-Level Thread，ULT）</p>
+<ul>
+<li><p>在一个纯粹的用户级线程软件中，有关线程管理的所有工作都由应用程序完成。</p>
+</li>
+<li><p>内核意识不到线程的存在</p>
+</li>
+<li><p>任何应用程序都可以通过使用线程库被设计成多线程程序。</p>
+<blockquote>
+<p>线程库是用于用户级线程管理的一个例程包，它包含用于创建和销毁线程的代码、在线程间传递消息和数据代码、调度线程执行的代码以及保存和恢复线程上下文的代码。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BA%AF%E7%B2%B9%E7%9A%84%E7%94%A8%E6%88%B7%E7%BA%A7%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F.png"></p>
+<p>以下图为例展示用户级线程状态和进程状态间的关系：假设进程B在它的线程2中执行。</p>
+<ol>
+<li><p>（如图b）线程2中执行的应用程序进行系统调用，阻塞了进程B。例如，进行一次I/O调用。这导致控制转移到内核，内核启动I/O操作，把进程B置于阻塞状态，并切换到另一个进程。在此期间，根据线程库维护的数据结构，进程B的线程2仍处于运行态。</p>
+<blockquote>
+<p>值得注意的是，从在处理器上执行的角度看，线程2实际上并不处于运行态，但是在线程库看来，它处于运行态。</p>
+</blockquote>
+</li>
+<li><p>（如图c）时钟中断把控制传递给内核，内核确定当前正在运行的进程（B）已经用完了它的时间片。内核把进程B置于就绪态并切换到另一个进程。同时，根据线程库维护的数据结构，进程B的线程2仍处于运行态。</p>
+</li>
+<li><p>（如图d）线程2运行到需要进程B的线程1执行某些动作的一个点。此时，线程2进入阻塞态，而线程1从就绪态转换到运行态，进程自身保留在运行态。</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E5%92%8C%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E7%9A%84%E5%85%B3%E7%B3%BB.png"></p>
+</li>
+</ul>
+</li>
+<li><p>内核级线程（Kernel-Level Thread，KLT）：</p>
+<ul>
+<li><p>在一个纯粹的内核级线程软件中，有关线程管理的所有工作都是由内核完成的。</p>
+</li>
+<li><p>内核为进程及其内部的每个线程维护上下文信息。</p>
+</li>
+<li><p>调度是由内核以线程为单位完成的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>两种线程的比较：</p>
+<ul>
+<li><p>用户级较内核级线程的优点：</p>
+<ul>
+<li><p>减少模式的切换</p>
+<blockquote>
+<p>由于所有线程管理数据结构都在一个进程的用户地址空间中，线程切换不需要内核态特权，因此，进程不需要为了线程管理而切换到内核态，这节省了两次状态转换（从用户态到内核态；从内核态返回到用户态）的开销。</p>
+</blockquote>
+</li>
+<li><p>调度可以为应用程序所专用</p>
+<blockquote>
+<p>一个应用程序可能更适合简单的轮转调度算法，而另一个应用程序可能更适合基于优先级的调度算法。可以做到为应用程序量身定做调度算法而不扰乱底层的操作系统调度程序。</p>
+</blockquote>
+</li>
+<li><p>用户级线程可以在任何操作系统中运行</p>
+<blockquote>
+<p>不需要对底层内核进行修改以支持用户级线程。线程库是一组供所有应用程序共享的应用程序级别的函数。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>用户级较内核级线程的缺点：</p>
+<ul>
+<li><p>一个线程被阻塞，该进程的所有其他线程都将被阻塞。</p>
+</li>
+<li><p>在纯粹的用户级线程策略中，一个多线程应用程序不能利用多处理技术。</p>
+<blockquote>
+<p>内核一次只把一个进程分配给一个处理器，因此一个进程中只有一个线程可以执行。</p>
+</blockquote>
+<blockquote>
+<p>现在已有两个办法可以解决上述两个缺陷：</p>
+<ul>
+<li>把应用程序写成一个多进程程序，而非多线程。</li>
+<li>Jacketing技术（无阻塞调用）：把一个产生阻塞的系统调用转化成一个非阻塞的系统调用。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>内核级较用户级线程的优点：（克服了用户级线程的两个缺陷）</p>
+<ul>
+<li>进程中的多个线程可以同时在多个处理器上运行（由内核调度）。</li>
+<li>一个线程被阻塞不会使同一进程内的其他线程被阻塞。</li>
+<li>内核例程自身也可以使用多线程。</li>
+</ul>
+</li>
+<li><p>内核级较用户级线程的缺点：</p>
+<ul>
+<li>在把控制从一个线程传送到同一个进程内的另一个线程时，需要到内核的状态切换。</li>
+</ul>
+</li>
+</ul>
+<p>下图给出了在单处理器VAX机上运行类UNIX操作系统的测量结果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E6%AF%94%E8%BE%83%E8%A1%A8.png"></p>
+<blockquote>
+<p>可以看出用户级线程和内核级线程之间、内核级线程和进程之间都有一个数量级以上的性能差距。</p>
+</blockquote>
+<p>用户级与内核级的组合方法：</p>
+<ul>
+<li><p>线程创建完全在用户空间中完成。</p>
+</li>
+<li><p>线程的调度和同步在应用程序中进行。</p>
+</li>
+<li><p>在用组合方法的操作系统中，Solaris是一个很好的例子。（当前版本的Solaris限制用户级线程/内核级线程的关系仅仅能为1：1的关系）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BB%84%E5%90%88%E6%96%B9%E6%B3%95.png"></p>
+</li>
+</ul>
+<h2 id="对称多处理（Symmetric-Multiprocessing）"><a href="#对称多处理（Symmetric-Multiprocessing）" class="headerlink" title="对称多处理（Symmetric Multiprocessing）"></a>对称多处理（Symmetric Multiprocessing）</h2><h3 id="SMP体系结构"><a href="#SMP体系结构" class="headerlink" title="SMP体系结构"></a>SMP体系结构</h3><p>分为以下4类：</p>
+<ul>
+<li><p>单指令单数据流（SISD）：单处理器执行单个指令流，对保存在单个内存中的数据进行操作。</p>
+</li>
+<li><p>单指令多数据流（SIMD）：每条指令由不同的处理器在不同的数据集合上执行。（向量和阵列处理器都属于这一类。）</p>
+</li>
+<li><p>多指令单数据流（MISD）：一系列数据被传送到一组处理器上，每个处理器执行不同的指令序列。（这个结构从未实现过）</p>
+</li>
+<li><p>多指令多数据流（MIMD）：一组处理器同时在不同的数据集上执行不同的指令序列。</p>
+<blockquote>
+<p>SIMD和MIMD是主流模式，现代计算机基本都能够实现MIMD。</p>
+</blockquote>
+</li>
+</ul>
+<p>下图展示了并行处理器的体系结构：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%B9%B6%E8%A1%8C%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png"></p>
+<p><strong>集群（cluster）</strong>：</p>
+<p>如果每个处理器都有一个专用内存，那么每个处理部件都可以被看做一个独立的计算机。计算机间的通信或者借助于固定的路径，或者借助于某些网络设施，这类系统称做<strong>集群（cluster）</strong>，或者多计算机系统。</p>
+<p>如果处理器共享一个公用内存，每个处理器都访问保存在共享内存中的程序和数据，处理器之间通过该内存互相通信，则这类系统称为<strong>共享内存多处理器</strong>系统。</p>
+<blockquote>
+<p>共享内存多处理器系统的一个常用的分类是基于如何把进程分配给处理器。最基本的两种方法是主/从（Master/Slave）和对称多处理（SMP）。</p>
+<p>关于主/从结构：</p>
+<p>在主/从结构中，操作系统内核总是在某个特定的处理器上运行，其他处理器只用于执行用户程序，还可能执行一些操作系统实用程序。主处理器负责调度进程或线程。当一个进程/线程是活跃时，如果从处理器需要服务（如一次I/O调用），它必须给主处理器发送请求，并等待服务的执行。一个处理器控制了所有的内存和I/O资源。这是很简单的方法，但是会有它的缺陷：</p>
+<ul>
+<li>主处理器的失效将导致整个系统失效。</li>
+<li>由于主处理器必须单独完成所有的调度和进程管理，它可能成为性能瓶颈。</li>
+</ul>
+</blockquote>
+<p>对称多处理（Symmetric Multiprocessing）系统：</p>
+<ul>
+<li>内核可以在任何处理器上执行。</li>
+<li>每个处理器从可用的进程或线程池中进行自己的调度工作。</li>
+</ul>
+<h3 id="SMP系统的组织结构（SMP-Organization）"><a href="#SMP系统的组织结构（SMP-Organization）" class="headerlink" title="SMP系统的组织结构（SMP Organization）"></a>SMP系统的组织结构（SMP Organization）</h3><p>（如下图）SMP中有多个处理器，每个都含有它自己的控制单元、算术逻辑单元和寄存器；每个处理器都可以通过某种形式的互连机制访问一个共享内存和1/O设备；共享总线就是一个通用方法。处理器可以通过内存（留在共享地址空间中的消息和状态信息）互相通信，还可以直接交换信号。内存通常被组织成允许同时有多个对内存不同独立部分的访问。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OSSMP%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.png"></p>
+<blockquote>
+<p>在现代计算机中，处理器通常至少有专用的一级高速缓存。</p>
+</blockquote>
+<h3 id="多处理操作系统设计的注意事项"><a href="#多处理操作系统设计的注意事项" class="headerlink" title="多处理操作系统设计的注意事项"></a>多处理操作系统设计的注意事项</h3><ul>
+<li><p>同时的并发进程或线程（Simultaneous concurrent processes or threads）：</p>
+<p>为允许多个处理器同时执行相同的内核代码，内核例程必须是可重入的（reentrant）。多个处理器执行内核的相同或不相同部分时，必须对内核表和管理结构进行合适的管理，以避免死锁或非法操作。</p>
+</li>
+<li><p>调度（Scheduling）：</p>
+<p>调度可以由任何处理器执行，因此必须避免冲突。如果使用了内核级多线程，则可能出现在多个处理器上同时从同一个进程中调度多个线程的机会。</p>
+</li>
+<li><p>同步（Synchronization）：</p>
+<p>因为多个活动进程都可能访问共享地址空间或共享I/O资源，因而需注意提供有效的同步。同步是保证互斥和事件排序的机制。（锁（lock）是多处理器操作系统中一个通用的同步机制）</p>
+</li>
+<li><p>存储管理（Memory management）：</p>
+<p>多处理器上的存储管理必须处理在单处理器机器上发现的所有问题。此外，为达到最佳性能，操作系统需要尽可能地利用硬件并行性，如多端口内存；还必须协调不同处理器上的分页机制，以保证当多个处理器共享页或段时页面的一致性，以及决定页面置换的策略。</p>
+</li>
+<li><p>可靠性和容错（Reliability and fault tolerance）：</p>
+<p>当处理器失效时，操作系统应该提供适当的功能降低。调度程序和操作系统的其他部分必须知道处理器的失效情况，并且据此重新组织管理表。</p>
+</li>
+</ul>
+<h2 id="微内核（Microkernel）"><a href="#微内核（Microkernel）" class="headerlink" title="微内核（Microkernel）"></a>微内核（Microkernel）</h2><p>微内核是一个小型的操作系统核心，它为模块化扩展提供基础。</p>
+<p>为了更好地掌握微内核的出现，我们先来了解一下<strong>分层内核</strong>的概念：</p>
+<p>早期的操作系统开发很少考虑到结构问题，一般我们称之为<strong>单体结构的操作系统</strong>，其内部耦合度很高（任何过程实际上都可以调用任何别的过程）。逐渐地，操作系统规模越来越大，这种单体结构无法支撑（开发和维护起来太过复杂），于是就出现了<strong>分层的操作系统</strong>（如下图），所有功能按层次组织，只在相邻层之间发生交互。</p>
+<p>但是分层方法也有问题：每层都处理相当多的功能，一层中的大的变化可能会对相邻层（上一层或下一层）中的代码产生巨大的影响，这些影响跟踪起来有很多困难。其结果是，在基本操作系统上很难通过增加或减少一些功能实现一个专用版本，而且由于在相邻层之间有很多交互，因而很难保证安全性。</p>
+<blockquote>
+<p>在分层方法中，大多数层或所有层都在内核态下执行。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E5%B1%82%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.png"></p>
+<p>于是，就引入了微内核的概念。</p>
+<h3 id="微内核体系结构（Microkernel-Architecture）"><a href="#微内核体系结构（Microkernel-Architecture）" class="headerlink" title="微内核体系结构（Microkernel Architecture）"></a>微内核体系结构（Microkernel Architecture）</h3><ul>
+<li><p>小型操作系统核心。</p>
+</li>
+<li><p>只将最基本的操作系统功能放于内核中。</p>
+</li>
+<li><p>许多传统上属于操作系统一部分的功能现在都是外部子系统。（包括设备驱动程序、文件系统、虚存管理程序、窗口系统和安全服务。它们可以与内核交互，也可以相互交互）</p>
+</li>
+<li><p>非基本的服务和应用程序在微内核之上构造，并在用户态下执行。</p>
+<blockquote>
+<p>相对的内核称为<strong>单体内核（monolithic kernel）</strong></p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%BE%AE%E5%86%85%E6%A0%B8%E7%BB%93%E6%9E%84.png"></p>
+<blockquote>
+<p>微内核结构用一个水平分层的结构代替了传统的纵向分层的结构。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="微内核组织结构的优点（Benefits-of-a-Microkernel-Organization）"><a href="#微内核组织结构的优点（Benefits-of-a-Microkernel-Organization）" class="headerlink" title="微内核组织结构的优点（Benefits of a Microkernel Organization）"></a>微内核组织结构的优点（Benefits of a Microkernel Organization）</h3><ul>
+<li><p>一致接口（Uniform interface）：</p>
+<ul>
+<li>进程不需要区分是内核级服务还是用户级服务。</li>
+<li>所有服务都是通过消息传递提供的。</li>
+</ul>
+</li>
+<li><p>可扩展性（Extensibility）：</p>
+<ul>
+<li>允许增加新的服务</li>
+</ul>
+</li>
+<li><p>灵活性（Flexibility）：</p>
+<ul>
+<li>可以在操作系统中增加新的功能。</li>
+<li>可以删减现有的功能。</li>
+</ul>
+</li>
+<li><p>可移植性（Portability）：</p>
+<p>将操作系统移植到新的处理器时只需改变微内核中的内容，而不用改变其他服务。</p>
+</li>
+<li><p>可靠性（Reliability）：</p>
+<ul>
+<li>模块化设计。</li>
+<li>小的微内核可以被严格地测试。</li>
+</ul>
+</li>
+<li><p>分布式系统支持（Distributed system support ）：</p>
+<ul>
+<li><p>进程可以在不知道目标服务驻留在哪个机器上的情况下发送信息。</p>
+<blockquote>
+<p>当客户端往一个服务器进程发送消息时，该消息必须包含所请求服务的标识符。如果分布式系统（如集群）被配置为所有的进程和服务都具有唯一的标识符，那么实际上在微内核级别上可以看做只有一个单独的系统映像。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>对面向对象操作系统支持（Object-oriented operating system ）：</p>
+<ul>
+<li>构件是具有明确定义的接口的对象，可以以搭积木的方式通过互连构造软件，构件中的所有交互都使用构件接口。</li>
+</ul>
+</li>
+</ul>
+<h3 id="微内核性能（Microkernel-Performance）"><a href="#微内核性能（Microkernel-Performance）" class="headerlink" title="微内核性能（Microkernel Performance）"></a>微内核性能（Microkernel Performance）</h3><p>经常提到，微内核的一个潜在缺点是性能问题。</p>
+<blockquote>
+<p>通过微内核构造和发送信息、接受应答并解码所花费的时间比进行一次系统调用的时间要多。但是，由于别的因素的作用，很难概括出是否有性能损失以及损失了多少。</p>
+</blockquote>
+<p>不论对微内核如何优化，上述问题（损失）依旧是存在的。</p>
+<p>针对这种问题，其中一个方法是：把一些关键的服务程序和驱动程序重新放回操作系统，这将增大微内核。（回退）</p>
+<p>另一种办法是让微内核变得更小：[LIED96b]表明，通过正确的设计，一个非常小的微内核可以消除性能损失并提高灵活性和可靠性。</p>
+<h3 id="微内核设计（Microkernel-Design）"><a href="#微内核设计（Microkernel-Design）" class="headerlink" title="微内核设计（Microkernel Design）"></a>微内核设计（Microkernel Design）</h3><p>微内核必须包括直接依赖于硬件的功能，以及那些支持服务程序和应用程序在用户态下运行的功能。这些功能通常可分为以下几类：低级存储管理（Low-level memory management）、进程间通信（Interprocess communication / IPC）以及I/O和中断管理（I/O and interrupt management ）。</p>
+<ul>
+<li><p>低级存储管理（Low-level memory management）：</p>
+<p>微内核必须控制硬件概念上的地址空间，使得操作系统可以在进程级实现保护。微内核只负责把每个虚拟页映射到一个物理页框。</p>
+<blockquote>
+<p>存储管理的大部分功能，包括保护一个进程的地址空间免于另一个进程的干涉，页面置换算法以及其他分页逻辑都可以在内核外实现。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86.png"></p>
+</li>
+<li><p>进程间通信（Interprocess communication）：</p>
+<p>微内核操作系统中进程之间或线程之间进行通信的基本形式是消息。</p>
+<blockquote>
+<p>消息由消息头和消息体组成，消息头描述了发送消息和接收消息的进程；消息体中含有数据，或者是指向一个数据块的指针，或者是关于进程的某些控制信息。</p>
+</blockquote>
+<ul>
+<li>消息（Message）</li>
+<li>端口（Port）</li>
+<li>基于线程的IPC（Thread-based IPC）</li>
+<li>共享内存（Memory-sharing）</li>
+</ul>
+</li>
+<li><p>I/O和中断管理（I/O and interrupt management ）：</p>
+<p>在微内核结构中，可以做到以消息的方式处理硬件中断和把I/O端口包含到地址空间中。微内核可以识别中断但不处理中断，它产生一条消息给与该中断相关联的用户级进程。</p>
+<blockquote>
+<p>当允许一个中断时，一个特定的用户级进程被指派给这个中断，并且由内核维护这个映射。</p>
+<p>把中断转换成消息的工作必须由微内核完成，但是微内核并不涉及设备专用的中断处理。</p>
+</blockquote>
+<blockquote>
+<p>[LIED96a]提出把硬件看做一组具有唯一标识符的线程，并给用户空间中相关的软件线程发送消息（仅包含线程ID号）。接收线程确定消息是否来自一个中断，并确定具体是哪个中断。这类用户级代码的通用结构如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%B8%AD%E6%96%AD%E9%80%9A%E7%94%A8%E7%BB%93%E6%9E%84.png"></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>本篇已完结</p>
+<p>（如有修改或补充欢迎评论）</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\03\28\操作系统\操作系统学习笔记\" rel="bookmark">操作系统学习笔记</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\06\09\操作系统\操作系统学习笔记-文件管理\" rel="bookmark">操作系统学习笔记-文件管理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\06\02\操作系统\操作系统学习笔记-I-O管理和磁盘调度\" rel="bookmark">操作系统学习笔记-I/O管理和磁盘调度</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\05\30\操作系统\操作系统学习笔记-单处理器调度\" rel="bookmark">操作系统学习笔记-单处理器调度</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\05\24\操作系统\操作系统学习笔记-虚拟内存\" rel="bookmark">操作系统学习笔记-虚拟内存</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/wechat.png" alt="花猪 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/alipay.jpg" alt="花猪 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/next/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/next/2021/04/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%BA%94%E7%94%A8%E5%B1%82/" rel="prev" title="计算机网络学习笔记-应用层">
+                  <i class="fa fa-chevron-left"></i> 计算机网络学习笔记-应用层
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/next/2021/04/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%B9%B6%E5%8F%91%E6%80%A7%EF%BC%9A%E4%BA%92%E6%96%A5%E5%92%8C%E5%90%8C%E6%AD%A5/" rel="next" title="操作系统学习笔记-并发性：互斥和同步">
+                  操作系统学习笔记-并发性：互斥和同步 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花猪</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">356k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:23</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+<script src="/next/js/comments.js"></script><script src="/next/js/utils.js"></script><script src="/next/js/motion.js"></script><script src="/next/js/schemes/muse.js"></script><script src="/next/js/next-boot.js"></script><script src="/next/js/pjax.js"></script>
+
+  
+<script src="/next/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"dh8GVAcIwU1TN4zhA5y63iW1-gzGzoHsz","app_key":"hzyAqDKjG4OBGrdPS7mKaOa7","server_url":null,"security":true}</script>
+  <script src="/next/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/next/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"hexo-1g41404w9f800e94","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+
+</body>
+</html>

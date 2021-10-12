@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+
+<link rel="stylesheet" href="/next/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cnhuazhu.gitee.io","root":"/next/","images":"/next/images","scheme":"Mist","version":"8.6.1","exturl":false,"sidebar":{"position":"left","Muse | Mist":320,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/next/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/next/js/config.js"></script>
+<meta name="description" content="记录操作系统学习历程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习笔记-进程描述和控制">
+<meta property="og:url" content="https://cnhuazhu.gitee.io/next/2021/03/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:site_name" content="花猪のBlog">
+<meta property="og:description" content="记录操作系统学习历程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%B0%83%E5%BA%A6%E5%99%A8.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%B0%83%E5%BA%A6%E5%99%A82.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%B0%83%E5%BA%A6%E5%99%A84.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%B8%A4%E7%8A%B6%E6%80%81%E5%9B%BE.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%98%9F%E5%88%97.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%BA%94%E7%8A%B6%E6%80%81%E5%9B%BE.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%98%9F%E5%88%972.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%98%9F%E5%88%973.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%B8%83%E7%8A%B6%E6%80%81%E5%9B%BE.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%AE%9E%E4%BD%93%E4%BF%A1%E6%81%AF%E8%A1%A8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E6%97%A0%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%86%85%E6%A0%B8.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9C%A8%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%89%A7%E8%A1%8C.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9F%BA%E4%BA%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.jpg">
+<meta property="article:published_time" content="2021-03-30T14:48:49.000Z">
+<meta property="article:modified_time" content="2021-06-23T02:58:10.240Z">
+<meta property="article:author" content="花猪">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97.jpg">
+
+
+<link rel="canonical" href="https://cnhuazhu.gitee.io/next/2021/03/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cnhuazhu.gitee.io/next/2021/03/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6/","path":"2021/03/30/操作系统/操作系统学习笔记-进程描述和控制/","title":"操作系统学习笔记-进程描述和控制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统学习笔记-进程描述和控制 | 花猪のBlog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/next/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/next/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花猪のBlog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主站"><a href="https://cnhuazhu.top/" rel="noopener" target="_blank"><i class="fas fa-chevron-right fa-fw"></i>主站</a></li>
+        <li class="menu-item menu-item-home"><a href="/next/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/next/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/next/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/next/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">53</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">第三章：进程描述和控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">什么是进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">进程和进程控制块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%88Process-States%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">进程状态（Process States）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%8A%B6%E6%80%81%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B%EF%BC%88Two-State-Process-Model%EF%BC%89"><span class="nav-number">2.3.1.</span> <span class="nav-text">两状态进程模型（Two-State Process Model）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BB%88%E6%AD%A2"><span class="nav-number">2.3.2.</span> <span class="nav-text">进程的创建和终止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E7%8A%B6%E6%80%81%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.3.</span> <span class="nav-text">五状态模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E6%8C%82%E8%B5%B7%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%88Suspended-Processes%EF%BC%89"><span class="nav-number">2.3.4.</span> <span class="nav-text">被挂起的进程（Suspended Processes）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%EF%BC%88Process-Description%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">进程描述（Process Description）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%EF%BC%88Process-Control%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">进程控制（Process Control）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="花猪"
+      src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+  <p class="site-author-name" itemprop="name">花猪</p>
+  <div class="site-description" itemprop="description">为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/next/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/next/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/next/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CNhuazhu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CNhuazhu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/CNhuazhu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cnhuazhu.gitee.io/next/2021/03/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+      <meta itemprop="name" content="花猪">
+      <meta itemprop="description" content="为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花猪のBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统学习笔记-进程描述和控制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-30 22:48:49" itemprop="dateCreated datePublished" datetime="2021-03-30T22:48:49+08:00">2021-03-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-23 10:58:10" itemprop="dateModified" datetime="2021-06-23T10:58:10+08:00">2021-06-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/next/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/next/2021/03/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统学习笔记-进程描述和控制" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span id="/next/2021/03/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0%E5%92%8C%E6%8E%A7%E5%88%B6/" class="post-meta-item twikoo_visitors" data-flag-title="操作系统学习笔记-进程描述和控制" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="twikoo_visitors"></span>
+    </span>
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">记录操作系统学习历程</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><em>正在学习操作系统，记录笔记。</em></p>
+<blockquote>
+<p>参考资料：</p>
+<p>《操作系统（精髓与设计原理 第6版） 》</p>
+</blockquote>
+<hr>
+<h1 id="第三章：进程描述和控制"><a href="#第三章：进程描述和控制" class="headerlink" title="第三章：进程描述和控制"></a>第三章：进程描述和控制</h1><h2 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h2><p>在给进程下定义之前，我们先回顾总结一下第一章和第二章的概念。</p>
+<ul>
+<li><p>计算机平台包括一组硬件资源。（如处理器、内存、I/O模块、定时器和磁盘驱动器等）</p>
+</li>
+<li><p>计算机程序是为执行某些任务而开发的。</p>
+</li>
+<li><p>直接根据给定的硬件平台写应用程序效率是低下的。</p>
+<blockquote>
+<p>原因如下：</p>
+<ul>
+<li>针对相同的平台可以开发出很多应用程序，所以开发出这些应用程序访问计算机资源的通用例程是很有意义的。</li>
+<li>处理器本身只能对多道程序设计提供有限的支持，需要用软件去管理处理器和其他资源同时被多个程序共享。</li>
+<li>如果多个程序在同一时间都是活跃的，那么需要保护每个程序的数据、I/O使用和其他资源不被其他程序占用。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>开发操作系统是为了给应用程序提供一个方便、安全和一致的接口。</p>
+</li>
+<li><p>可以把操作系统想象为资源的统一抽象表示，可以被应用程序请求和访问。</p>
+</li>
+</ul>
+<p>操作系统需要以一个有序的方式管理应用程序的执行，以达到以下目的：</p>
+<ul>
+<li>资源对多个应用程序是可用的。</li>
+<li>物理处理器在多个应用程序间切换以保证所有程序都在执行中。</li>
+<li>处理器和I/O设备能得到充分的利用。</li>
+</ul>
+<h2 id="进程和进程控制块"><a href="#进程和进程控制块" class="headerlink" title="进程和进程控制块"></a>进程和进程控制块</h2><p>下面给出进程（process）的4个定义：</p>
+<ol>
+<li>正在执行的程序。</li>
+<li>正在计算机上执行的程序实例。</li>
+<li>能分配给处理器并由处理器执行的实体。</li>
+<li>具有以下特征的活动单元：<ul>
+<li>一组指令序列的执行。</li>
+<li>一个当前状态。</li>
+<li>相关的系统资源集。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>进程的两个基本元素是<strong>程序代码</strong>（可能被执行相同程序的其他进程共享）和代码相关联的<strong>数据集</strong>。</p>
+</blockquote>
+<p>进程控制块（Process Control Block）</p>
+<p>进程控制块是一种数据结构，该控制块由操作系统创建和管理。其中包含了以下信息：</p>
+<ul>
+<li><p>标识信息（Process Identification）/基本信息</p>
+<p>系统给每个进程定义了一个唯一标识该进程的非负整数，称作<strong>进程标识符</strong>(PID:Process Identifier)</p>
+</li>
+<li><p>状态信息（Processor State Information）</p>
+<p>其中包括以下内容：</p>
+<ul>
+<li>用户可见寄存器（User-Visible Registers）</li>
+<li>控制和状态寄存器（Control and Status Registers）</li>
+<li>堆栈指针（Stack Pointers）</li>
+</ul>
+</li>
+<li><p>控制信息（Process Control information）</p>
+<p>控制信息可以分为以下两类：</p>
+<ol>
+<li>调度信息（Scheduling Information）：其中包括<ul>
+<li>状态（state）/进程</li>
+<li>优先级（Priority）</li>
+<li>审计信息（ Accounting information）</li>
+</ul>
+</li>
+<li>控制信息（Control Information）：其中包括<ul>
+<li>数据结构（Data Structuring）</li>
+<li>内存管理（Memory Management）</li>
+<li>进程间通讯（Interprocess Communication）</li>
+<li>资源所有权和利用（Resource Ownership and Utilization）</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E5%9D%97.jpg"></p>
+</li>
+</ul>
+<blockquote>
+<p>关于进程控制块的几点说明：</p>
+<ul>
+<li>包含了进程元素</li>
+<li>由操作系统创建和管理</li>
+<li>允许支持多个进程</li>
+</ul>
+<p>进程控制块包含了充分的信息，这样就可以中断一个进程的执行，并且在后来恢复执行进程时就好像进程未被中断过。进程控制块是操作系统能够支持多进程和提供多处理的关键工具。当进程被中断时，操作系统会把程序计数器和处理器寄存器（上下文数据）保存到进程控制块中的相应位置，进程状态也被改变为其他的值（例如阻塞状态或就绪状态）。</p>
+</blockquote>
+<blockquote>
+<p>关于进程和程序的差异：</p>
+<ul>
+<li>进程是动态的，它的存在只是暂时的。</li>
+<li>程序是静态的，它可以持久化存在。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>关于并行和并发：</p>
+<ul>
+<li>并发：同一个时间段有多个进程在执行。</li>
+<li>并行：同一个时间点有多个进程在执行。</li>
+</ul>
+</blockquote>
+<h2 id="进程状态（Process-States）"><a href="#进程状态（Process-States）" class="headerlink" title="进程状态（Process States）"></a>进程状态（Process States）</h2><p>进程轨迹（Trace of Process）</p>
+<p>进程轨迹就是：进程执行的指令序列。</p>
+<p>调度器（Dispatcher）/分派器可以使处理器从一个进程切换到另一个进程。</p>
+<blockquote>
+<p>对一个被执行的程序，操作系统会为该程序创建一个进程或任务。从处理器的角度看，它在指令序列中按某种顺序执行指令，这个顺序根据程序计数器寄存器中不断变化的值来指示，程序计数器可能指向不同进程中不同部分的程序代码；从程序自身的角度看，它的执行涉及程序中的一系列指令。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%B0%83%E5%BA%A6%E5%99%A8.jpg"></p>
+<p>上图给出了三个进程在内存中的布局，其中进程A和C执行12条指令，进程B执行4条指令（如下图）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%B0%83%E5%BA%A6%E5%99%A82.jpg"></p>
+<p>现在假设编号为8003的指令执行 后进程必须等待I/O操作，且操作系统仅允许一个进程最多连续执行6个指令周期。下图给出了最初的52个指令周期中交替的轨迹。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%B0%83%E5%BA%A6%E5%99%A84.jpg"></p>
+<p>（阴影部分表示调度器程序的执行）</p>
+</blockquote>
+<p>指令执行图并不实用，看起来过于繁杂，于是引入了进程模型。下面将会分别介绍两状态进程模型、五状态进程模型以及七状态进程模型。</p>
+<h3 id="两状态进程模型（Two-State-Process-Model）"><a href="#两状态进程模型（Two-State-Process-Model）" class="headerlink" title="两状态进程模型（Two-State Process Model）"></a>两状态进程模型（Two-State Process Model）</h3><p>该模型下的进程有两种状态：运行态（Running）以及非运行态（Not-running）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%B8%A4%E7%8A%B6%E6%80%81%E5%9B%BE.jpg"></p>
+<blockquote>
+<p>四种状态：</p>
+<ol>
+<li>操作系统创建一个新进程（Enter）。</li>
+<li>新进程被调度器转换为运行态（Dispatch）。</li>
+<li>被中断的进程被调整为非运行态（Pause）。</li>
+<li>进程结束运行（Exit）。</li>
+</ol>
+</blockquote>
+<p>从上面这个简单的模型中进而可以分析道，必须通过某种方式来表示进程，从而使操作系统可以跟踪它们。未运行的进程必须保持在某种类型的队列中，并等待它们的执行时机。下图给出了一个队列结构，队列中的每一项都指向某个特定进程的指针。（队列也可以由数据块构成的链表组成，每个数据块表示一个进程）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%98%9F%E5%88%97.jpg"></p>
+<blockquote>
+<p>可以用该排队图描述分派器的行为。被中断的进程转移到等待进程队列中，或者，如果进程已经结束或取消，则被销毁（离开系统）。在任何一种情况下，分派器均从队列中选择一个进程来执行。</p>
+</blockquote>
+<h3 id="进程的创建和终止"><a href="#进程的创建和终止" class="headerlink" title="进程的创建和终止"></a>进程的创建和终止</h3><p>导致进程创建的原因（4类）：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新的批处理作业</td>
+<td>通常位于磁带或磁盘中的批处理作业控制流被提供给操作系统。当操作系统准备接纳新工作时，它将读取下一个作业控制命令</td>
+</tr>
+<tr>
+<td>交互登录</td>
+<td>终端用户登录到系统</td>
+</tr>
+<tr>
+<td>操作系统因为提供一项服务而创建</td>
+<td>操作系统可以创建一个进程，代表用户程序执行一个功能，使用户无需等待（如控制打印的进程）</td>
+</tr>
+<tr>
+<td>由现有的进程派生</td>
+<td>基于模块化的考虑，或者为了开发并行性，用户程序可以指示创建多个进程</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>当操作系统位另一个进程的显示请求创建一个进程时，这个动作被称为<strong>进程派生</strong>。当一个进程派生另一个进程时，前一个称作<strong>父进程</strong>，被派生的叫做<strong>子进程</strong>。</p>
+</blockquote>
+<p>导致进程终止的事件（我们大致可以分为三类）：</p>
+<ol>
+<li>自然死亡：程序正常运行完毕。</li>
+<li>异常死亡：由于程序在运行过程中本身出现问题，从而触发操作系统的保护机制，杀死进程。</li>
+<li>他杀：又可以分为两种情况<ul>
+<li>CPU占用率达到100%，此时操作系统需要杀死一些进程保证计算机系统的运行效率。</li>
+<li>用户进程可以杀死它创建的子进程。</li>
+</ul>
+</li>
+</ol>
+<p>还有一些具体导致进程终止的原因可见下表：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常完成</td>
+<td>进程自行执行一个操作系统服务调用，表示它已经结束运行</td>
+</tr>
+<tr>
+<td>超过时限</td>
+<td>进程运行时间超过规定的时限。可以测量很多种类型的时间，包括总的运行时间（“挂钟时间”）、花费在执行上的时间以及对于交互进程从上一次用户输入到当前时刻的时间总量</td>
+</tr>
+<tr>
+<td>无可用内存</td>
+<td>系统无法满足进程需要的内存空间</td>
+</tr>
+<tr>
+<td>越界</td>
+<td>进程试图访问不允许访问的内存单元</td>
+</tr>
+<tr>
+<td>保护错误</td>
+<td>进程试图使用不允许使用的资源或文件，或者试图以一种不正确的方式使用，如往只读文件中写</td>
+</tr>
+<tr>
+<td>算数错误</td>
+<td>进程试图进行被禁止的计算，如除以零或者存储大于硬件可以接纳的数字</td>
+</tr>
+<tr>
+<td>时间超出</td>
+<td>进程等待某一事件发生的时间超过了规定的最大值</td>
+</tr>
+<tr>
+<td>I/O失败</td>
+<td>在输入或输出期间发生错误，如找不到文件、在超过规定的最多努力次数后仍然读/写失败（例如当遇到了磁带上的一个坏区时）或者无效操作（如从行式打印机中读）</td>
+</tr>
+<tr>
+<td>无效指令</td>
+<td>进程试图执行一个不存在的指令（通常是由于转移到了数据区并企图执行数据）</td>
+</tr>
+<tr>
+<td>特权指令</td>
+<td>进程试图使用为操作系统保留的指令</td>
+</tr>
+<tr>
+<td>数据误用</td>
+<td>错误类型或未初始化的一块数据</td>
+</tr>
+<tr>
+<td>操作员或操作系统干涉</td>
+<td>由于某些原因，操作员或操作系统终止进程（例如，如果存在死锁）</td>
+</tr>
+<tr>
+<td>父进程终止</td>
+<td>当一个父进程终止时，操作系统可能会自动终止该进程的所有后代进程</td>
+</tr>
+<tr>
+<td>父进程请求</td>
+<td>父进程通常具有终止其任何后代进程的权力</td>
+</tr>
+</tbody></table>
+<h3 id="五状态模型"><a href="#五状态模型" class="headerlink" title="五状态模型"></a>五状态模型</h3><p>引入五状态模型的原因：</p>
+<p>对于之前介绍的两状态模型，处理器会对可运行的进程以一种轮转（round-robin）的方式操作（依次给队列中的每一个进程一定的执行时间，然后进程返回队列，阻塞情况除外）。但是这种方式存在两类问题：</p>
+<ol>
+<li>处于非运行状态的进程：<ul>
+<li>进程已经准备就绪，可以运行，但是由于CPU正在被其他占用，从而导致处于非运行态。</li>
+<li>存在一些处于阻塞状态（blocked）等待I/O操作结束的进程。</li>
+</ul>
+</li>
+<li>调度器不能只考虑选择队列中等待时间最长的进程，因为这些进程很有可能被阻塞。应该查找那些未被阻塞且在队列中时间最长的进程。</li>
+</ol>
+<p>解决上述问题的方法就是将非运行状态再细分为两种状态：就绪态（Ready）和阻塞态（Blocked）。因此就出现了如下图所示的五状态模型。</p>
+<p>它分别有：</p>
+<ul>
+<li><p>运行态（Running）:该程序正在执行。</p>
+</li>
+<li><p>就绪态（Ready）:进程做好了准备，只要有机会就开始运行。</p>
+</li>
+<li><p>阻塞态（Blocked）:进程在某些事件发生前不能执行（如I/O操作完成）。</p>
+</li>
+<li><p>新建态（New）:新创建的进程，操作系统还未将其加入到可执行进程组中。（进程控制块已经创建但是还未被加载到内存中）</p>
+</li>
+<li><p>退出态（Exit）:操作系统从可执行进程组中释放出的进程（或者是因为它自身停止了，或者是因为某种原因被取消）。</p>
+<blockquote>
+<p>注意：</p>
+<p>新建态：当进程处于新建态时，操作系统所需要的关于该进程的信息保存在内存中的进程表中，但进程自身还未进入内存（存在于外存中，通常是磁盘）。</p>
+<p>退出态：指令和数据已经被释放，但是PCB还在内存中。</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%BA%94%E7%8A%B6%E6%80%81%E5%9B%BE.jpg"></p>
+<p>五状态模型中的9种事件类型：</p>
+<ul>
+<li><p>空→新建：创建执行一个程序的新进程。</p>
+</li>
+<li><p>新建→就绪（Admit）：操作系统准备好再接纳一个进程时，把一个进程从新建态转换到就绪态。</p>
+</li>
+<li><p>就绪→运行（Dispatch）：需要选择一个新进程运行时，调度器会选择一个处于就绪态的进程。</p>
+</li>
+<li><p>运行→退出（Release）：如果当前正在运行的进程表示自己已经完成或取消，则它将被操作系统终止。</p>
+</li>
+<li><p>运行→就绪（Timeout）：主要有以下几种情况：</p>
+<ul>
+<li>正在运行的进程达到了“最大运行时长”。（所有多道程序操作系统都有时长限定）</li>
+<li>进程优先级导致的进程中断。</li>
+<li>进程本身自愿释放对处理器的控制。（例如一个周期性地进行记账和维护的后台进程）</li>
+</ul>
+</li>
+<li><p>运行→阻塞（Event Wait）：如果进程请求它必须等待的某些事件，则会进入阻塞态。（如等待I/O）</p>
+</li>
+<li><p>阻塞→就绪（Event Occurs）：当所等待的事件发生时，处于阻塞态的进程会转为就绪态。</p>
+</li>
+<li><p>就绪→退出：在某些系统中，父进程可以在任何时刻终止一个子进程。如果一个父进程终止，则与该父进程有关的所有子进程都将被终止。</p>
+</li>
+<li><p>阻塞→退出：原因同上一条。</p>
+<blockquote>
+<p>僵尸进程：父进程先于其子进程结束，这时子进程还在内存中，被称为僵尸进程。（如果僵尸进程数量过多会影响计算机系统的运行效率）</p>
+</blockquote>
+</li>
+</ul>
+<p>下图给出了进程在不同状态间转换时可能实现的排队规则：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%98%9F%E5%88%972.jpg"></p>
+<blockquote>
+<p>有两个队列：就绪队列和阻塞队列。进入系统的每个进程被放置在就绪队列中，当操作系统选择另一个进程运行时，将从就绪队列中选择。当一个正在运行的进程被移出处理器时，它根据情况或者被终止，或者被放置在就绪或阻塞队列中。最后，当一个事件发生时，所有位于阻塞队列中等待这个事件的进程都被转换到就绪队列中。</p>
+</blockquote>
+<p>上述方案意味着当一个事件发生时，操作系统必须扫描整个阻塞队列，搜所那些等待该事件的进程。但是在大型操作系统中，队列中可能存在几百甚至上千个进程，所以拥有多个队列将会更有效，一个事件可以对应一个队列，这样在某事件发生时，相应队列中的所有进程都将转换到就绪态。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%98%9F%E5%88%973.jpg"></p>
+<p>最后还有一种改进：按照优先级方案分配进程，维护多个就绪队列（每个优先级一个队列）将会带来更多便利。操作系统就可以很容易地确定哪个就绪进程具有最高地优先级且等待事件最长。</p>
+<h3 id="被挂起的进程（Suspended-Processes）"><a href="#被挂起的进程（Suspended-Processes）" class="headerlink" title="被挂起的进程（Suspended Processes）"></a>被挂起的进程（Suspended Processes）</h3><p>实际上，由于I/O活动比计算机速度慢得多，内存中可以保有多个进程，当一个进程在等待时（比如I/O），处理器可以转移到另一个进程。即便如此，上述方案可能导致的一种常见的情况是：内存中有很多进程都在等待I/O。多道程序设计并不能从根本解决问题，大多数时候处理器仍可能处于空闲状态。</p>
+<p>一种解决办法就是扩大内存，使其能够载入更多的进程。但是这种办法有两个严重的问题：一是内存价格的问题，从第一章的内容可以看出，扩大内存需要付出很大经济代价。第二个问题是，内存的扩大更可能导致带来更大的进程，而非更多的进程。</p>
+<p>所以就出现了第二种解决办法：<strong>交换（swapping）</strong></p>
+<p><strong>交换：把内存中某个进程的一部分或者全部转移到外存（磁盘）中。</strong></p>
+<blockquote>
+<p>交换概念就带来了<strong>挂起（suspend）</strong>状态：当内存中没有处于就绪状态的进程时，操作系统就把被阻塞的进程换出到磁盘的“挂起队列”（suspend queue）中。此后，操作系统可以从挂起队列中取出另一个进程，或者接受一个新进程的请求，将其纳入内存运行。</p>
+</blockquote>
+<blockquote>
+<p>交换是一个I/O操作，但是由于磁盘I/O一般是系统中最快的I/O（相对于磁带或打印机），所以交换通常会提高性能。</p>
+</blockquote>
+<p>由于交换的出现，又引入了<strong>七状态模型</strong>。</p>
+<p>在原有五状态模型的基础上又新增了两个状态：</p>
+<ul>
+<li>阻塞/挂起态（Blocked/Suspend）：进程在外存中并等待一个事件。</li>
+<li>就绪/挂起态（Ready/Suspend）：进程在外存中，但是只要被载入内存就可以执行。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%B8%83%E7%8A%B6%E6%80%81%E5%9B%BE.jpg"></p>
+<p>同样的，在五状态模型的9种事件类型的基础上又新增了7种事件类型：</p>
+<ul>
+<li><p>阻塞→阻塞/挂起（Suspend）：如果没有就绪进程，则至少一个阻塞进程被换出，为另一个没有阻塞的进程让出空间。</p>
+</li>
+<li><p>阻塞/挂起→就绪/挂起（Event Suspend）：如果等待的事件发生了，则处于阻塞/挂起状态的进程可以转换到就绪/挂起状态。（注意，这要求操作系统必须能够得到挂起进程的状态信息。）</p>
+</li>
+<li><p>就绪/挂起→就绪（Activate）：如果内存中没有就绪态进程，操作系统需要调入一个进程继续执行。（此外，当处于就绪/挂起态的进程比处于就绪态的任何进程的优先级都要高时，也可以进行这种转换。）</p>
+</li>
+<li><p>就绪→就绪/挂起（Suspend）：通常，操作系统更倾向于挂起阻塞态进程而不是就绪态进程，因为就绪态进程可以立即执行，而阻塞态进程占用了内存空间但不能执行。但如果释放内存以得到足够空间的唯一方法是挂起一个就绪态进程，那么这种转换也是必需的。并且，如果操作系统确信高优先级的阻塞态进程很快将会就绪，那么它可能选择挂起一个低优先级的就绪态进程，而不是一个高优先级的阻塞态进程。</p>
+</li>
+<li><p>新建→就绪/挂起（Admit）：当创建一个新进程时，该进程或者加入到就绪队列，或者加入到就绪/挂起队列中。不论哪种情况，操作系统都必须建立一些表以管理进程，并为进程分配地址空间。（当内存中没有足够的空间分配给新建进程，就会采用此种策略）</p>
+</li>
+<li><p>阻塞/挂起→阻塞（Activate）：一个进程终止，释放了一些内存空间，阻塞/挂起队列中有一个进程比就绪/挂起队列中的任何进程的优先级都要高，并且操作系统有理由相信阻塞进程的事件很快就会发生，这时，把阻塞进程而不是就绪进程调入内存是合理的。</p>
+</li>
+<li><p>运行→就绪/挂起（Suspend）：通常当分配给一个运行进程的时间期满时，它将转换到就绪态。但是，如果由于位于阻塞/挂起队列的具有较高优先级的进程变得不再被阻塞，操作系统抢占这个进程，也可以直接把这个运行进程转换到就绪/挂起队形中，并释放一些内存空间。（这是可能但不是必须的转换）</p>
+<blockquote>
+<p>在某些操作系统中，允许一个进程可以被创建它的进程终止，所以在这样的情况下，进程在任何状态都可以转换到退出状态。</p>
+</blockquote>
+</li>
+</ul>
+<p>挂起的特点（重新理解并定义）：</p>
+<ul>
+<li>进程不能立即执行。</li>
+<li>进程可能是或不是正在等待一个事件。如果是，阻塞条件不依赖于挂起条件，阻塞事件的发生不会使进程立即被执行。</li>
+<li>为阻止进程执行，可以通过代理把这个进程置于挂起状态，代理可以是进程自己，也可以是父进程或操作系统。</li>
+<li>除非代理显式地命令系统进行状态转换，否则进程无法从这个状态中转移。</li>
+</ul>
+<p>下表展示了导致进程挂起的原因：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交换</td>
+<td>操作系统需要释放足够的内存空间，以调入并执行处于就绪状态的进程</td>
+</tr>
+<tr>
+<td>其他OS原因</td>
+<td>操作系统可能挂起后台进程或工具程序进程，或者被怀疑导致问题的进程</td>
+</tr>
+<tr>
+<td>交互式用户请求</td>
+<td>用户可能希望挂起一个程序的执行，目的是为了调试或者与一个资源的使用进行连接</td>
+</tr>
+<tr>
+<td>定时</td>
+<td>一个进程可能会周期性地执行（例如记账或系统监视进程），而且可能在等待下一个时间间隔时被挂起</td>
+</tr>
+<tr>
+<td>父进程请求</td>
+<td>父进程可能会希望挂起后代进程的执行，以检查或修改挂起的进程，或者协调不同后代进程之间的行为</td>
+</tr>
+</tbody></table>
+<h2 id="进程描述（Process-Description）"><a href="#进程描述（Process-Description）" class="headerlink" title="进程描述（Process Description）"></a>进程描述（Process Description）</h2><p>进程和资源（Processes and Resources）</p>
+<p>在多道程序设计环境中，在虚拟内存中有许多已经创建了的进程（P<sub>1</sub>，…，P<sub>n</sub>），每个进程在执行期间，需要访问某些系统资源，包括处理器、I/O设备和内存。在图中，进程P<sub>1</sub>正在运行，该进程至少有一部分在内存中，并且还控制着两个I/O设备；进程P<sub>2</sub>也在内存中，但由于正在等待分配给P<sub>1</sub>的I/O设备而被阻塞；进程P<sub>n</sub>已经被换出，因此是挂起的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E6%8F%8F%E8%BF%B0.jpg"></p>
+<p>操作系统的控制结构（Operating System Control Structures）</p>
+<p>操作系统为了管理进程和资源，必须掌握关于每个进程和资源当前状态的信息。普遍使用的方法是：操作系统构造并维护它所管理的每个实体的信息表。在一般情况下，操作系统维护着4种不同类型的表：内存表（Memory Tables）、I/O表（I/O Tables）、文件表（File Tables）、进程表（Process Table）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%AE%9E%E4%BD%93%E4%BF%A1%E6%81%AF%E8%A1%A8.png"></p>
+<ul>
+<li><p>内存表：用于跟踪内（实）存和外存（虚拟内存）。</p>
+<ul>
+<li>分配给进程的主存（内存）</li>
+<li>分配给进程的辅存（外存）</li>
+<li>内存块或虚拟内存块的任何保护属性，如哪些进程可以访问某些共享内存区域。</li>
+<li>管理虚拟内存所需要的任何信息</li>
+</ul>
+</li>
+<li><p>I/O表：管理计算机系统中的I/O设备和通道。</p>
+<ul>
+<li>I/O设备或是可用的，或是已分配给某个特定的进程。</li>
+<li>I/O操作的状态。</li>
+<li>如果正在进行I/O操作，则操作系统需要知道I/O操作的状态和作为I/O传送的源和目标的内存单元。</li>
+</ul>
+</li>
+<li><p>文件表：</p>
+<ul>
+<li>文件是否存在。</li>
+<li>文件在外存中的位置。</li>
+<li>当前状态。</li>
+<li>其他属性。</li>
+</ul>
+</li>
+<li><p>进程表：每个条目描述一个进程映像。</p>
+<blockquote>
+<p>进程表主要有四种类型（见下表）：用户数据、用户程序、系统栈以及进程控制块。这些表必须以某种方式链接起来或交叉引用。内存、I/O和文件是代表进程而被管理的，因此进程表中必须有对这些资源的直接或间接引用。文件表中的文件可以通过I/O设备访问，有时它们也位于内存中或虚拟内存中。这些表自身必须可以被操作系统访问到，因此它们受制于内存管理。</p>
+</blockquote>
+<p>进程映像（process image）</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户数据</td>
+<td>用户空间中的可修改部分，可以包括程序数据、用户栈区域和可修改的程序</td>
+</tr>
+<tr>
+<td>用户程序</td>
+<td>将被执行的程序</td>
+</tr>
+<tr>
+<td>系统栈</td>
+<td>每个进程有一个或多个后进先出（LIFO）系统栈。栈用于保存参数、过程调用地址和系统调用地址</td>
+</tr>
+<tr>
+<td>进程控制块</td>
+<td>操作系统控制进程所需要的数据</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>进程最少必须包括一个或一组被执行的程序，与这些程序相关联的是局部变量、全局变量和任何已定义常量的数据单元。程序的执行通常涉及用于跟踪过程调用和过程间参数传递的栈。与每个进程相关联的还有操作系统用于控制进程的许多属性，通常，属性的集合称为进程控制块（PCB）。</p>
+</blockquote>
+<blockquote>
+<p>进程控制块信息可以分为以下三类：</p>
+<ul>
+<li>进程标识信息</li>
+<li>处理器状态信息</li>
+<li>进程控制信息</li>
+</ul>
+<p>进程控制块中的典型元素见下表：</p>
+<p>进程标识信息</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>标识符</td>
+<td>存储在进程控制块中的数字标识符，包括<br/>· 此进程的标识符（Process ID，简称进程ID）<br/>· 创建这个进程的进程（父进程）标识符<br/>· 用户标识符（UserID，简称用户ID）</td>
+</tr>
+</tbody></table>
+<p>处理器状态信息</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户可见寄存器</td>
+<td>用户可见寄存器是处于用户态的处理器执行的机器语言可以访问的寄存器。通常有8到32个此类寄存器，而在一些RISC实现中有超过100个此类寄存器</td>
+</tr>
+<tr>
+<td>控制和状态寄存器</td>
+<td>用于控制处理器操作的各种处理器寄存器，包括：<br/>· 程序计数器：包含将要取的下一条指令的地址<br/>· 条件码：最近的算术或逻辑运算的结果（例如符号、零、进位、等于、溢出）<br/>· 状态信息：包括中断允许/禁用标志、异常模式</td>
+</tr>
+<tr>
+<td>栈指针</td>
+<td>每个进程有一个或多个与之相关联的后进先出（LIFO）系统栈。栈用于保存参数和过程调用或系统调用的地址，栈指针指向栈顶</td>
+</tr>
+</tbody></table>
+<p>进程控制信息</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调度和状态信息</td>
+<td>这是操作系统执行其调度功能所需要的信息，典型的信息项包括：<br/>· 进程状态：定义将被调度执行的进程的准备情况（例如运行态、就绪态、等待态、停止态）<br/>· 优先级：用于描述进程调度优先级的一个或多个域。在某些系统中，需要多个值（例如默认、当前、最高许可）<br/>· 调度相关信息：这取决于所使用的调度算法。例如进程等待的时间总量和进程在上一次运行时执行时间总量<br/>· 事件：进程在继续执行前等待的事件标识</td>
+</tr>
+<tr>
+<td>数据结构</td>
+<td>进程可以以队列、环或者别的结构形式与其他进程进行链接。例如，所有具有某一特定优先级且处于等待状态的进程可链接在一个队列中；进程还可以表示出与另一个进程的父子（创建者-被创建者）关系。进程控制块为支持这些结构需要包含指向其他进程的指针</td>
+</tr>
+<tr>
+<td>进程间通信</td>
+<td>与两个独立进程间的通信相关联的各种标记、信号和信息。进程控制块中维护着某些或全部此类信息</td>
+</tr>
+<tr>
+<td>进程特权</td>
+<td>进程根据其可以访问的内存空间以及可以执行的指令类型被赋予各种特权。此外，特权还用于系统实用程序和服务的使用</td>
+</tr>
+<tr>
+<td>存储管理</td>
+<td>这一部分包括指向描述分配给该进程的虚拟内存空间的段表和页表的指针</td>
+</tr>
+<tr>
+<td>资源的所有权和使用情况</td>
+<td>进程控制的资源可以表示成诸如一个打开的文件，还可能包括处理器或其他资源的使用历史；调度器会需要这些信息</td>
+</tr>
+</tbody></table>
+</blockquote>
+<blockquote>
+<p>实际上在所有的操作系统中，对于进程标识符，每个进程都分配了一个唯一的数字标识符。进程标识符可以简单地表示为主进程表中的一个索引；否则，必须有一个映射，使得操作系统可以根据进程标识符定位相应的表。</p>
+<p>除了进程标识符，还给进程分配了一个用户标识符，用于标明拥有该进程的用户。</p>
+</blockquote>
+<h2 id="进程控制（Process-Control）"><a href="#进程控制（Process-Control）" class="headerlink" title="进程控制（Process Control）"></a>进程控制（Process Control）</h2><p>执行模式（Modes of Execution）</p>
+<p>大多数处理器至少支持两种执行模式：用户模式（User mode）以及内核模式（kernel mode）</p>
+<p>用户模式：</p>
+<ul>
+<li>低权限模式</li>
+<li>用户程序通常在这种模式下执行</li>
+</ul>
+<p>内核模式：</p>
+<ul>
+<li>高权限模式</li>
+<li>操作系统的内核</li>
+</ul>
+<blockquote>
+<p>使用两种模式的原因是很显然的，它可以保护操作系统和重要的操作系统表（如进程控制块）不受用户程序的干涉。在内核态下，软件具有对处理器以及所有指令、寄存器和内存的控制能力，这一级的控制对用户程序不是必需的，并且为了安全起见也不是用户程序可访问的。</p>
+</blockquote>
+<p>两种模式的切换</p>
+<p>程序状态字中有一位表示执行模式，这一位应某些事件的要求而改变。在典型情况下，当用户调用一个操作系统服务或中断触发系统例程的执行时，执行模式被设置成内核态，当从系统服务返回到用户进程时，执行模式被设置为用户态。<strong>处理器状态寄存器（Processor status register ，PSR）</strong>中包含<strong>当前特权级别（Current privileged level，CPL）</strong>。当执行不同的进程时，操作系统会根据需要对CPL进行置位或清零的操作去改变其模式（通常数字越小，级别越大）。</p>
+<p>进程创建（Process Creation）</p>
+<p>进程创建的步骤按如下5步进行：</p>
+<ol>
+<li><p>给进程分配一个唯一的进程标识符。</p>
+<p>此时，在主进程表中增加了一个新表项，表中的每个新表项对应着一个进程。</p>
+</li>
+<li><p>给进程分配空间。</p>
+<p>这包括进程映像中的所有元素。</p>
+</li>
+<li><p>初始化进程控制块。</p>
+</li>
+<li><p>设置正确的连接。</p>
+<p>例如，如果操作系统把每个调度队列都保存成链表，则新进程必须放置在就绪或就绪/挂起链表中。</p>
+</li>
+<li><p>创建或扩充其他数据结构。</p>
+<p>例如，操作系统可能为每个进程保存着一个记账文件，可用于编制账单和/或进行性能评估。</p>
+</li>
+</ol>
+<p>进程切换（Process Switching）</p>
+<p>引发进程切换的原因：</p>
+<ul>
+<li><p>中断：当前指令的外部执行</p>
+<ul>
+<li><p>时钟中断（Clock interrupt）：当前运行的进程超过了最大允许时间段（片），则该进程必须切换到就绪态，调入另一个进程。</p>
+</li>
+<li><p>I/O中断</p>
+</li>
+<li><p>内存中断（失效，Memory fault）：处理器访问一个虚拟内存地址，且此地址单元不在内存中时，操作系统必须从外存中把包含这个引用的内存块（页或段）调入内存中。</p>
+<blockquote>
+<p>在发出调入内存块的I/O请求之后，操作系统可能会执行一个进程切换，以恢复另一个进程的执行，发生内存失效的进程被置为阻塞态，当想要的块调入内存中时，该进程被置为就绪态。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>陷阱（Trap）：当前指令的执行相关</p>
+<p>一个运行中的程序由于自身错误的原因引发操作系统的保护机制。可能导致进程被转为退出态。</p>
+</li>
+<li><p>系统调用（System Call）</p>
+<p>例如打开文件操作。通常，使用系统调用会导致把用户进程置位阻塞态。</p>
+</li>
+</ul>
+<p>模式切换VS进程切换</p>
+<p>模式切换：</p>
+<p>（当中断发生时）</p>
+<ol>
+<li>把程序计数器置成中断处理程序的开始地址。</li>
+<li>从用户态切换到内核态，使得中断处理代码可以包含有特权的指令。</li>
+</ol>
+<p>进程切换：</p>
+<ol>
+<li>保存处理器上下文环境。包括程序计数器和其他寄存器。</li>
+<li>更新当前处于运行态进程的进程控制块。包括将进程的状态改变到另一状态（就绪态、阻塞态、就绪/挂起态或退出态）。还必须更新其他相关域，包括离开运行态的原因和记账信息。</li>
+<li>将进程的进程控制块移到相应的队列（就绪、在事件i处阻塞、就绪/挂起）。</li>
+<li>选择另一个进程执行。</li>
+<li>更新所选择进程的进程控制块。包括将进程的状态变为运行态。</li>
+<li>更新内存管理的数据结构。</li>
+<li>恢复处理器在被选择的进程最近一次切换出运行状态时的上下文环境。这可以通过载入程序计数器和其他寄存器以前的值来实现。</li>
+</ol>
+<blockquote>
+<p>模式切换较进程切换的代价要小。</p>
+<p>进程切换一定包含模式切换；但是模式切换不一定包含进程切换。</p>
+</blockquote>
+<p>操作系统的执行（Execution of the Operating System）</p>
+<p>操作系统与普通计算机软件一样由处理器执行，同样的，操作系统也是一个进程。下面介绍关于如何控制这种进程。</p>
+<p>无进程的内核（Non-process Kernel）</p>
+<ul>
+<li><p>在许多老操作系统中，非常传统和通用的一种方式就是在所有进程之外执行操作系统内核。</p>
+</li>
+<li><p>操作系统有自己的内存区域和系统栈，用于控制过程调用和返回。</p>
+</li>
+<li><p>操作系统代码作为一个在特权模式下工作的独立实体被执行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E6%97%A0%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%86%85%E6%A0%B8.jpg"></p>
+</li>
+</ul>
+<p>在用户进程中执行（Execution Within User Processes）</p>
+<ul>
+<li><p>在用户进程的上下文中执行几乎所有操作系统软件。（操作系统从根本上说时用户调用的一组例程，在用户环境中执行，用于实现各种功能）</p>
+</li>
+<li><p>执行操作系统代码时，进程在特权模式下执行。</p>
+</li>
+<li><p>在用户进程中执行的代码是共享操作系统代码而不是用户代码。基于用户态和内核态的概念，即使操作系统例程在用户进程环境中执行，用户也不能篡改或干涉操作系统的历程。（这也进一步说明了进程和程序的概念是不同的）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9C%A8%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%89%A7%E8%A1%8C.jpg"></p>
+</li>
+</ul>
+<p>基于进程的操作系统（Process-Based Operating System）</p>
+<ul>
+<li><p>把操作系统作为一组系统进程来实现。</p>
+</li>
+<li><p>使用模块化操作系统，并且模块之间具有最小的、简明的接口。</p>
+</li>
+<li><p>一些非关键的操作系统函数可简单地用独立的进程实现。</p>
+</li>
+<li><p>这在多处理器或多机环境中都是十分有用的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9F%BA%E4%BA%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.jpg"></p>
+</li>
+</ul>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>本篇已完结</p>
+<p>（如有修改或补充欢迎评论）</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\03\28\操作系统\操作系统学习笔记\" rel="bookmark">操作系统学习笔记</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\06\09\操作系统\操作系统学习笔记-文件管理\" rel="bookmark">操作系统学习笔记-文件管理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\06\02\操作系统\操作系统学习笔记-I-O管理和磁盘调度\" rel="bookmark">操作系统学习笔记-I/O管理和磁盘调度</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\05\30\操作系统\操作系统学习笔记-单处理器调度\" rel="bookmark">操作系统学习笔记-单处理器调度</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\05\24\操作系统\操作系统学习笔记-虚拟内存\" rel="bookmark">操作系统学习笔记-虚拟内存</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/wechat.png" alt="花猪 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/alipay.jpg" alt="花猪 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/next/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/next/2021/03/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="计算机网络学习笔记">
+                  <i class="fa fa-chevron-left"></i> 计算机网络学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/next/2021/04/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%BA%94%E7%94%A8%E5%B1%82/" rel="next" title="计算机网络学习笔记-应用层">
+                  计算机网络学习笔记-应用层 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花猪</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">356k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:23</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+<script src="/next/js/comments.js"></script><script src="/next/js/utils.js"></script><script src="/next/js/motion.js"></script><script src="/next/js/schemes/muse.js"></script><script src="/next/js/next-boot.js"></script><script src="/next/js/pjax.js"></script>
+
+  
+<script src="/next/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"dh8GVAcIwU1TN4zhA5y63iW1-gzGzoHsz","app_key":"hzyAqDKjG4OBGrdPS7mKaOa7","server_url":null,"security":true}</script>
+  <script src="/next/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/next/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"hexo-1g41404w9f800e94","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+
+<link rel="stylesheet" href="/next/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cnhuazhu.gitee.io","root":"/next/","images":"/next/images","scheme":"Mist","version":"8.6.1","exturl":false,"sidebar":{"position":"left","Muse | Mist":320,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/next/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/next/js/config.js"></script>
+<meta name="description" content="本文将介绍Vue-CLI的使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue学习-Vue CLI">
+<meta property="og:url" content="https://cnhuazhu.gitee.io/next/2021/08/13/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-cli/index.html">
+<meta property="og:site_name" content="花猪のBlog">
+<meta property="og:description" content="本文将介绍Vue-CLI的使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-%E5%AF%B9%E6%AF%94%E4%B8%8D%E5%90%8C%E6%9E%84%E5%BB%BA%E7%89%88%E6%9C%AC.png">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-对比不同构建版本-render1.png">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-对比不同构建版本-render2.png">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-CLI3-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE.png">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-CLI3-ui1.png">
+<meta property="og:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-CLI3-ui2.png">
+<meta property="article:published_time" content="2021-08-13T06:45:16.000Z">
+<meta property="article:modified_time" content="2021-08-13T17:21:25.346Z">
+<meta property="article:author" content="花猪">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png">
+
+
+<link rel="canonical" href="https://cnhuazhu.gitee.io/next/2021/08/13/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-cli/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cnhuazhu.gitee.io/next/2021/08/13/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-cli/","path":"2021/08/13/Vue/Vue学习-Vue-cli/","title":"Vue学习-Vue CLI"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue学习-Vue CLI | 花猪のBlog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/next/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/next/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花猪のBlog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主站"><a href="https://cnhuazhu.top/" rel="noopener" target="_blank"><i class="fas fa-chevron-right fa-fw"></i>主站</a></li>
+        <li class="menu-item menu-item-home"><a href="/next/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/next/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/next/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/next/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">53</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-CLI"><span class="nav-number">2.</span> <span class="nav-text">Vue-CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%EF%BC%88CLI2%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">基本使用（CLI2）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.2.2.</span> <span class="nav-text">初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.3.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C"><span class="nav-number">2.2.4.</span> <span class="nav-text">项目运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runtime-compiler%E4%B8%8Eruntime-only%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.2.5.</span> <span class="nav-text">runtime-compiler与runtime-only的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#main-js"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">main.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#render%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">render函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-CLI3"><span class="nav-number">2.3.</span> <span class="nav-text">Vue CLI3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C-1"><span class="nav-number">2.3.3.</span> <span class="nav-text">项目运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#main-js-1"><span class="nav-number">2.3.4.</span> <span class="nav-text">main.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%99%A8%EF%BC%88UI%EF%BC%89"><span class="nav-number">2.3.5.</span> <span class="nav-text">Vue项目管理器（UI）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.6.</span> <span class="nav-text">修改配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="花猪"
+      src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+  <p class="site-author-name" itemprop="name">花猪</p>
+  <div class="site-description" itemprop="description">为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/next/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/next/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/next/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CNhuazhu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CNhuazhu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/CNhuazhu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cnhuazhu.gitee.io/next/2021/08/13/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-cli/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+      <meta itemprop="name" content="花猪">
+      <meta itemprop="description" content="为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花猪のBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue学习-Vue CLI
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-13 14:45:16" itemprop="dateCreated datePublished" datetime="2021-08-13T14:45:16+08:00">2021-08-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-14 01:21:25" itemprop="dateModified" datetime="2021-08-14T01:21:25+08:00">2021-08-14</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/next/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/next/2021/08/13/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-cli/" class="post-meta-item leancloud_visitors" data-flag-title="Vue学习-Vue CLI" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span id="/next/2021/08/13/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-cli/" class="post-meta-item twikoo_visitors" data-flag-title="Vue学习-Vue CLI" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="twikoo_visitors"></span>
+    </span>
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">本文将介绍Vue-CLI的使用</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文将介绍Vue-CLI的使用。</p>
+<hr>
+<h1 id="Vue-CLI"><a href="#Vue-CLI" class="headerlink" title="Vue-CLI"></a>Vue-CLI</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>CLI：Command-Line Interface，俗称<code>脚手架</code>。</p>
+<p>使用Vue-CLI可以快速搭建Vue开发环境以及对应的webpack配置。</p>
+<blockquote>
+<p>注意：以下内容主要介绍CLI2和CLI3.</p>
+</blockquote>
+<p>使用前提：需要<code>NodeJS</code>和<code>Webpack</code></p>
+<h2 id="基本使用（CLI2）"><a href="#基本使用（CLI2）" class="headerlink" title="基本使用（CLI2）"></a>基本使用（CLI2）</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在终端键入如下命令（注意指定版本号）进行全局安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/cli -g</span><br></pre></td></tr></table></figure>
+
+<p>如果想按照Vue-CLI2的方式初始化项目需要安装2.x的模板，在终端键入如下命令（注意指定版本号）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/cli-init -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>在终端键入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue init webpack projectname</span><br></pre></td></tr></table></figure>
+
+<p>这里进行Vue-CLI2的项目展示：</p>
+<p>创建项目时会遇到如下选项：</p>
+<ul>
+<li><p><code>创建时的项目名称</code>：会根据该名称创建项目文件夹，存放之后的项目内容。不能包含大写字母等。</p>
+</li>
+<li><p><code>Project name</code>：可以设置，默认为创建时的项目名称。</p>
+</li>
+<li><p><code>Project description</code>：默认为<code>A Vue.js project</code>。</p>
+</li>
+<li><p><code>Author</code>：作者的信息，默认从<code>.gitconfig</code>文件中读取。</p>
+</li>
+<li><p><code>Vue build</code>：有两种构建版本可选择（<code>runtime-compiler</code>和<code>runtime-only</code>）。</p>
+</li>
+<li><p><code>Install vue-router</code>：选择是否创建路由。</p>
+</li>
+<li><p><code>Use ESLint to lint your code</code>：是否选择ESLint检测代码规范。</p>
+<blockquote>
+<p>如果安装了之后想取消规范检测，在<code>config</code>文件夹下的<code>index.js</code>中，找到<code>uesEslint</code>选项，将其设置为false。</p>
+</blockquote>
+</li>
+<li><p><code>Set up unit tests</code>：是否添加单元测试。</p>
+</li>
+<li><p><code>Setup e2e test with Nightwatch</code>：e2e（end-to-end）测试。</p>
+<blockquote>
+<p>安装Nightwatch，是一个利用<code>selenium</code>或<code>webdriver</code>或<code>phantomjs</code>等进行自动化测试的框架。</p>
+</blockquote>
+</li>
+<li><p><code>Should we run &#39;npm install&#39; ...</code>：选择两种安装方式。</p>
+</li>
+</ul>
+<p>最后敲击回车，自动开始创建项目。</p>
+<h3 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h3><ul>
+<li><p><code>package.json</code>文件</p>
+<p><img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png"></p>
+<p>如之前配置一样：</p>
+<p>执行<code>npm run dev/start</code>运行服务器，执行<code>npm run build</code>进行项目打包</p>
+</li>
+<li><p><code>build</code>和<code>config</code>文件夹定义了一些变量，包括开发时和打包发布时的不同配置。</p>
+</li>
+<li><p><code>node_modules</code>文件夹存放的就是项目依赖的一些模块。</p>
+</li>
+<li><p><code>src</code>文件夹存放的就是项目的代码。</p>
+</li>
+<li><p><code>static</code>文件夹存放一些静态资源，打包后该文件夹的内容会“原封不动”地复制到输出文件夹<code>dist</code>中。</p>
+<blockquote>
+<p>以图片资源为例，不会重命名，不会转为base64编码。</p>
+</blockquote>
+</li>
+<li><p><code>.babelrc</code>文件：ES代码相关转化配置。</p>
+</li>
+<li><p><code>.editorconfig</code>文件：项目文本相关配置。</p>
+</li>
+<li><p><code>.eslintignore</code>文件：对指定文件夹下的代码做<code>ESLint</code>检测的忽略。</p>
+</li>
+<li><p><code>.gitignore</code>文件：Git仓库忽略的文件夹配置。</p>
+</li>
+<li><p><code>.eslintrc.js</code>文件：代码检测配置的内容（如果安装了<code>ESLint</code>）。</p>
+</li>
+<li><p><code>.postcssrc.js</code>文件：进行css转化时的一些配置。</p>
+</li>
+<li><p><code>index.html</code>文件：模板。</p>
+</li>
+</ul>
+<h3 id="项目运行"><a href="#项目运行" class="headerlink" title="项目运行"></a>项目运行</h3><p>启动服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev/start</span><br></pre></td></tr></table></figure>
+
+<p>项目打包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="runtime-compiler与runtime-only的区别"><a href="#runtime-compiler与runtime-only的区别" class="headerlink" title="runtime-compiler与runtime-only的区别"></a>runtime-compiler与runtime-only的区别</h3><h4 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h4><p>直接看两种不同构建版本项目的<code>main.js</code>文件。</p>
+<p><code>runtime-compiler</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">components</span>: &#123; App &#125;,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;&lt;App/&gt;&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>runtime-only</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>很明显可以看到二者<code>App</code>的使用方式不同：</p>
+<ul>
+<li><code>runtime-compiler</code>：首先在<code>components</code>中注册组件，然后<code>template</code>使用模板</li>
+<li><code>runtime-only</code>：并没有注册<code>App</code>，直接利用render属性（本质是一个函数），利用一个“箭头函数”进行使用。</li>
+</ul>
+<p>首先要理解Vue程序运行过程：</p>
+<ol>
+<li>当把一个模板（template）传入Vue实例中，Vue会将其保存至Vue实例下的一个<code>options</code>中</li>
+<li>然后将其进行解析（parse）称为<code>ast</code>（abstract syntax tree，抽象语法树）</li>
+<li>对ast进行编译（compile）成一个render函数</li>
+<li>通过render函数把对应的模板翻译成虚拟DOM树（virtual dom）</li>
+<li>最后把虚拟DOM树渲染成真实的DOM（UI）</li>
+</ol>
+<p><code>runtime-compiler</code>会经历上述的一系列步骤：</p>
+<p><strong>template → ast → render → 虚拟DOM → UI</strong></p>
+<p>而<code>runtime-only</code>只经历三步：</p>
+<p><strong>render → 虚拟DOM → UI</strong></p>
+<p>由此分析得出结论：</p>
+<ol>
+<li><p><code>runtime-only</code>的性能更优</p>
+</li>
+<li><p><code>runtime-only</code>的代码量更少</p>
+<p><img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-%E5%AF%B9%E6%AF%94%E4%B8%8D%E5%90%8C%E6%9E%84%E5%BB%BA%E7%89%88%E6%9C%AC.png"></p>
+</li>
+</ol>
+<h4 id="render函数"><a href="#render函数" class="headerlink" title="render函数"></a>render函数</h4><p>下面来介绍一下render函数究竟是为何物。</p>
+<p>实际上render属性的写法如下，这里会涉及到<code>createElement</code>函数（就是<code>h</code>）：</p>
+<p>用法一：</p>
+<p><code>createElement(&#39;标签&#39;, &#123;标签的属性&#125;, [标签的内容])</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="keyword">function</span> (<span class="params">createElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> createElement(<span class="string">&#x27;h2&#x27;</span>, &#123;<span class="attr">class</span>: <span class="string">&#x27;box&#x27;</span>&#125;, [<span class="string">&#x27;Hello CLI&#x27;</span>])</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：标签内容的数组可以嵌套新的<code>createElement</code>函数。</p>
+</blockquote>
+<p>运行效果如下：</p>
+<img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-对比不同构建版本-render1.png" style="zoom:80%;" />
+
+<p>用法二：传入组件对象</p>
+<p>例如创建如下<code>cpn</code>组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cpn = &#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`&lt;div&gt;&#123;&#123;message&#125;&#125;&lt;/div&gt;`</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;我是组件的信息&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>createElement</code>函数中直接传入该组件对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="keyword">function</span> (<span class="params">createElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> createElement(cpn)</span><br></pre></td></tr></table></figure>
+
+<p>运行效果如下：</p>
+<img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-对比不同构建版本-render2.png" style="zoom:80%;" />
+
+<p>如此一来就不难理解，最初可以直接传参<code>App</code>了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="keyword">function</span> (<span class="params">h</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> h(App)</span><br></pre></td></tr></table></figure>
+
+<p>等同于：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vue-CLI3"><a href="#Vue-CLI3" class="headerlink" title="Vue CLI3"></a>Vue CLI3</h2><p>Vue CLI3与2版本的区别：</p>
+<ul>
+<li>vue-cli3是基于webpack4打造，vue-cli2是webapck3</li>
+<li>vue-cli3的设计原则是“0配置”，移除的配置文件根目录下的<code>build</code>和<code>config</code>等目录（做了隐藏设计）</li>
+<li>vue-cli3提供了<code>vue ui</code>命令，提供了可视化配置</li>
+<li>移除了<code>static</code>文件夹，新增了<code>public</code>文件夹，并且<code>index.html</code>文件移动到其中</li>
+</ul>
+<h3 id="初始化项目-1"><a href="#初始化项目-1" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>在终端键入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create projectname</span><br></pre></td></tr></table></figure>
+
+<p>创建项目时会遇到如下选项：</p>
+<ul>
+<li><p><code>Please pick a preset</code>：有两个选项（默认（babel、eslint）和手动）</p>
+<blockquote>
+<p>如果选择手动配置，会出现诸多选项，按<code>空格键</code>选择/取消。</p>
+<p><img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-CLI3-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE.png"></p>
+</blockquote>
+</li>
+<li><p>针对于Babel、PostCSS、ESLint等配置选择新建配置文件存放或是存放至<code>package.json</code>文件</p>
+<blockquote>
+<p>一般情况选择前者，单独创建新的配置文件。</p>
+</blockquote>
+</li>
+<li><p>是否将刚刚手动配置创建一个新的preset</p>
+<blockquote>
+<p>如果选择Yes会让你起一个名字，并且选择<code>Yarn</code>或者<code>NPM</code>。</p>
+<p>如果想要删除手动创建的<code>preset</code>，找到<code>.vuerc</code>文件中的<code>presets</code>属性，在其中进行删除，保存。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="项目目录结构-1"><a href="#项目目录结构-1" class="headerlink" title="项目目录结构"></a>项目目录结构</h3><p>Vue CLI3的目录结构交Vue CLI2要简单许多，需要注意的就是<code>public</code>文件夹，可以把它类比为2版本中的<code>static</code>文件夹。</p>
+<h3 id="项目运行-1"><a href="#项目运行-1" class="headerlink" title="项目运行"></a>项目运行</h3><p>启动服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
+
+<p>项目打包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="main-js-1"><a href="#main-js-1" class="headerlink" title="main.js"></a>main.js</h3><p>Vue CLI3中的<code>main.js</code>文件内容如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> h(App),</span><br><span class="line">&#125;).$mount(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>实际上跟之前的<code>el: &#39;#app&#39;</code>挂载没有区别，el挂载也会执行<code>mount(&#39;#app&#39;)</code>。</p>
+<h3 id="Vue项目管理器（UI）"><a href="#Vue项目管理器（UI）" class="headerlink" title="Vue项目管理器（UI）"></a>Vue项目管理器（UI）</h3><p>在终端键入如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure>
+
+<p>则会启动一个本地服务，运行在8000端口，展示Vue项目管理器（如下图）：</p>
+<img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-CLI3-ui1.png" style="zoom:80%;" />
+
+<p>导入一个项目：</p>
+<img src="https://gitee.com/CNhuazhu/tu-chuang1/raw/master/img-blog/VueCLI-CLI3-ui2.png" style="zoom:80%;" />
+
+<p>这里就可以利用可视化界面安装插件和依赖，还可以进行项目配置信息的修改。</p>
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>如果需要手动修改一些配置信息，由于<code>build</code>和<code>config</code>文件夹被取消，因此需要手动在项目根目录创建文件：</p>
+<p><code>vue.config.js</code>（固定文件名，不得修改），在其中手动添加配置信息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加的配置信息会自动与原有的进行合并，作为整体的配置。</p>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>基本很少使用图形化界面。</p>
+<p>Vue CLI3中会在项目根目录下自动创建git，方便项目管理。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\08\02\Vue\Vue学习笔记\" rel="bookmark">Vue学习笔记</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\08\19\Vue\Vue学习-axios\" rel="bookmark">Vue学习-axios</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\08\17\Vue\Vue学习-Vuex\" rel="bookmark">Vue学习-Vuex</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\08\17\Vue\Vue学习-Promise\" rel="bookmark">Vue学习-Promise</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\08\14\Vue\Vue学习-Vue-router\" rel="bookmark">Vue学习-Vue router</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/wechat.png" alt="花猪 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/alipay.jpg" alt="花猪 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/next/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/next/2021/08/08/Vue/Vue%E5%AD%A6%E4%B9%A0-Webpack/" rel="prev" title="Vue学习-Webpack">
+                  <i class="fa fa-chevron-left"></i> Vue学习-Webpack
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/next/2021/08/14/Vue/Vue%E5%AD%A6%E4%B9%A0-Vue-router/" rel="next" title="Vue学习-Vue router">
+                  Vue学习-Vue router <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花猪</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">356k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:23</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+<script src="/next/js/comments.js"></script><script src="/next/js/utils.js"></script><script src="/next/js/motion.js"></script><script src="/next/js/schemes/muse.js"></script><script src="/next/js/next-boot.js"></script><script src="/next/js/pjax.js"></script>
+
+  
+<script src="/next/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"dh8GVAcIwU1TN4zhA5y63iW1-gzGzoHsz","app_key":"hzyAqDKjG4OBGrdPS7mKaOa7","server_url":null,"security":true}</script>
+  <script src="/next/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/next/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"hexo-1g41404w9f800e94","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+
+</body>
+</html>

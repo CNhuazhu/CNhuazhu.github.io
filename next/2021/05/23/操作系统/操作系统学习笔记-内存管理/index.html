@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+
+<link rel="stylesheet" href="/next/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cnhuazhu.gitee.io","root":"/next/","images":"/next/images","scheme":"Mist","version":"8.6.1","exturl":false,"sidebar":{"position":"left","Muse | Mist":320,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":true,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/next/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/next/js/config.js"></script>
+<meta name="description" content="记录操作系统学习历程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统学习笔记-内存管理">
+<meta property="og:url" content="https://cnhuazhu.gitee.io/next/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="花猪のBlog">
+<meta property="og:description" content="记录操作系统学习历程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8E%8B%E7%BC%A9.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E7%A1%AC%E4%BB%B6%E6%94%AF%E6%8C%81.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%A6%86%E7%9B%96%E7%9A%84%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS固定分区的实例.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E7%9A%84%E5%AE%9E%E4%BE%8B2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E7%9A%84%E5%AE%9E%E4%BE%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E7%9A%84%E5%AE%9E%E4%BE%8B2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%BC%99%E4%BC%B4%E7%B3%BB%E7%BB%9F%E5%88%86%E9%85%8D.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E9%A1%B5%E7%9A%84%E5%AE%9E%E4%BE%8B.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%A1%B5%E8%A1%A8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E9%A1%B5%E7%9A%84%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%802.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E9%A1%B5%E7%9B%B8%E5%AF%B9%E5%9C%B0%E5%9D%80%E8%BD%AC%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E6%AE%B5%E7%9A%84%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E6%AE%B5%E7%9B%B8%E5%AF%B9%E5%9C%B0%E5%9D%80%E8%BD%AC%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80.png">
+<meta property="article:published_time" content="2021-05-23T05:46:03.000Z">
+<meta property="article:modified_time" content="2021-06-24T02:23:59.828Z">
+<meta property="article:author" content="花猪">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8E%8B%E7%BC%A9.png">
+
+
+<link rel="canonical" href="https://cnhuazhu.gitee.io/next/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://cnhuazhu.gitee.io/next/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/","path":"2021/05/23/操作系统/操作系统学习笔记-内存管理/","title":"操作系统学习笔记-内存管理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>操作系统学习笔记-内存管理 | 花猪のBlog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/next/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/next/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花猪のBlog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主站"><a href="https://cnhuazhu.top/" rel="noopener" target="_blank"><i class="fas fa-chevron-right fa-fw"></i>主站</a></li>
+        <li class="menu-item menu-item-home"><a href="/next/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/next/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/next/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/next/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">53</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BC%9A%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">第七章：内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E9%9C%80%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">内存管理的需求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.1.1.</span> <span class="nav-text">重定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4"><span class="nav-number">2.1.2.</span> <span class="nav-text">保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB"><span class="nav-number">2.1.3.</span> <span class="nav-text">共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E7%BB%84%E7%BB%87"><span class="nav-number">2.1.4.</span> <span class="nav-text">逻辑组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E7%BB%84%E7%BB%87"><span class="nav-number">2.1.5.</span> <span class="nav-text">物理组织</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA"><span class="nav-number">2.2.</span> <span class="nav-text">内存分区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA"><span class="nav-number">2.2.1.</span> <span class="nav-text">固定分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA"><span class="nav-number">2.2.2.</span> <span class="nav-text">动态分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E9%80%82%E9%85%8D"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">最佳适配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A6%96%E6%AC%A1%E9%80%82%E9%85%8D"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">首次适配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%82%BB%E8%BF%91%E9%80%82%E9%85%8D"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">邻近适配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%B7%AE%E9%80%82%E9%85%8D"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">最差适配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%99%E4%BC%B4%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.3.</span> <span class="nav-text">伙伴系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">2.3.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%AE%B5"><span class="nav-number">2.4.</span> <span class="nav-text">分段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="花猪"
+      src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+  <p class="site-author-name" itemprop="name">花猪</p>
+  <div class="site-description" itemprop="description">为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/next/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/next/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/next/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CNhuazhu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CNhuazhu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/CNhuazhu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cnhuazhu.gitee.io/next/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/avatar.jpg">
+      <meta itemprop="name" content="花猪">
+      <meta itemprop="description" content="为了获得不同的阅读体验，建立此分站。<br>（可在导航栏搜索想要查看的文章）<br><br>本站主题：NEXT 8.6.1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花猪のBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统学习笔记-内存管理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-23 13:46:03" itemprop="dateCreated datePublished" datetime="2021-05-23T13:46:03+08:00">2021-05-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-24 10:23:59" itemprop="dateModified" datetime="2021-06-24T10:23:59+08:00">2021-06-24</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/next/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/next/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="操作系统学习笔记-内存管理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span id="/next/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-meta-item twikoo_visitors" data-flag-title="操作系统学习笔记-内存管理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="twikoo_visitors"></span>
+    </span>
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">记录操作系统学习历程</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><em>正在学习操作系统，记录笔记。</em></p>
+<blockquote>
+<p>参考资料：</p>
+<p>《操作系统（精髓与设计原理 第6版） 》</p>
+</blockquote>
+<hr>
+<h1 id="第七章：内存管理"><a href="#第七章：内存管理" class="headerlink" title="第七章：内存管理"></a>第七章：内存管理</h1><p>我们已经知道，在单道程序设计系统中，内存被划分成两部分：</p>
+<ul>
+<li>一部分供操作系统使用（驻留监控程序、内核）；</li>
+<li>一部分供当前正在执行的程序使用。</li>
+</ul>
+<p>在多道程序设计系统中（我们重点关注于此）：</p>
+<ul>
+<li>必须在内存中进一步细分出“用户”部分，以支持多道程序</li>
+<li>内存需要管理已确保有适当数目的就绪进程使用处理器时间</li>
+</ul>
+<p>这就是内存管理。</p>
+<blockquote>
+<p>内存管理的主要操作是处理器把程序装入内存中执行。</p>
+</blockquote>
+<p>先介绍一下本章将要提到的术语：</p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>页框（Frame）</td>
+<td>内存中一个固定长度的块</td>
+</tr>
+<tr>
+<td>页（Page）</td>
+<td>一个固定长度的数据块，储存在二级存储器中（如磁盘）。数据页可以临时复制入内存中的页框中</td>
+</tr>
+<tr>
+<td>段（Segment）</td>
+<td>一个变长的数据块，储存在二级存储器中。整个段可以临时复制到内存的一个可用区域内（分段），或者可以将一个段分为许多页，将每页单独复制到内存中（分段与分页相结合）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>强调！强调！强调！</p>
+<p>英文中 <code>Frame</code> 有些被翻译为 <code>帧</code>，有些被翻译为 <code>页框</code>，笔者认为“页框”更加形象：从磁盘中取得页，将其安置在内存的页框中。当然各位都有自己的理解，但这不妨碍阅读。（题外话：<code>socket</code>被翻译为<code>套接字</code>，我属实有点费解，我觉得本意<code>插座、插孔</code>真的还要比“套接字”来的更好理解到底“socket”是为何物）</p>
+<p>只是强调一下后面的内容，笔者都选择“页框”的翻译，这与“帧”是等价的。</p>
+</blockquote>
+<h2 id="内存管理的需求"><a href="#内存管理的需求" class="headerlink" title="内存管理的需求"></a>内存管理的需求</h2><p>对内存管理提出了五点需求：</p>
+<ol>
+<li>重定位（Relocation）</li>
+<li>保护（Protection）</li>
+<li>共享（Sharing）</li>
+<li>逻辑组织（Logical Organization）</li>
+<li>物理组织（Physical Organization）</li>
+</ol>
+<p>接下来将逐一介绍</p>
+<h3 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h3><ul>
+<li><p>程序员事先并不知晓在某个程序执行期间会有其他哪些程序驻留在内存中</p>
+</li>
+<li><p>当程序执行的时候，它可能被交换到磁盘，并且在被重新换入内存中时，可能会与上一次内存区域不同（重定位）</p>
+<blockquote>
+<p>为了使处理器利用率最大化，之前提到过采用了交换技术。即活动的进程可以换出/换入内存。但是如果强调被重新换入的进程的位置需要和上一次的内存区域相同，这会是一个很大的限制，为了避免这种限制。我们需要把进程重定位到内存的不同区域。</p>
+</blockquote>
+</li>
+<li><p>处理器硬件和操作系统软件必须能够通过某种方式把程序代码中的内存访问转换成实际的物理内存地址，并反映程序在内存中的当前位置。</p>
+</li>
+</ul>
+<p>接下来介绍三类地址的概念：</p>
+<ul>
+<li>逻辑地址（Logical Address）：与当前数据在内存中的物理分配地址无关的访问地址。（在执行对内存的访问之前必须将其转换为物理地址）</li>
+<li>相对地址（Relative Address）：相对于某些已知点（通常是程序的开始处）的存储单元。</li>
+<li>物理地址（Physical Address）/绝对地址：数据在内存中的实际位置。</li>
+</ul>
+<p>当程序被加载进内存时，它在内存中实际的绝对位置是已经确定的。</p>
+<ul>
+<li><p>由于交换技术，可能会导致一个进程占据不同的分区，这意味着在程序执行的过程在内存中会有不同的绝对位置。</p>
+</li>
+<li><p>压缩（Compaction）也会导致一个进程占据不同的分区。</p>
+<blockquote>
+<p>（注：绿色部分表示内存空闲区域，红色表示已被进程占用的部分）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8E%8B%E7%BC%A9.png"></p>
+<p>由于交换技术，可能导致内存中会出现某些小区域（空闲）是无法加载任何进程的。称之为<strong>零头（fragment）</strong>。</p>
+<p>为了使得内存得以有效利用，采用一种称为压缩/紧凑的技术，动态调整进程在内存中的位置，以减少零头。如此便会导致一个进程占据不同的分区的情况出现。</p>
+</blockquote>
+</li>
+</ul>
+<p>下面介绍两种重定位的方式：静态重定位（Static Relocation）以及动态重定位（Dynamic Relocation）</p>
+<ol>
+<li><p>静态重定位</p>
+<p>在逻辑地址转换为物理地址的过程中，地址变换是在进程装入内存时一次完成的，以后不再改变。</p>
+<ul>
+<li>优点：无需增加硬件地址转换机构，便于实现程序的静态连接。（在早期计算机系统中大多采用这种方案。）</li>
+<li>缺点：内存空间不能移动；各个用户进程很难共享内存中同一程序的副本。</li>
+</ul>
+</li>
+<li><p>动态重定位</p>
+<p>动态运行的装入程序把转入模块装入内存之后，并不立即把装入模块的逻辑地址进行转换，而是把这种地址转换推迟到程序执行时才进行，装入内存后的所有地址都仍是逻辑地址。这种方式需要寄存器的支持，其中放有当前正在执行的程序在内存空间中的起始地址。</p>
+<ul>
+<li>优点：内存空间可以移动；各个用户进程可以共享内存中同一程序的副本。</li>
+<li>缺点：增加了机器成本，而且实现存储管理的软件算法比较复杂。</li>
+</ul>
+</li>
+</ol>
+<p>下面介绍在进程执行过程中所用到的寄存器：</p>
+<ul>
+<li><p>基址寄存器（Base register）：存储进程的起始地址。</p>
+</li>
+<li><p>界限寄存器（Bounds register）：存储进程的结束位置。</p>
+<blockquote>
+<p>这些值是在进程被加载或者被换入时设置的。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>重定位的硬件支持（如下图）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E7%A1%AC%E4%BB%B6%E6%94%AF%E6%8C%81.png"></p>
+<ul>
+<li>基址寄存器的值被添加到相对地址中，以产生一个绝对地址</li>
+<li>得到的绝对地址与界限寄存器中的值进行比较<ul>
+<li>如果这个地址在界限范围内，则继续该指令的执行</li>
+<li>如果地址不在范围内，就会产生一个中断给操作系统</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="保护"><a href="#保护" class="headerlink" title="保护"></a>保护</h3><ul>
+<li><p>进程不应该在未经允许的情况下引用另一进程中的内存位置（进行读操作或写操作）</p>
+</li>
+<li><p>在编译时不可能检查绝对地址来确保保护</p>
+</li>
+<li><p>必须在运行时检查进程产生的所有内存访问，以确保它们只访问分配给该进程的内存空间</p>
+</li>
+<li><p>内存保护需求必须由处理器（硬件）而非操作系统（软件）来满足</p>
+<blockquote>
+<p>操作系统不能预测程序可能产生的所有内存访问。即使可以预测，提前审查每个进程中可能存在的内存违法访问也非常费时。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="共享"><a href="#共享" class="headerlink" title="共享"></a>共享</h3><ul>
+<li><p>允许多个进程访问内存的同一部分。</p>
+</li>
+<li><p>当多个进程正在执行同一个程序时，允许每个进程访问该程序的同一个副本，要比让每个进程有自己单独的副本更有优势。</p>
+<blockquote>
+<p>内存管理系统在不损害基本保护的前提下，必须允许对内存共享区域进行受控访问。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="逻辑组织"><a href="#逻辑组织" class="headerlink" title="逻辑组织"></a>逻辑组织</h3><p>计算机系统中的内存总是被组织成线性（或一维）的地址空间，且地址空间由一系列字节或字组成。外部存储器（简称外存）在物理层上也是按类似的方式组织的。这种组织方式类似实际的机器硬件，但它并不符合程序构造的典型方法。</p>
+<p>程序是以模块形式编写的，如果操作系统和计算机硬件能够有效处理这种模块化的用户程序与数据，则会带来很多好处：</p>
+<ul>
+<li><p>可以独立地编写和编译模块，系统在运行时解析从一个模块到其他模块的所有引用。</p>
+</li>
+<li><p>通过适度的额外开销，可以为不同的模块提供不同的保护级别（只读、只执行）。</p>
+</li>
+<li><p>可以引入某种机制，使得模块可以被多个进程共享。</p>
+<blockquote>
+<p>模块级提供共享的优点是：它符合用户看待问题的方式，因此用户可很容易地指定需要的共享。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="物理组织"><a href="#物理组织" class="headerlink" title="物理组织"></a>物理组织</h3><p>在之前提及过计算机存储器至少要组织成两级，即内存和外存。</p>
+<ul>
+<li>内存：提供快速访问，具有易失性，容量小。</li>
+<li>外存：访问较慢，提供永久性存储，容量大。</li>
+</ul>
+<p>在这种两级方案中，系统主要关注的是内存和外存之间信息流的组织。如果让程序员来负责组织这一信息流，考虑以下原因就会发现这是不切实际的：</p>
+<ul>
+<li><p>供程序和数据使用的内存可能不足。这时程序员可以采用覆盖（overlaying）技术来组织程序和数据。</p>
+<blockquote>
+<p>覆盖：允许不同的模块被分配到内存中的同一块区域。</p>
+<p>覆盖的目的：使大程序可以运行在小内存之上。</p>
+<p>覆盖的实例（如下图）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%A6%86%E7%9B%96%E7%9A%84%E4%BE%8B%E5%AD%90.png"></p>
+<ul>
+<li><p>假设一个程序全部大小为：</p>
+<p>A(10KB) + B(40KB) + C(30KB) + D(30KB) + E(50KB) + F(40KB) = 200KB</p>
+</li>
+<li><p>而现在可用内存的容量仅有：150KB</p>
+</li>
+<li><p>显然直接将程序全部加载进内存是不可行的。</p>
+</li>
+<li><p>考虑到该程序有三个层次的进程（不同层次的进程是无法同时执行的），于是我们可以按照每个层次中的最大模块去分配内存。</p>
+</li>
+<li><p>即只需分配：A(10KB)  + B(40KB) + E(50KB) = 100KB 的内存就可以保证程序的正常运行。</p>
+</li>
+</ul>
+<p>（即使有编译工具的帮助，覆盖技术的实现仍然非常浪费程序员的时间）</p>
+</blockquote>
+</li>
+<li><p>在多道程序设计环境中，程序员在编写代码时并不知道可用空间的大小及位置。</p>
+</li>
+</ul>
+<h2 id="内存分区"><a href="#内存分区" class="headerlink" title="内存分区"></a>内存分区</h2><p>下表展示了后面（包括下一章：虚拟内存）要介绍的内存管理技术：</p>
+<table>
+<thead>
+<tr>
+<th>技术</th>
+<th>说明</th>
+<th>优势</th>
+<th>弱点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>固定分区</td>
+<td>在系统生成阶段，内存被划分成许多静态分区。进程可装入大于等于自身大小的分区中</td>
+<td>实现简单，只需要极少的操作系统开销</td>
+<td>由于有内部碎片，对内存的使用不充分：活动进程的最大数量是固定的</td>
+</tr>
+<tr>
+<td>动态分区</td>
+<td>分区是动态创建的，因而每个进程可装入与自身大小正好相等的分区中</td>
+<td>没有内部碎片；可以更充分地使用内存</td>
+<td>由于需要压缩外部碎片，处理器利用率低</td>
+</tr>
+<tr>
+<td>简单分页</td>
+<td>内存被划分成许多大小相等的页框；每个进程被划分成许多大小与页框相等的页；要装入一个进程，需要把进程包含的所有页都装入内存内不一定连续的某些页框中</td>
+<td>没有外部碎片</td>
+<td>有少量的内部碎片</td>
+</tr>
+<tr>
+<td>简单分段</td>
+<td>每个进程被划分成许多段；要装入一个进程，需要把进程包含的所有段都装入内存内不一定连续的某些动态分区中</td>
+<td>没有内部碎片；相对于动态分区，提高了内存利用率，减少了开销</td>
+<td>存在外部碎片</td>
+</tr>
+<tr>
+<td>虚存分页</td>
+<td>除了不需要装入一个进程的所有页外，与简单分页一样；非驻留页在以后需要时自动调入内存</td>
+<td>没有外部碎片；支持更多道数的多道程序设计；巨大的虚拟地址空间</td>
+<td>复杂的内存管理开销</td>
+</tr>
+<tr>
+<td>虚存分段</td>
+<td>除了不需要装入一个进程的所有段外，与简单分段一样；非驻留段在以后需要时自动调入内存</td>
+<td>没有内部碎片；支持更多道数的多道程序设计；巨大的虚拟地址空间；支持保护和共享</td>
+<td>复杂的内存管理开销</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在几乎所有的现代多道程序设计系统中，内存管理涉及一种称为虚存（虚拟内存）的复杂方案。虚存基于分段和分页这两种基本技术，或基于这两种技术中的一种。</p>
+<p>在考虑虚存技术之前，先考虑一些不涉及虚存的简单技术。</p>
+</blockquote>
+<p>在介绍分区之前还要明白一件事情，大多数内存管理方案都假定操作系统占据内存中的某些固定部分，而内存中的其余部分则供多个用户进程使用。我们考虑的仅仅是对用户内存空间的管理。</p>
+<h3 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h3><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS固定分区的实例.png" style="zoom:80%;" />
+
+<p>如图，有两种固定分区的方案：</p>
+<ul>
+<li><p>大小相等的分区（Equal-size partitions）</p>
+<ul>
+<li><p>任何小于等于分区大小的任何进程都可装入任何可用的分区中</p>
+</li>
+<li><p>若所有的分区都已满，且没有进程处于就绪态或运行态，则操作系统可以换出一个进程的所有分区，并装入另一个进程。</p>
+</li>
+<li><p>使用此方案有两个难点：</p>
+<ul>
+<li><p>程序可能太大而不能放到一个分区中。此时必须使用覆盖技术。</p>
+</li>
+<li><p>内存的利用率非常低。任何程序，即使很小，都需要占据一个完整的分区。</p>
+<blockquote>
+<p><strong>内部碎片/内部零头（internal fragmentation）</strong>：</p>
+<p>假设存在一个长度小于2MB的程序，当它被换入时，仍占据一个8MB的分区。由于装入的数据块小于分区大小，因而导致分区内部存在空间浪费，这种现象就是内部碎片。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>大小不等的分区（Unequal-size partitions）</p>
+<ul>
+<li><p>可以使用大分区去存放较大的进程，从而省略覆盖技术；</p>
+</li>
+<li><p>可以使用小分区去存放较小的进程，以减小内部碎片。</p>
+<blockquote>
+<p>此方案可以缓解大小相等分区中的两个难点，但是无法彻底解决。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>放置算法（Placement Algorithm）：</p>
+<ul>
+<li><p>大小相等的分区</p>
+<p>因为所有的分区都是同等大小，所以使用哪个分区并不重要。如果所有的分区都被处于不可运行状态的进程占据，那么这些进程中的一个必须被换出，以便为新进程让出空间。</p>
+</li>
+<li><p>大小不等的分区</p>
+<p>对于大小不等的分区策略，有两种把进程分配到内存分区的方法（如下图）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E7%9A%84%E5%AE%9E%E4%BE%8B2.png"></p>
+<ul>
+<li><p>最简单的方法是把每个进程分配到能够容纳它的最小分区中。</p>
+<p>在这种情况下，每个分区都需要维护一个调度队列，用于保存从这个分区换出的进程。如果所有的进程都按照这种方式分配，则可使每个分区内部浪费的空间（内部碎片）最少。</p>
+<blockquote>
+<p>这里假定知道一个进程最多需要的内存大小。但这种假定很难得到保证。如果不知道一个进程将会变得多大，那么唯一可行的替代方案只能是使用覆盖技术或虚存技术。</p>
+</blockquote>
+</li>
+<li><p>第二种方式是所有进程只提供一个队列，当需要把一个进程装入内存时，选择可以容纳该进程的最小可用分区。如果所有的分区都已被占据，则必须进行交换。一般优先考虑换出能容纳新进程的最小分区中的进程，或考虑一些诸如优先级之类的其他因素。也可以优先选择换出被阻塞的进程而非就绪进程。</p>
+<blockquote>
+<p>只提供一个队列的好处，被换出的进程可以依照某些规则分配到不同的分区去，而不仅仅是只分配在一个固定的分区。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>固定分区的缺点：</p>
+<ul>
+<li>限制并发度：分区的数量在系统生成阶段已经确定，因而限制了系统中活动（未挂起）进程的数量。</li>
+<li>产生内部零头：由于分区的大小是在系统生成阶段事先设置的，因而小作业不能有效地利用分区空间。设计者无法设计出一个完美的调度方案。</li>
+</ul>
+<h3 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h3><p>为了克服固定分区的缺点，提出了动态分区（如下图）：</p>
+<ul>
+<li>对于动态分区，分区长度和数量是可变的。</li>
+<li>进程装入内存时，系统会给它分配一块与其所需容量完全相等的内存空间。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E7%9A%84%E5%AE%9E%E4%BE%8B.png"></p>
+<blockquote>
+<p>说明：</p>
+<p>该实例使用64MB的内存。最初，内存中只有操作系统（a）。从操作系统结束处开始，装入的前三个进程分别占据各自所需的空间大小（b、c、d），这样在内存末尾只剩下一个“空洞”，而这个“空洞”对第4个进程来说就太小。在某个时刻，内存中没有一个就绪进程。操作系统换出进程2（e），这为装入一个新进程（即进程4）腾出了足够的空间（f）。由于进程4比进程2小，因此形成了另一个小“空洞”。然后，在另一个时刻，内存中没有一个进程是就绪的，但处于就绪挂起状态的进程2可用。由于内存中没有足够的空间容纳进程2，操作系统换出进程1（g），然后换入进程2（h）。</p>
+<p><strong>外部碎片/外部零头（external fragmentation）</strong>：</p>
+<p>由上述分析可知，这种方案最终会在内存中形成许多小空洞，这就是外部碎片。</p>
+<p>指所有分区外的存储空间变成了越来越多的碎片。（与前面提到的内部碎片相对应）</p>
+<p>克服外部碎片的方法就是压缩（compaction）：操作系统不时地移动进程，使得进程占用的空间连续，并使所有空闲空间连成一片。</p>
+</blockquote>
+<p>放置算法（Placement Algorithm）：</p>
+<p>此处介绍四种算法：最佳适配（Best-fit）、首次适配（First-fit）、邻近适配（Next-fit）、最差适配（Worst-fit）。</p>
+<h4 id="最佳适配"><a href="#最佳适配" class="headerlink" title="最佳适配"></a>最佳适配</h4><ul>
+<li>选择与需求大小最接近的块</li>
+<li>需要遍历整个内存空间</li>
+<li>由于需要为进程找到最小的块，所以会留下最小的碎片</li>
+<li>必须更频繁地进行内存压缩</li>
+<li>整体性能最差</li>
+</ul>
+<h4 id="首次适配"><a href="#首次适配" class="headerlink" title="首次适配"></a>首次适配</h4><ul>
+<li>从头开始扫描内存，选择第大小足够的第一个可用块</li>
+<li>可能有许多进程加载在内存的前端，所以当试图找到一个空闲块时，必须进行搜索</li>
+<li>新能是最好的</li>
+</ul>
+<h4 id="邻近适配"><a href="#邻近适配" class="headerlink" title="邻近适配"></a>邻近适配</h4><ul>
+<li>从上一次放置的位置开始扫描内存，选择下一个大小足够的可用块</li>
+<li>使最大的内存块被分解成更小的内存块</li>
+<li>需要进行压缩，以便在内存的末尾获得一个大的区块</li>
+<li>性能介于最佳适配和首次适配之间</li>
+</ul>
+<h4 id="最差适配"><a href="#最差适配" class="headerlink" title="最差适配"></a>最差适配</h4><ul>
+<li>从头遍历整个内存空间，选择最大的块</li>
+<li>“均贫富”思想，把内存划分为基本上差不多大小的内存分区</li>
+</ul>
+<blockquote>
+<p>实例：考虑分配一个大小为16M的新块</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E7%9A%84%E5%AE%9E%E4%BE%8B2.png"></p>
+</blockquote>
+<p>动态分区的缺点：</p>
+<ul>
+<li>维护特别复杂</li>
+<li>会引入进行压缩的额外开销</li>
+</ul>
+<h3 id="伙伴系统"><a href="#伙伴系统" class="headerlink" title="伙伴系统"></a>伙伴系统</h3><blockquote>
+<p>先说个额外话题：计算机理论上支持多大的内存？</p>
+<ul>
+<li><p>如果是32位操作系统，则理论上最大支持的内存为：2<sup>32</sup>（相当于4GB）</p>
+<p>即便计算机安装了8GB的内存条，它也只能识别4GB。</p>
+</li>
+<li><p>如果是64位操作系统，则理论上最大支持的内存为：2<sup>64</sup>（相当于128GB）</p>
+</li>
+<li><p>计算机理论支持最大内存 = 2<sup>操作系统位数</sup></p>
+</li>
+</ul>
+</blockquote>
+<p>伙伴系统中可用内存块的大小为2<sup>K</sup>个字，L ≤ K ≤ U，其中2<sup>L</sup>表示分配的最小块的尺寸，2<sup>U</sup>表示分配的最大块的尺寸；通常2<sup>U</sup>是可供分配的整个内存的大小。</p>
+<p>内存分配过程如下：</p>
+<ul>
+<li>最初，可用于分配的整个空间被视为一个大小为2<sup>U</sup>的块</li>
+<li>若请求的大小s满足：2<sup>U-1</sup> ＜ s ≤ 2<sup>U</sup>，则分配整个内存空间<ul>
+<li>否则，该块分成两个大小相等的伙伴，大小均为2<sup>U-1</sup></li>
+<li>若有2<sup>U-2</sup> ＜ s ≤ 2<sup>U-1</sup>，则给该请求分配两个伙伴中的任何一个<ul>
+<li>否则，其中的一个伙伴又被分成两半。持续这一过程，直到产生大于或等于s的最小块为止。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>内存的回收：</p>
+<p>如果一个块的进程被释放，则判断该内存块相邻的伙伴（大小相同），如果伙伴块为空，则两个块合并为一个大块，如果合成的大块相邻的伙伴仍然为空，则继续合成，直到重新合成为最初的内存块。</p>
+<blockquote>
+<p>伙伴系统实例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E4%BC%99%E4%BC%B4%E7%B3%BB%E7%BB%9F%E5%88%86%E9%85%8D.png"></p>
+<p>上图给出了一个初始大小为1MB的块的例子。第一个请求A为100KB，需要一个128KB的块。最初的块被划分成两个512KB大小的伙伴，第一个伙伴又被划分成两个256KB大小的伙伴，其中的第一个又划分成两个128KB大小的伙伴，这两个128KB的伙伴中的一个分配给A。下一个请求B需要256KB的块，因为已有这样的一个块，随即分配给它。在需要时，继续进行这样的分裂和合并过程。注意当E被释放时，两个128KB的伙伴合并为一个256KB的块，这个256KB的块又立即与其伙伴合并成一个512KB的块。</p>
+</blockquote>
+<p>伙伴系统克服了固定分区和可变分区方案的缺陷。（既可以灵活地动态分配内存，又没有零头的产生）</p>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>为了减少零头，引入了分页技术。</p>
+<blockquote>
+<p>使用分页技术时，每个进程在内存中浪费的空间，仅是进程最后一页的一小部分形成的内部碎片。没有任何外部碎片。</p>
+</blockquote>
+<p>将内存划分为固定大小的小块（块远远小于分区），将每个进程也划分为相同大小的块：</p>
+<ul>
+<li><p>进程中的块被称为页（page）</p>
+</li>
+<li><p>内存中的块被称为帧/页帧/页框（frame）</p>
+</li>
+<li><p>操作系统会为每一个进程维护一个页表（page table）</p>
+<ul>
+<li><p>页表给出了该进程的每页所对应页框的位置</p>
+</li>
+<li><p>在程序中，每个逻辑地址包括一个页号（page number）和在该页中的偏移量（offset）</p>
+</li>
+<li><p>由处理器将逻辑地址转化为物理地址，物理地址包括页框号和偏移量</p>
+<blockquote>
+<p>注意区分</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>分页实例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E9%A1%B5%E7%9A%84%E5%AE%9E%E4%BE%8B.png"></p>
+<p>在某个给定时刻，内存中的某些页框正被使用，某些页框是空闲的，操作系统维护空闲页框的列表。</p>
+<ul>
+<li><p>存储在磁盘上的进程A由4页组成。装入这个进程时，操作系统查找4个空闲页框，并将进程A的4页装入这4个页框中，如图（b）所示。</p>
+</li>
+<li><p>进程B包含3页，进程C包含4页，它们依次被装入。</p>
+</li>
+<li><p>然后进程B被挂起，并被换出内存。</p>
+</li>
+<li><p>此后，内存中的所有进程被阻塞，操作系统需要换入一个新进程，即进程D，它由5页组成。进程D的5页被装入页框4、5、6、11和12。</p>
+<blockquote>
+<p>进程在分页中可以不加载到内存连续的区域中，分区要求必须连续。</p>
+</blockquote>
+</li>
+</ul>
+<p>下图给出了各个进程的页表：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E8%BF%9B%E7%A8%8B%E9%A1%B5%E8%A1%A8.png"></p>
+<p>值得注意的是：操作系统为当前内存中未被占用、可供使用的所有页框维护一个空闲页框列表。</p>
+</blockquote>
+<p>为了使分页方案更加方便，规定页和页框的大小必须是2的幂，以便容易地表示出相对地址。</p>
+<blockquote>
+<p>实例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E9%A1%B5%E7%9A%84%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%802.png"></p>
+<ul>
+<li>上图中使用16位地址，规定页大小为1KB（即1024字节），以相对地址为1502的例子进行分析</li>
+<li>相对地址 = 1502<sub>(10)</sub> = 0000010111011110<sub>(2)</sub></li>
+<li>页大小 = 1KB = 2<sup>10</sup> → 偏移量 = 10位 → 页号 = 6位</li>
+<li>所以该程序最多由 2<sup>6</sup> = 64页 组成（每页为1KB）</li>
+<li>相对地址1502对应于页1（000001）中的偏移量478（0111011110）</li>
+</ul>
+<p><strong>考虑一个n+m位的地址 → 最左边的n位是页号，最右边的m位是偏移量</strong></p>
+<p>相对地址 → 逻辑地址 → 物理地址：</p>
+<ul>
+<li>提取页号，即逻辑地址最左侧的n位</li>
+<li>以这个页号为索引，查找进程页表中相应的页框号k</li>
+<li>页框的起始物理地址为：k × 2<sup>m</sup> → 被访问字节的物理地址是这个数加上偏移量</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E9%A1%B5%E7%9B%B8%E5%AF%B9%E5%9C%B0%E5%9D%80%E8%BD%AC%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80.png"></p>
+<p>仍然以逻辑地址1502为例：</p>
+<ul>
+<li>由上述分析已知：页号为1，偏移量为478</li>
+<li>假设该页驻留在内存页框6中（6<sub>(10)</sub> = 000110<sub>(2)</sub>）</li>
+<li>则物理地址为：页框号|偏移量 → 即：000110|0111011110<sub>(2)</sub> = 6622<sub>(10)</sub></li>
+</ul>
+</blockquote>
+<h2 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h2><p>为了满足用户的逻辑组织需求，引入了分段。</p>
+<p>分段同样是将用户程序细分，与分页不同的是，尽管段有最大长度限制，但并不要求所有程序的所有段的长度都相等。</p>
+<p>采用分段技术时的逻辑地址也由两部分组成：段号（segment number） + 偏移量（offset）</p>
+<p>由于使用大小不等的段，分段类似于动态分区</p>
+<blockquote>
+<p>分段实例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E6%AE%B5%E7%9A%84%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80.png"></p>
+<p>采用大小不等的段的另一个结果是，逻辑地址和物理地址间不再是简单的对应关系。</p>
+<ul>
+<li>类似于分页，在简单的分段方案中，每个进程都有一个段表<ul>
+<li>系统也会维护一个内存中的空闲块列表</li>
+</ul>
+</li>
+<li>每个段表项必须给出相应段在内存中的起始地址，还必须指明段的长度，以确保不会使用无效地址</li>
+<li>当进程进入运行状态时，系统会把其段表的地址装载到一个寄存器中，由内存管理硬件来使用这个寄存器</li>
+</ul>
+<p><strong>考虑一个n+m位的地址 → 最左侧的n位是段号，最侧的m位是偏移量。</strong></p>
+<ul>
+<li>在上图的例子中，n=4、m=12</li>
+<li>所以最大段长度为：2<sup>12</sup> = 4096</li>
+</ul>
+<p>相对地址 → 逻辑地址 → 物理地址：</p>
+<ul>
+<li>提取段号，即逻辑地址最左侧的n位</li>
+<li>以这个段号为索引，查找进程段表中该段的起始物理地址</li>
+<li>最右侧m位表示偏移量，偏移量和段长度进行比较，若偏移量大于段长度，则该地址无效</li>
+<li>物理地址为该段的起始物理地址与偏移量之和</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%88%86%E6%AE%B5%E7%9B%B8%E5%AF%B9%E5%9C%B0%E5%9D%80%E8%BD%AC%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80.png"></p>
+<p>以逻辑地址4848为例：</p>
+<ul>
+<li>逻辑地址为：4848<sub>(10)</sub> = 0001001011110000<sub>(2)</sub></li>
+<li>段号为：1 = 0001<sub>(2)</sub>，偏移量为：752 = 001011110000<sub>(2)</sub></li>
+<li>假设该段驻留在内存中，起始物理地址为0010000000100000</li>
+<li>则相应的物理地址为：0010000000100000（起始物理地址）+  001011110000（偏移量）= 0010001100010000</li>
+<li>即物理地址为：8224（起始物理地址）+ 752（偏移量）= 8976</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>分段消除了内部碎片，但是和动态分区一样，它会产生外部碎片。不过由于进程被分成多个小块，因此外部碎片也会很小。</p>
+</blockquote>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>本篇已完结</p>
+<p>（如有修改或补充欢迎评论）</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\03\28\操作系统\操作系统学习笔记\" rel="bookmark">操作系统学习笔记</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\06\09\操作系统\操作系统学习笔记-文件管理\" rel="bookmark">操作系统学习笔记-文件管理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\06\02\操作系统\操作系统学习笔记-I-O管理和磁盘调度\" rel="bookmark">操作系统学习笔记-I/O管理和磁盘调度</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\05\30\操作系统\操作系统学习笔记-单处理器调度\" rel="bookmark">操作系统学习笔记-单处理器调度</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\next\2021\05\24\操作系统\操作系统学习笔记-虚拟内存\" rel="bookmark">操作系统学习笔记-虚拟内存</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/wechat.png" alt="花猪 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/alipay.jpg" alt="花猪 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/next/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"><i class="fa fa-tag"></i> 操作系统</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/next/2021/05/10/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BC%A0%E8%BE%93%E5%B1%82/" rel="prev" title="计算机网络学习笔记-传输层">
+                  <i class="fa fa-chevron-left"></i> 计算机网络学习笔记-传输层
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/next/2021/05/24/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/" rel="next" title="操作系统学习笔记-虚拟内存">
+                  操作系统学习笔记-虚拟内存 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花猪</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">356k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:23</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+<script src="/next/js/comments.js"></script><script src="/next/js/utils.js"></script><script src="/next/js/motion.js"></script><script src="/next/js/schemes/muse.js"></script><script src="/next/js/next-boot.js"></script><script src="/next/js/pjax.js"></script>
+
+  
+<script src="/next/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"dh8GVAcIwU1TN4zhA5y63iW1-gzGzoHsz","app_key":"hzyAqDKjG4OBGrdPS7mKaOa7","server_url":null,"security":true}</script>
+  <script src="/next/js/third-party/statistics/lean-analytics.js"></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/next/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":true,"envId":"hexo-1g41404w9f800e94","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+
+</body>
+</html>
