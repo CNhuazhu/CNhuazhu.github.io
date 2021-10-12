@@ -962,40 +962,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo增添头像卡片动态背景</title>
-    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%A4%B4%E5%83%8F%E5%8D%A1%E7%89%87%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍如何在侧边栏增添头像卡片动态背景。效果展示：将鼠标移至头像卡片即可看到。</p>
-<blockquote>
-<p>教程链接：<a href="https://www.tqwba.com/x_d/jishu/298102.html">https://www.tqwba.com/x_d/jishu/298102.html</a></p>
-</blockquote>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>在<code>\themes\butterfly\source\css</code>目录下创建一个<code>css</code>文件，将如下代码写入该文件（有两种效果，选其一）:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 效果一：彩带 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/H3342af90d24b4d62b9bbfec9688ccc25M.gif</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 效果二：花 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/20200530181856.gif</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>head</code>处引入该css文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>重新部署，启动，就可以看到效果啦。</p>
-</li>
-</ol>
-<hr>
-<h1>结尾</h1>
-<p>一个很简单的小修改</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo增添公告栏计时器小部件</title>
     <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%85%AC%E5%91%8A%E6%A0%8F%E8%AE%A1%E6%97%B6%E5%99%A8%E5%B0%8F%E9%83%A8%E4%BB%B6/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -1026,6 +992,40 @@
 <hr>
 <h1>结尾</h1>
 <p>一个小小的改动，还不错。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo增添头像卡片动态背景</title>
+    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%A4%B4%E5%83%8F%E5%8D%A1%E7%89%87%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍如何在侧边栏增添头像卡片动态背景。效果展示：将鼠标移至头像卡片即可看到。</p>
+<blockquote>
+<p>教程链接：<a href="https://www.tqwba.com/x_d/jishu/298102.html">https://www.tqwba.com/x_d/jishu/298102.html</a></p>
+</blockquote>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\css</code>目录下创建一个<code>css</code>文件，将如下代码写入该文件（有两种效果，选其一）:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 效果一：彩带 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/H3342af90d24b4d62b9bbfec9688ccc25M.gif</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 效果二：花 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/20200530181856.gif</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>head</code>处引入该css文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新部署，启动，就可以看到效果啦。</p>
+</li>
+</ol>
+<hr>
+<h1>结尾</h1>
+<p>一个很简单的小修改</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1164,35 +1164,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo文章页透明效果</title>
-    <url>/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%96%87%E7%AB%A0%E9%A1%B5%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>在不妨碍正常阅读的情况下想更好地展示背景或者一些效果，实现文章页透明是一种不错的选择。</p>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>在<code>\themes\butterfly\source\css</code>路径下创建一个<code>xxx.css</code>文件，在文件中添加如下代码：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 首页文章栏背景透明 */</span></span><br><span class="line"><span class="selector-id">#recent-posts</span>&gt;<span class="selector-class">.recent-post-item</span>,<span class="selector-class">.layout_page</span>&gt;<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child<span class="selector-pseudo">:not</span>(<span class="selector-class">.recent-posts</span>),<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#page</span>,<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span>,<span class="selector-class">.read-mode</span> <span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 侧边栏透明 */</span></span><br><span class="line"><span class="selector-id">#aside-content</span> <span class="selector-class">.card-widget</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>然后将该文件引入到<code>_config.butterfly.yml</code>文件中<code>inject</code>的<code>head</code>处：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>至此，重新部署后就可以看到效果啦</p>
-<hr>
-<h1>结尾</h1>
-<p>没得结尾。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo插入响应式Bilibili视频代码块</title>
     <url>/2021/07/30/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%8F%92%E5%85%A5%E5%93%8D%E5%BA%94%E5%BC%8FBilibili%E8%A7%86%E9%A2%91%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -1236,6 +1207,35 @@
 <hr>
 <h1>后记</h1>
 <p>还是比较简单的，可以分享一些视频元素。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo文章页透明效果</title>
+    <url>/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%96%87%E7%AB%A0%E9%A1%B5%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>在不妨碍正常阅读的情况下想更好地展示背景或者一些效果，实现文章页透明是一种不错的选择。</p>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\css</code>路径下创建一个<code>xxx.css</code>文件，在文件中添加如下代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 首页文章栏背景透明 */</span></span><br><span class="line"><span class="selector-id">#recent-posts</span>&gt;<span class="selector-class">.recent-post-item</span>,<span class="selector-class">.layout_page</span>&gt;<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child<span class="selector-pseudo">:not</span>(<span class="selector-class">.recent-posts</span>),<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#page</span>,<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span>,<span class="selector-class">.read-mode</span> <span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 侧边栏透明 */</span></span><br><span class="line"><span class="selector-id">#aside-content</span> <span class="selector-class">.card-widget</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后将该文件引入到<code>_config.butterfly.yml</code>文件中<code>inject</code>的<code>head</code>处：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>至此，重新部署后就可以看到效果啦</p>
+<hr>
+<h1>结尾</h1>
+<p>没得结尾。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1729,43 +1729,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo页脚美化</title>
-    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E9%A1%B5%E8%84%9A%E7%BE%8E%E5%8C%96/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍如何美化页脚，效果展示在最底部。</p>
-<blockquote>
-<p>教程链接：<a href="https://www.tqwba.com/x_d/jishu/298102.html">https://www.tqwba.com/x_d/jishu/298102.html</a></p>
-</blockquote>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>在<code>\themes\butterfly\source\js</code>目录下创建一个<code>js</code>文件，将如下代码写入该文件:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态心跳</span></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    $(<span class="string">&#x27;.copyright&#x27;</span>).html(<span class="string">&#x27;©2021 &lt;i class=&quot;fa-fw fas fa-heartbeat card-announcement-animation cc_pointer&quot;&gt;&lt;/i&gt; By 花猪&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    show_date_time();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//本站运行时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_date_time</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">$(<span class="string">&#x27;.framework-info&#x27;</span>).html(<span class="string">&#x27;本站已运行&lt;span id=&quot;span_dt_dt&quot; style=&quot;color: #fff;&quot;&gt;&lt;/span&gt;&#x27;</span>);</span><br><span class="line"><span class="built_in">window</span>.setTimeout(<span class="string">&quot;show_date_time()&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">BirthDay=<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">&quot;1/20/2021 0:0:0&quot;</span>);</span><br><span class="line">today=<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">timeold=(today.getTime()-BirthDay.getTime());</span><br><span class="line">sectimeold=timeold/<span class="number">1000</span></span><br><span class="line">secondsold=<span class="built_in">Math</span>.floor(sectimeold);</span><br><span class="line">msPerDay=<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">1000</span></span><br><span class="line">e_daysold=timeold/msPerDay</span><br><span class="line">daysold=<span class="built_in">Math</span>.floor(e_daysold);</span><br><span class="line">e_hrsold=(e_daysold-daysold)*<span class="number">24</span>;</span><br><span class="line">hrsold=<span class="built_in">Math</span>.floor(e_hrsold);</span><br><span class="line">e_minsold=(e_hrsold-hrsold)*<span class="number">60</span>;</span><br><span class="line">minsold=<span class="built_in">Math</span>.floor((e_hrsold-hrsold)*<span class="number">60</span>);</span><br><span class="line">seconds=<span class="built_in">Math</span>.floor((e_minsold-minsold)*<span class="number">60</span>);</span><br><span class="line">span_dt_dt.innerHTML=<span class="string">&#x27;&lt;font style=color:#afb4db&gt;&#x27;</span>+daysold+<span class="string">&#x27;&lt;/font&gt; 天 &lt;font style=color:#f391a9&gt;&#x27;</span>+hrsold+<span class="string">&#x27;&lt;/font&gt; 时 &lt;font style=color:#fdb933&gt;&#x27;</span>+minsold+<span class="string">&#x27;&lt;/font&gt; 分 &lt;font style=color:#a3cf62&gt;&#x27;</span>+seconds+<span class="string">&#x27;&lt;/font&gt; 秒&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>更多图标和动画效果可以查看<a href="https://fa5.dashgame.com/#/">FontAwesome5</a>的官网和文档</li>
-<li>将代码中的new Date()修改成自己网站搭建的时间（月/日/年 时:分:秒）</li>
-<li>时间数字可以自由更换颜色</li>
-</ul>
-</li>
-<li>
-<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入该js文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/js/xxx.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>重新部署，启动，就可以看到效果啦。</p>
-<hr>
-<h1>结尾</h1>
-<p>除了跳动的♥还可以有多种图案选择，可以到官网查看，自己DIY。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo页脚养鱼效果</title>
     <url>/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E9%A1%B5%E8%84%9A%E5%85%BB%E9%B1%BC%E6%95%88%E6%9E%9C/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -1824,6 +1787,43 @@
 <hr>
 <h1>结尾</h1>
 <p>在魔改的道路上乐此不疲，虽然有时真的很“崩溃”。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo页脚美化</title>
+    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E9%A1%B5%E8%84%9A%E7%BE%8E%E5%8C%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍如何美化页脚，效果展示在最底部。</p>
+<blockquote>
+<p>教程链接：<a href="https://www.tqwba.com/x_d/jishu/298102.html">https://www.tqwba.com/x_d/jishu/298102.html</a></p>
+</blockquote>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\js</code>目录下创建一个<code>js</code>文件，将如下代码写入该文件:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 动态心跳</span></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    $(<span class="string">&#x27;.copyright&#x27;</span>).html(<span class="string">&#x27;©2021 &lt;i class=&quot;fa-fw fas fa-heartbeat card-announcement-animation cc_pointer&quot;&gt;&lt;/i&gt; By 花猪&#x27;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    show_date_time();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//本站运行时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_date_time</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">$(<span class="string">&#x27;.framework-info&#x27;</span>).html(<span class="string">&#x27;本站已运行&lt;span id=&quot;span_dt_dt&quot; style=&quot;color: #fff;&quot;&gt;&lt;/span&gt;&#x27;</span>);</span><br><span class="line"><span class="built_in">window</span>.setTimeout(<span class="string">&quot;show_date_time()&quot;</span>, <span class="number">1000</span>);</span><br><span class="line">BirthDay=<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">&quot;1/20/2021 0:0:0&quot;</span>);</span><br><span class="line">today=<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">timeold=(today.getTime()-BirthDay.getTime());</span><br><span class="line">sectimeold=timeold/<span class="number">1000</span></span><br><span class="line">secondsold=<span class="built_in">Math</span>.floor(sectimeold);</span><br><span class="line">msPerDay=<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">1000</span></span><br><span class="line">e_daysold=timeold/msPerDay</span><br><span class="line">daysold=<span class="built_in">Math</span>.floor(e_daysold);</span><br><span class="line">e_hrsold=(e_daysold-daysold)*<span class="number">24</span>;</span><br><span class="line">hrsold=<span class="built_in">Math</span>.floor(e_hrsold);</span><br><span class="line">e_minsold=(e_hrsold-hrsold)*<span class="number">60</span>;</span><br><span class="line">minsold=<span class="built_in">Math</span>.floor((e_hrsold-hrsold)*<span class="number">60</span>);</span><br><span class="line">seconds=<span class="built_in">Math</span>.floor((e_minsold-minsold)*<span class="number">60</span>);</span><br><span class="line">span_dt_dt.innerHTML=<span class="string">&#x27;&lt;font style=color:#afb4db&gt;&#x27;</span>+daysold+<span class="string">&#x27;&lt;/font&gt; 天 &lt;font style=color:#f391a9&gt;&#x27;</span>+hrsold+<span class="string">&#x27;&lt;/font&gt; 时 &lt;font style=color:#fdb933&gt;&#x27;</span>+minsold+<span class="string">&#x27;&lt;/font&gt; 分 &lt;font style=color:#a3cf62&gt;&#x27;</span>+seconds+<span class="string">&#x27;&lt;/font&gt; 秒&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更多图标和动画效果可以查看<a href="https://fa5.dashgame.com/#/">FontAwesome5</a>的官网和文档</li>
+<li>将代码中的new Date()修改成自己网站搭建的时间（月/日/年 时:分:秒）</li>
+<li>时间数字可以自由更换颜色</li>
+</ul>
+</li>
+<li>
+<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入该js文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/js/xxx.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>重新部署，启动，就可以看到效果啦。</p>
+<hr>
+<h1>结尾</h1>
+<p>除了跳动的♥还可以有多种图案选择，可以到官网查看，自己DIY。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -2002,825 +2002,6 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--HelloWorld</title>
-    <url>/2021/03/08/Java/Java--HelloWorld/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>Java学习之后搁置了很长时间，有很多东西都记不住了，因此决定重新过一遍，并做好学习记录。</p>
-<p>看看能做到什么程度吧（真的是唯爱Java）</p>
-<hr>
-<h1>打印 Hello World</h1>
-<p>编写第一个程序：Hello World</p>
-<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
-<h1>后记</h1>
-<p>计划回头复习，竟连最基本的语法都忘记了。。。。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--基本数据类型</title>
-    <url>/2021/03/08/Java/Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java的八大基本数据类型</p>
-<hr>
-<h1>Java八大基本数据类型</h1>
-<table>
-<thead>
-<tr>
-<th>Java基本数据类型</th>
-<th>类型</th>
-<th>封装器类</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>byte</td>
-<td>整数类型</td>
-<td>Byte</td>
-<td>1字节，8位，最大存储数据量是255，存放的数据范围是-128~127之间。</td>
-</tr>
-<tr>
-<td>short</td>
-<td>整数类型</td>
-<td>Short</td>
-<td>2字节，16位，最大数据存储量是65536，数据范围是-32768~32767之间。</td>
-</tr>
-<tr>
-<td>int</td>
-<td>整数类型</td>
-<td>Integer</td>
-<td>4字节，32位，最大数据存储容量是2的32次方减1，数据范围是负的2的31次方到正的2的31次方减1。</td>
-</tr>
-<tr>
-<td>long</td>
-<td>整数类型</td>
-<td>Long</td>
-<td>8字节，64位，最大数据存储容量是2的64次方减1，数据范围为负的2的63次方到正的2的63次方减1。</td>
-</tr>
-<tr>
-<td>float</td>
-<td>浮点类型</td>
-<td>Float</td>
-<td>4字节，32位，数据范围在3.4e-45~1.4e38，直接赋值时必须在数字后加上<code>f</code>或<code>F</code>。</td>
-</tr>
-<tr>
-<td>double</td>
-<td>浮点类型</td>
-<td>Double</td>
-<td>8字节，64位，数据范围在4.9e-324~1.8e308，赋值时可以加<code>d</code>或<code>D</code>也可以不加。</td>
-</tr>
-<tr>
-<td>char</td>
-<td>字符型</td>
-<td>Character</td>
-<td>2字节，16位，存储<code>Unicode</code>码，用单引号赋值。</td>
-</tr>
-<tr>
-<td>boolean</td>
-<td>布尔型</td>
-<td>Boolean</td>
-<td>只有<code>true</code>和<code>false</code>两个取值</td>
-</tr>
-</tbody>
-</table>
-<h2 id="byte">byte</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">byte</span> a = <span class="number">127</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 127</span></span><br><span class="line"><span class="keyword">byte</span> b = -<span class="number">128</span>;</span><br><span class="line">System.out.println(b); <span class="comment">// -128</span></span><br></pre></td></tr></table></figure>
-<h2 id="short">short</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">short</span> a = <span class="number">32767</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 32767</span></span><br><span class="line"><span class="keyword">short</span> b = -<span class="number">32768</span>;</span><br><span class="line">System.out.println(b); <span class="comment">// -32768</span></span><br></pre></td></tr></table></figure>
-<h2 id="int">int</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h2 id="long">long</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">long</span> a = <span class="number">2</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<h2 id="float">float</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">1.2f</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 1.2</span></span><br></pre></td></tr></table></figure>
-<h2 id="double">double</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> a = <span class="number">1.4d</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 1.4</span></span><br></pre></td></tr></table></figure>
-<h2 id="char">char</h2>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> a = <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// c</span></span><br></pre></td></tr></table></figure>
-<h2 id="boolean">boolean</h2>
-<h2 id="code￼7"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> a = <span class="keyword">true</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></h2>
-<h1>数据类型转换</h1>
-<p>合法的基本类型转换原则是指：从取值范围窄的类型向取值范围宽的类型转换。如果是从取值范围宽的类型向取值范围窄的类型转换，则会产生编译错误。</p>
-<p>转换规则：</p>
-<ul>
-<li>布尔型和其它基本数据类型之间不能相互转换</li>
-<li>byte型可以转换为short、int、、long、float和double</li>
-<li>short可转换为int、long、float和double</li>
-<li>char可转换为int、long、float和double</li>
-<li>int可转换为long、float和double</li>
-<li>long可转换为float和double</li>
-<li>float可转换为double</li>
-</ul>
-<p><strong>注意：类型强转可能会导致数据精度降低</strong></p>
-<p>举例：</p>
-<h2 id="code￼8"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">50.4f</span>;</span><br><span class="line"><span class="keyword">int</span> b = (<span class="keyword">int</span>) a;</span><br><span class="line">System.out.println(b); <span class="comment">// 50</span></span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<p>在一般情况下不轻易使用数据类型转换，可能导致错误。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--数组</title>
-    <url>/2021/03/09/Java/Java-%E6%95%B0%E7%BB%84/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java数组的创建与使用。</p>
-<hr>
-<h2 id="数组的概念">数组的概念</h2>
-<p>数组是相同类型数据的有序集合。<br>
-数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成。其中，每一个数据称作一个数组元素，每个数组元素可以通过一个下标来访问他们</p>
-<h2 id="数组的初始化">数组的初始化</h2>
-<h3 id="动态初始化">动态初始化</h3>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayA = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
-<p>可以拆分为两个步骤：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayA;</span><br><span class="line">arrayC = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
-<h3 id="静态初始化">静态初始化</h3>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayB = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>可以拆分为两个步骤：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayB;</span><br><span class="line">arrayB = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>静态初始化时可以简化书写：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayB = &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="内存分析">内存分析</h3>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaarray1.png" alt=""></p>
-<h2 id="数组的特点">数组的特点</h2>
-<ul>
-<li>
-<p>其长度是确定的。数组一旦被创建，它的大小就是不可以改变的。</p>
-</li>
-<li>
-<p>其元素必须是相同类型,不允许出现混合类型。</p>
-</li>
-<li>
-<p>数组中的元素可以是任何数据类型，包括基本类型和引用类型。</p>
-</li>
-<li>
-<p>数组变量属引用类型，数组也可以看成是对象，数组中的每个元素相当于该对象的成员变量。</p>
-</li>
-<li>
-<p>数组本身就是对象，Java中对象是在堆中的，因此数组无论保存原始类型还是其他对象类型,数组对象本身是在堆中的。</p>
-</li>
-<li>
-<p>关于数组边界：</p>
-<p>下标的合法区间：<code>[0，length-1]</code>,如果越界就会报错。</p>
-<p><code>ArraryIndexOutOfBoundsException</code>:数组下标越界异常！</p>
-</li>
-</ul>
-<h2 id="数组的使用">数组的使用</h2>
-<h3 id="for-Each-循环">for-Each 循环</h3>
-<p>适用于打印输出，不适合修改元素。</p>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
-<h3 id="数组做方法参数">数组做方法参数</h3>
-<p>数组可以作为参数传递给方法。</p>
-<p>示例：求和传入数组（整形）的和</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            s = s + array[i];</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(s); <span class="comment">//10</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        sum(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br></pre></td></tr></table></figure>
-<h3 id="数组做返回值">数组做返回值</h3>
-<p>示例：实现数组翻转</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] reverse(<span class="keyword">int</span>[] list) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[list.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = result.length - <span class="number">1</span>; i &lt; list.length; i++, j--) &#123;</span><br><span class="line">            result[j] = list[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = reverse(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : result)&#123;</span><br><span class="line">            System.out.println(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-<h3 id="多维数组">多维数组</h3>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] arrays = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">2</span>];<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] arrays = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">2</span>]; <span class="comment">//创建二维数组</span></span><br><span class="line">        arrays[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        System.out.println(arrays[<span class="number">0</span>][<span class="number">0</span>]); <span class="comment">//1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<h2 id="code￼13"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/Monuomeng/article/details/114394469?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161527709316780261922515%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=161527709316780261922515&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114394469.first_rank_v2_pc_rank_v29&amp;utm_term=java%E6%95%B0%E7%BB%84">《Java数组详解》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--循环结构</title>
-    <url>/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java循环结构的相关语法</p>
-<hr>
-<h1>Java循环结构</h1>
-<h2 id="while循环">while循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>( 布尔表达式 )  &#123;</span><br><span class="line">	<span class="comment">//循环内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( x &lt; <span class="number">10</span> ) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
-<h2 id="do…while循环">do…while循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">       <span class="comment">//代码语句,至少执行一次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(布尔表达式);</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;<span class="keyword">while</span>( x &lt; <span class="number">10</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
-<h2 id="for循环">for循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化; 布尔表达式; 更新) &#123;</span><br><span class="line">    <span class="comment">//代码语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>说明：</p>
-<ul>
-<li>最先执行初始化步骤。可以声明一种类型，但可初始化一个或多个循环控制变量，也可以是空语句。</li>
-<li>然后，检测布尔表达式的值。如果为 true，循环体被执行。如果为false，循环终止，开始执行循环体后面的语句。</li>
-<li>执行一次循环后，更新循环控制变量。</li>
-<li>再次检测布尔表达式。循环执行上面的过程。</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">11</span>; x &lt; <span class="number">10</span>; x++, y++) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value of y : &quot;</span> + y +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of y : 11</span><br><span class="line"></span><br><span class="line">value of x : 2</span><br><span class="line">value of y : 12</span><br><span class="line"></span><br><span class="line">value of x : 3</span><br><span class="line">value of y : 13</span><br><span class="line"></span><br><span class="line">value of x : 4</span><br><span class="line">value of y : 14</span><br><span class="line"></span><br><span class="line">value of x : 5</span><br><span class="line">value of y : 15</span><br><span class="line"></span><br><span class="line">value of x : 6</span><br><span class="line">value of y : 16</span><br><span class="line"></span><br><span class="line">value of x : 7</span><br><span class="line">value of y : 17</span><br><span class="line"></span><br><span class="line">value of x : 8</span><br><span class="line">value of y : 18</span><br><span class="line"></span><br><span class="line">value of x : 9</span><br><span class="line">value of y : 19</span><br></pre></td></tr></table></figure>
-<h2 id="增强for循环">增强for循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
-<h2 id="break关键字">break关键字</h2>
-<blockquote>
-<p>break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。<br>
-break 跳出最里层的循环，并且继续执行该循环下面的语句。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时跳出循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
-<h2 id="continue关键字">continue关键字</h2>
-<blockquote>
-<p>continue 适用于任何循环控制结构中。作用是让程序立刻跳转到下一次循环的迭代。<br>
-在 for 循环中，continue 语句使程序立即跳转到更新语句。<br>
-在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时直接进入下一循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果:</p>
-<h2 id="code￼15"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--方法重载</title>
-    <url>/2021/03/09/Java/Java-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java中方法重载的概念以及使用</p>
-<hr>
-<h1>方法重载</h1>
-<h2 id="概念">概念</h2>
-<p>在同一个类中，允许存在一个以上的同名方法，只要他们的参数个数或者参数的类型不同即可。</p>
-<h2 id="特点">特点</h2>
-<p>重载的方法与返回值类型无关，只看参数列表，且参数列表必须不同（参数个数或者参数类型）。调用时，根据方法参数列表的不同来区别。</p>
-<h2 id="示例">示例</h2>
-<p>写一个求和类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="comment">//两个整型数求和</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        System.out.println(a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//三个整形数求和</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        System.out.println(a+b+c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//两个浮点数求和</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">double</span> a,<span class="keyword">double</span> b)</span></span>&#123;</span><br><span class="line">        System.out.print((<span class="keyword">int</span>) (a+b));</span><br><span class="line">        System.out.println(<span class="string">&quot;  (打印整数部分)&quot;</span>);</span><br><span class="line">        System.out.print(a+b);</span><br><span class="line">        System.out.println(<span class="string">&quot;  (打印浮点数)&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        sum(<span class="number">10</span>,<span class="number">20</span>); <span class="comment">//30</span></span><br><span class="line">        sum(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>); <span class="comment">//60</span></span><br><span class="line">        sum(<span class="number">11.1</span>,<span class="number">22.2</span>); <span class="comment">//33  (打印整数部分) 33.3  (打印浮点数)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<h2 id="code￼1"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">30</span><br><span class="line">60</span><br><span class="line">33  (打印整数部分)</span><br><span class="line">33.3  (打印浮点数)</span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<p>在构建类的时候，一般默认会构建两个方法：</p>
-<ul>
-<li>无参数的构造方法（默认构造方法）</li>
-<li>全参的构造方法</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--类和对象</title>
-    <url>/2021/03/11/Java/Java-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本篇文章将介绍Java类和对象的相关内容。</p>
-<hr>
-<h1>关于面向对象</h1>
-<p>传统的结构化程序设计通过设计一系列的过程（即算法）来求解问题。一旦确定了这些过程，就要考虑存储数据的方式（即：算法 + 数据结构 = 程序）。注意在这种设计模式中，算法是第一位的，数据结构是第二位的。但是**面向对象程序设计（OOP）**调换了这一顺序：将数据放在第一位，然后再考虑操作数据的算法。</p>
-<p>面向对象与面向过程的区别：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>面向对象程序设计</th>
-<th>面向过程程序设计（结构化编程）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>定义</td>
-<td>面向对象顾名思义就是把现实中的事务都抽象成为程序设计中的“对象”，其基本思想是一切皆对象，是一种“自下而上”的设计语言，先设计组件，再完成拼装。</td>
-<td>面向过程是“自上而下”的设计语言，先定好框架，再增砖添瓦。通俗点，就是先定好main()函数，然后再逐步实现mian()函数中所要用到的其他方法。</td>
-</tr>
-<tr>
-<td>特点</td>
-<td>封装、继承、多态</td>
-<td>算法 + 数据结构</td>
-</tr>
-<tr>
-<td>优势</td>
-<td>适用于大型复杂系统，方便复用</td>
-<td>适用于简单系统，容易理解</td>
-</tr>
-<tr>
-<td>劣势</td>
-<td>比较抽象、性能比面向过程低</td>
-<td>难以应对复杂系统，难以复用，不易维护、不易扩展</td>
-</tr>
-<tr>
-<td>对比</td>
-<td>易维护、易复用、易扩展，由于面向对象有封装、继承、多态性的特性，可以设计出低耦合的系统，使系统 更加灵活、更加易于维护</td>
-<td>性能比面向对象高，因为类调用时需要实例化，开销比较大，比较消耗资源;比如单片机、嵌入式开发、 Linux/Unix等一般采用面向过程开发，性能是最重要的因素。</td>
-</tr>
-<tr>
-<td>设计语言</td>
-<td>Java、Smalltalk、EIFFEL、C++、Objective-、C#、Python等</td>
-<td>C、Fortran</td>
-</tr>
-</tbody>
-</table>
-<p>面向对象的基本特征：</p>
-<ul>
-<li>封装：保护内部的操作不被破坏；</li>
-<li>继承：在原本的基础之上继续进行扩充；</li>
-<li>多态：在一个指定的范围之内进行概念的转换。</li>
-</ul>
-<h1>类与对象的基本概念</h1>
-<p>把数据以及对数据的操作方法放在一起，作为一个相互依存的整体，这就是<strong>对象</strong>；对同类对象抽象出其共性，从而形成<strong>类</strong>。类与对象是整个面向对象中最基础的组成单元。</p>
-<ul>
-<li>类：是抽象的概念集合，表示的是一个共性的产物，类之中定义的是属性和行为（方法）；</li>
-<li>对象：对象是一种个性的表示，表示一个独立的个体，每个对象拥有自己独立的属性，依靠属性来区分不同对象。</li>
-</ul>
-<h1>类与对象的定义和使用</h1>
-<h2 id="定义标准类">定义标准类</h2>
-<p>定义一个标准类，通常拥有以下四个组成部分：</p>
-<ul>
-<li>所有成员变量都要使用<code>private</code>关键字修饰</li>
-<li>为每一个成员变量编写一对<code>Getter/Setter</code>方法</li>
-<li>编写一个无参数的构造方法</li>
-<li>编写一个全参数的构造方法</li>
-</ul>
-<p>这样标准的类也叫做<strong>Java Bean</strong>，定义语法如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类名称 </span>&#123;</span><br><span class="line">      <span class="keyword">private</span> 属性 (变量) ;</span><br><span class="line">      <span class="keyword">private</span> 行为 (方法) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如下示例，定义一个<code>Student</code>类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age; <span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123; <span class="comment">//无参数的构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123; <span class="comment">//全参数的构造方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123; <span class="comment">//变量name的Getter方法</span></span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123; <span class="comment">//变量name的Setter方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123; <span class="comment">//变量age的Getter方法</span></span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123; <span class="comment">//变量age的Setter方法</span></span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="类的使用">类的使用</h2>
-<p>类的定义完成之后，无法直接使用。如果要使用，首先需要<strong>导包</strong>（这不是必须的）：</p>
-<ul>
-<li>导包需要指出使用的类</li>
-<li>对于和当前类属于同一个包的情况，可省略导包语句不写</li>
-<li><code>java.lang</code>包下的内容不需要导包</li>
-<li>导包格式：<code>import 包名称.类名称;</code>（举例：import java.lang）</li>
-</ul>
-<p>使用类必须依靠对象，实例化对象的方法有如下两种方式：</p>
-<p>方式一：声明并实例化对象</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">类名称 对象名称 = <span class="keyword">new</span> 类名称 () ;</span><br></pre></td></tr></table></figure>
-<p>方式二：先声明对象，然后实例化对象</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">类名称 对象名称 = <span class="keyword">null</span> ;</span><br><span class="line">对象名称 = <span class="keyword">new</span> 类名称 () ;</span><br></pre></td></tr></table></figure>
-<p>示例，实例化一个<code>student</code>对象：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方式一</span></span><br><span class="line">Student student = <span class="keyword">new</span> Student();</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line">Student student = <span class="keyword">null</span></span><br><span class="line">student = <span class="keyword">new</span> Student();</span><br></pre></td></tr></table></figure>
-<p>解释语句：实例化对象语句分为两个部分，<code>new Student()</code>构造了一个Student类型的对象，并且它的值是对新创建对象的引用。这个引用存储在变量<code>student</code>中。</p>
-<blockquote>
-<p>引用数据类型与基本数据类型最大的不同在于：引用数据类型需要内存的分配和使用。所以，关键字new的主要功能就是分配内存空间，也就是说，只要使用引用数据类型，就要使用关键字new来分配内存空间。</p>
-</blockquote>
-<p>实例化对象之后，可以按照如下方式进行类的操作：</p>
-<ul>
-<li>调用类中的属性（变量）：<code>对象名.成员变量名;</code>（前提是类中的属性没有被关键字<code>Private</code>修饰）</li>
-<li>调用类中的方法：<code>对象名.成员方法名(参数);</code></li>
-</ul>
-<p>示例：操作Student类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student();  <span class="comment">//声明并实例化对象（调用一个无参的构造方法）</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line"></span><br><span class="line">        Student stu2 = <span class="keyword">null</span>; <span class="comment">//声明对象</span></span><br><span class="line">        stu2 = <span class="keyword">new</span> Student(<span class="string">&quot;李四&quot;</span>, <span class="number">21</span>); <span class="comment">//实例化对象（调用一个全参的构造方法）</span></span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名：张三，年龄：20</span><br><span class="line">姓名：李四，年龄：21</span><br></pre></td></tr></table></figure>
-<h2 id="区分不同实例化的方式">区分不同实例化的方式</h2>
-<p>从内存的角度分析。当然首先要给出两种内存空间的概念：</p>
-<ul>
-<li>堆内存：保存对象的属性内容。堆内存需要用new关键字来分配空间；</li>
-<li>栈内存：保存的是堆内存的地址（在这里为了分析方便，可以简单理解为栈内存保存的是对象的名字）。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess.png" alt=""></p>
-<p>在任何情况下，只要看见关键字<code>new</code>，都表示要分配新的堆内存空间，一旦堆内存空间分配了，里面就会有类中定义的属性，并且属性内容都是其对应数据类型的默认值。</p>
-<p>以上两种实例化对象方式内存表示如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess4.png" alt=""></p>
-<p>两种方式的差别在于①②，第一种声明并实例化的方式实际就是①②组合在一起，而第二种先声明然后实例化是把①和②分步骤来。</p>
-<p>如果没有实例化对象的过程，直接使用类，如下（则会报错）：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">null</span>; <span class="comment">//声明对象</span></span><br><span class="line">        <span class="comment">//stu1 = new Student(); //取消实例化对象步骤</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException</span><br><span class="line">	at Demo.Demo.main(Demo.java:8)</span><br></pre></td></tr></table></figure>
-<p>此时，程序只声明了Student对象，但并没有实例化Student对象（只有了栈内存，并没有对应的堆内存空间），则程序在编译的时候不会出现任何的错误，但是在执行的时候出现了上面的错误信息。这个错误信息表示的是“NullPointerException（空指向异常）”，这种异常只要是应用数据类型都有可能出现。</p>
-<h1>对象引用传递分析</h1>
-<p>同一块堆内存空间，可以同时被多个栈内存所指向，不同的栈可以修改同一块堆内存的内容。</p>
-<p>引用传递代码示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu1</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line"></span><br><span class="line">        Student stu2 = stu1; <span class="comment">//引用传递</span></span><br><span class="line">        stu2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">21</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名：张三，年龄：20</span><br><span class="line">姓名：李四，年龄：21</span><br></pre></td></tr></table></figure>
-<p>对应的内存分配图如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess6.png" alt=""></p>
-<p>我们来看另一种情况：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu1</span></span><br><span class="line">        Student stu2 = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu2</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        stu2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        stu2.setAge(<span class="number">21</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line"></span><br><span class="line">        stu2 = stu1; <span class="comment">//引用传递</span></span><br><span class="line">        stu2.setName(<span class="string">&quot;王五&quot;</span>);</span><br><span class="line">        stu2.setAge(<span class="number">22</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名：张三，年龄：20</span><br><span class="line">姓名：李四，年龄：21</span><br><span class="line">姓名：王五，年龄：22</span><br></pre></td></tr></table></figure>
-<p>对应的内存分配图如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess7.png" alt=""></p>
-<blockquote>
-<p>垃圾：指的是在程序开发之中没有任何对象所指向的一块堆内存空间，这块空间就成为垃圾，所有的垃圾将等待GC（垃圾收集器）不定期的进行回收与空间的释放。</p>
-</blockquote>
-<h1>关于封装性</h1>
-<p>前文提到面向对象的程序设计具有<strong>封装性</strong>。通俗的理解就是外部在调用类使用时，无法直接访问其内部属性，相当于对外不可见。举例如下代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu</span></span><br><span class="line">        stu.name = <span class="string">&quot;张三&quot;</span>; <span class="comment">//直接访问name属性</span></span><br><span class="line">        stu.age = <span class="number">20</span>; <span class="comment">//直接访问age属性</span></span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实际上在该段代码编写阶段就会直接提示错误信息，运行后可以也可以看到错误提示，name与age变量在Student类中是private访问控制。这就是封装性的具体体现，在Student类中，变量受到private关键字修饰，致使外部无法通过直接调用其属性并修改或访问。但是我们可以在定义类中增添对应属性的Setter/Getter方法来修改、访问。这就是具有封装性的标准类的一般创建方式。</p>
-<h1>关于构造方法</h1>
-<p>构造方法是在对象使用关键字new实例化的时候被调用。</p>
-<p>构造方法与普通方法最大的区别在于：构造方法在实例化对象（new）的时候只调用一次，而普通方法是在实例化对象之后可以随意调用多次。</p>
-<p>在创建类中会默认生成一个无参数的构造方法，但是一旦定义了一个构造方法，无参构造方法将不会自动生成。一个类中至少存在一个构造方法。</p>
-<p>同样的，构造方法也属于方法，同样可以重载，一般在构建类的时候，会创建一个无参数的构造的方法以及一个全参数的构造方法。（如有需要，可以自行创建其他参数形式的构造方法）：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age; <span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123; <span class="comment">//无参数的构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123; <span class="comment">//全参数的构造方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在进行构造方法重载时有一个编写建议：所有重载的构造方法按照参数的个数由多到少，或者是由少到多排列。</p>
-</blockquote>
-<h1>关于匿名对象</h1>
-<p>没名字的对象称为匿名对象，对象的名字按照之前的内存关系来讲，在栈内存之中，而对象的具体内容在堆内存之中保存，这样，没有栈内存指向堆内存空间，就是一个匿名对象。</p>
-<p>先定义一个<code>Book</code>类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">()</span> </span>&#123; <span class="comment">//无参的构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">(String name, <span class="keyword">double</span> price)</span> </span>&#123; <span class="comment">//全参的构造方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;书名：&quot;</span> + name + <span class="string">&quot;，价格：&quot;</span> + price);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>创建并使用匿名对象：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">new</span> Book(<span class="string">&quot;Java核心技术 卷Ⅰ&quot;</span>,<span class="number">149.00</span>).getInfo(); <span class="comment">//创建并使用匿名对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">书名：Java核心技术 卷Ⅰ，价格：149.0</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>匿名对象由于没有对应的栈内存指向，所以只能使用一次，一次之后就将成为垃圾，并且等待被GC回收释放。</p>
-</blockquote>
-<hr>
-<h1>结尾</h1>
-<p>参考资料：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/wei_zhi/article/details/52745268?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161542246216780357270501%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=161542246216780357270501&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-52745268.first_rank_v2_pc_rank_v29&amp;utm_term=java%E7%B1%BB">《Java类和对象 详解（一）》</a></p>
-<p><a href="https://blog.csdn.net/wei_zhi/article/details/52750933?spm=1001.2014.3001.5501">《Java类和对象 详解（二）》</a></p>
-<p>《Java核心技术·卷 I Core Java Volume Ⅰ-Fundamentls（Eleven Edition）》</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--运算符</title>
-    <url>/2021/03/08/Java/Java-%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java运算符的类型及其使用方法</p>
-<hr>
-<h1>运算符</h1>
-<h2 id="算数运算符">算数运算符</h2>
-<table>
-<thead>
-<tr>
-<th>算数运算符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>+</td>
-<td>加法运算；字符串连接运算</td>
-</tr>
-<tr>
-<td>-</td>
-<td>减法运算</td>
-</tr>
-<tr>
-<td>*</td>
-<td>乘法运算</td>
-</tr>
-<tr>
-<td>/</td>
-<td>除法运算</td>
-</tr>
-<tr>
-<td>%</td>
-<td>取模运算（两数相除取余数）</td>
-</tr>
-<tr>
-<td>++ / –</td>
-<td>自增 / 自减运算</td>
-</tr>
-</tbody>
-</table>
-<h2 id="赋值运算符">赋值运算符</h2>
-<table>
-<thead>
-<tr>
-<th>赋值运算符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>=</td>
-<td></td>
-</tr>
-<tr>
-<td>+=</td>
-<td>a += 3    相当于       a = a + 3</td>
-</tr>
-<tr>
-<td>-=</td>
-<td>b -= 4     相当于       b = b - 4</td>
-</tr>
-<tr>
-<td>*=</td>
-<td>c *= 5     相当于       c = c * 5</td>
-</tr>
-<tr>
-<td>/=</td>
-<td>d /= 6     相当于       d = d / 6</td>
-</tr>
-<tr>
-<td>%=</td>
-<td>e %= 7     相当于       e = e % 7</td>
-</tr>
-</tbody>
-</table>
-<h2 id="比较运算符">比较运算符</h2>
-<table>
-<thead>
-<tr>
-<th>比较运算符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>==</td>
-<td>是否相等</td>
-</tr>
-<tr>
-<td>&lt;</td>
-<td>是否小于</td>
-</tr>
-<tr>
-<td>&gt;</td>
-<td>是否大于</td>
-</tr>
-<tr>
-<td>&lt;=</td>
-<td>是否小于等于</td>
-</tr>
-<tr>
-<td>&gt;=</td>
-<td>是否大于等于</td>
-</tr>
-<tr>
-<td>!=</td>
-<td>是否不等</td>
-</tr>
-</tbody>
-</table>
-<h2 id="逻辑运算符">逻辑运算符</h2>
-<table>
-<thead>
-<tr>
-<th>逻辑运算符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&amp;&amp;</td>
-<td>与（并且）==&gt;   &amp;&amp; 全都是true，才是true；否则就是false</td>
-</tr>
-<tr>
-<td>||</td>
-<td>或（或者） ==&gt;  || 至少一个是true，就是true；全都是false，才是false</td>
-</tr>
-<tr>
-<td>！</td>
-<td>非（取反） ==&gt;  !  本来是true，变成false；本来是false，变成true</td>
-</tr>
-</tbody>
-</table>
-<h2 id="三元运算符">三元运算符</h2>
-<p>格式：<code>数据类型 变量名称 = 条件判断 ? 表达式A : 表达式B;</code></p>
-<p>判断条件是否成立：</p>
-<ul>
-<li>
-<p>如果成立为true，那么将表达式A的值赋值给左侧的变量；</p>
-</li>
-<li>
-<p>如果不成立为false，那么将表达式B的值赋值给左侧的变量；</p>
-</li>
-</ul>
-<p>举例：</p>
-<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a , b;</span><br><span class="line">a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 a 等于 1 成立，则设置 b 为 20，否则为 30</span></span><br><span class="line">b = (a == <span class="number">1</span>) ? <span class="number">20</span> : <span class="number">30</span>;</span><br><span class="line">System.out.println( <span class="string">&quot;Value of b is : &quot;</span> +  b ); <span class="comment">//Value of b is : 30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 a 等于 10 成立，则设置 b 为 20，否则为 30</span></span><br><span class="line">b = (a == <span class="number">10</span>) ? <span class="number">20</span> : <span class="number">30</span>;</span><br><span class="line">System.out.println( <span class="string">&quot;Value of b is : &quot;</span> + b ); <span class="comment">//Value of b is : 20</span></span><br></pre></td></tr></table></figure></h2>
-<h1>运算符优先级</h1>
-<table>
-<thead>
-<tr>
-<th>优先级</th>
-<th>运算符</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>（）</td>
-</tr>
-<tr>
-<td>2</td>
-<td>!    +(正)    -(负)    ++    –</td>
-</tr>
-<tr>
-<td>3</td>
-<td>*    /    %</td>
-</tr>
-<tr>
-<td>4</td>
-<td>+(加)    -(减)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>&lt;    &lt;=    &gt;    &gt;=</td>
-</tr>
-<tr>
-<td>6</td>
-<td>==    !=</td>
-</tr>
-<tr>
-<td>7</td>
-<td>^</td>
-</tr>
-<tr>
-<td>8</td>
-<td>&amp;&amp;</td>
-</tr>
-<tr>
-<td>9</td>
-<td>||</td>
-</tr>
-<tr>
-<td>10</td>
-<td>?:</td>
-</tr>
-<tr>
-<td>11</td>
-<td>=    +=    -=    *=    /=    %=</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h1>结尾</h1>
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--选择结构</title>
-    <url>/2021/03/08/Java/Java-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java选择结构的相关语法</p>
-<hr>
-<h1>Java选择结构</h1>
-<h2 id="条件语句">条件语句</h2>
-<h3 id="if语句">if语句</h3>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式为true将执行的语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>( x &lt; <span class="number">20</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;若满足条件，该语句打印&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">若满足条件，该语句打印</span><br></pre></td></tr></table></figure>
-<h3 id="if…else语句">if…else语句</h3>
-<p>语法:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式的值为true</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式的值为false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">if</span>( x &lt; <span class="number">20</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;若满足条件，该语句打印&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;若不满足条件，该语句打印&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">若不满足条件，该语句打印</span><br></pre></td></tr></table></figure>
-<h3 id="if…else-if…else语句">if…else if…else语句</h3>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式 <span class="number">1</span>)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式 1的值为true执行代码</span></span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(布尔表达式 <span class="number">2</span>)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式 2的值为true执行代码</span></span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(布尔表达式 <span class="number">3</span>)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式 3的值为true执行代码</span></span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="comment">//如果以上布尔表达式都不为true执行代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">40</span>;</span><br><span class="line">        <span class="keyword">if</span>( x == <span class="number">10</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;Value of X is 10&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>( x == <span class="number">20</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;Value of X is 20&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>( x == <span class="number">30</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;Value of X is 30&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;条件都不满足，该语句打印&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">条件都不满足，该语句打印</span><br></pre></td></tr></table></figure>
-<h2 id="switch-case-语句">switch case 语句</h2>
-<blockquote>
-<p>switch case 语句判断一个变量与一系列值中某个值是否相等，每个值称为一个分支。</p>
-</blockquote>
-<p>说明：</p>
-<ul>
-<li>switch 语句中的变量类型可以是： byte、short、int 或者 char。从 Java SE 7 开始，switch 支持字符串 String 类型，同时 case 标签必须为字符串常量或字面量。</li>
-<li>switch 语句可以拥有多个 case 语句。每个 case 后面跟一个要比较的值和冒号。</li>
-<li>case 语句中的值的数据类型必须与变量的数据类型相同，而且只能是常量或者字面常量。</li>
-<li>当变量的值与 case 语句的值相等时，那么 case 语句之后的语句开始执行，直到 break 语句出现才会跳出 switch 语句。</li>
-<li>当遇到 break 语句时，switch 语句终止。程序跳转到 switch 语句后面的语句执行。case 语句不必须要包含 break 语句。如果没有 break 语句出现，程序会继续执行下一条 case 语句，直到出现 break 语句。</li>
-<li>switch 语句可以包含一个 default 分支，该分支一般是 switch 语句的最后一个分支（可以在任何位置，但建议在最后一个）。default 在没有 case 语句的值和变量值相等的时候执行。default 分支不需要 break 语句。</li>
-</ul>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span>(expression)&#123;</span><br><span class="line">    <span class="keyword">case</span> value :</span><br><span class="line">       <span class="comment">//语句</span></span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">//可选</span></span><br><span class="line">    <span class="keyword">case</span> value :</span><br><span class="line">       <span class="comment">//语句</span></span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">//可选</span></span><br><span class="line">    <span class="comment">//可以有任意数量的case语句</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">//可选</span></span><br><span class="line">       <span class="comment">//语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> grade = <span class="string">&#x27;C&#x27;</span>;</span><br><span class="line">        <span class="keyword">switch</span>(grade)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;A&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;优秀&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;B&#x27;</span> :</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;C&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;良好&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;及格&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;F&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;你需要再努力努力&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;未知等级&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;你的等级是 &quot;</span> + grade);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果:</p>
-<h2 id="code￼11"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">良好</span><br><span class="line">你的等级是 C</span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java学习记录</title>
-    <url>/2021/03/28/Java/Java%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><p><em><strong>写这篇算作目录，方便查询</strong></em></p>
-<hr>
-<h1>Hello World</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline larger" href="/2021/03/08/Java/Java--HelloWorld/" 
-  title="点击跳转 至 《HelloWorld》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《HelloWorld》</span></a>
-</div>
-<h1>基本数据类型</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline blue larger" href="/2021/03/08/Java/Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" 
-  title="点击跳转 至 《基本数据类型》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《基本数据类型》</span></a>
-</div>
-<h1>运算符</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline pink larger" href="/2021/03/08/Java/Java-%E8%BF%90%E7%AE%97%E7%AC%A6/" 
-  title="点击跳转 至 《运算符》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《运算符》</span></a>
-</div>
-<h1>循环结构</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline red larger" href="/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" 
-  title="点击跳转 至 《循环结构》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《循环结构》</span></a>
-</div>
-<h1>选择结构</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline purple larger" href="/2021/03/08/Java/Java-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84/" 
-  title="点击跳转 至 《选择结构》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《选择结构》</span></a>
-</div>
-<h1>方法重载</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline orange larger" href="/2021/03/09/Java/Java-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" 
-  title="点击跳转 至 《方法重载》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《方法重载》</span></a>
-</div>
-<h1>数组</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline green larger" href="/2021/03/09/Java/Java-%E6%95%B0%E7%BB%84/" 
-  title="点击跳转 至 《数组》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《数组》</span></a>
-</div>
-<h1>类和对象</h1>
-<div class="btn-center">
-<a class="btn-beautify button--animated block outline larger" href="/2021/03/11/Java/Java-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" 
-  title="点击跳转 至 《类和对象》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《类和对象》</span></a>
-</div>]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -3367,25 +2548,822 @@ break 跳出最里层的循环，并且继续执行该循环下面的语句。</
       </tags>
   </entry>
   <entry>
-    <title>Python OSError: [Errno 22] Invalid argument 错误解决</title>
-    <url>/2021/02/06/Python/Python%20OSError-Errno-22-Invalid-argument%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>问题描述</h1>
-<p>在爬取视频数据并保存到本地时报错：<code>OSError: [Errno 22] Invalid argument</code></p>
-<h2 id="code￼0"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">OSError: [Errno <span class="number">22</span>] Invalid argument: <span class="string">&#x27;练习/汪涵与那些了不起的敦煌人|辗转千年，终其一生.mp4&#x27;</span></span><br></pre></td></tr></table></figure></h2>
-<h1>解决思路</h1>
-<p>在爬取其他视频时并没有报此错误，对比后发现是视频名称的问题：在调用<code>open</code>函数时，文件路径中含有字符<code>|</code>，导致报错。</p>
-<h2 id="code￼1"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(video_path+<span class="string">&#x27;.mp4&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">	fp.write(video_data)</span><br></pre></td></tr></table></figure></h2>
-<h1>问题解决</h1>
-<p>在爬取文件名时，将符号<code>|</code>替换掉。这里直接将其删去。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = new_tree.xpath(<span class="string">&#x27;//*[@id=&quot;detailsbd&quot;]/div[1]/div[2]/div/div[1]/h1/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">	name = name.replace(<span class="string">&quot;|&quot;</span>,<span class="string">&quot;&quot;</span>)  <span class="comment"># 将文件名中的“|”删去</span></span><br></pre></td></tr></table></figure>
-<p>至此问题得以解决。</p>
+    <title>Java--循环结构</title>
+    <url>/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java循环结构的相关语法</p>
+<hr>
+<h1>Java循环结构</h1>
+<h2 id="while循环">while循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>( 布尔表达式 )  &#123;</span><br><span class="line">	<span class="comment">//循环内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( x &lt; <span class="number">10</span> ) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
+<h2 id="do…while循环">do…while循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">       <span class="comment">//代码语句,至少执行一次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(布尔表达式);</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;<span class="keyword">while</span>( x &lt; <span class="number">10</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
+<h2 id="for循环">for循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化; 布尔表达式; 更新) &#123;</span><br><span class="line">    <span class="comment">//代码语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>最先执行初始化步骤。可以声明一种类型，但可初始化一个或多个循环控制变量，也可以是空语句。</li>
+<li>然后，检测布尔表达式的值。如果为 true，循环体被执行。如果为false，循环终止，开始执行循环体后面的语句。</li>
+<li>执行一次循环后，更新循环控制变量。</li>
+<li>再次检测布尔表达式。循环执行上面的过程。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">11</span>; x &lt; <span class="number">10</span>; x++, y++) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value of y : &quot;</span> + y +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of y : 11</span><br><span class="line"></span><br><span class="line">value of x : 2</span><br><span class="line">value of y : 12</span><br><span class="line"></span><br><span class="line">value of x : 3</span><br><span class="line">value of y : 13</span><br><span class="line"></span><br><span class="line">value of x : 4</span><br><span class="line">value of y : 14</span><br><span class="line"></span><br><span class="line">value of x : 5</span><br><span class="line">value of y : 15</span><br><span class="line"></span><br><span class="line">value of x : 6</span><br><span class="line">value of y : 16</span><br><span class="line"></span><br><span class="line">value of x : 7</span><br><span class="line">value of y : 17</span><br><span class="line"></span><br><span class="line">value of x : 8</span><br><span class="line">value of y : 18</span><br><span class="line"></span><br><span class="line">value of x : 9</span><br><span class="line">value of y : 19</span><br></pre></td></tr></table></figure>
+<h2 id="增强for循环">增强for循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
+<h2 id="break关键字">break关键字</h2>
+<blockquote>
+<p>break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。<br>
+break 跳出最里层的循环，并且继续执行该循环下面的语句。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时跳出循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+<h2 id="continue关键字">continue关键字</h2>
+<blockquote>
+<p>continue 适用于任何循环控制结构中。作用是让程序立刻跳转到下一次循环的迭代。<br>
+在 for 循环中，continue 语句使程序立即跳转到更新语句。<br>
+在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时直接进入下一循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果:</p>
+<h2 id="code￼15"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>Python</category>
-        <category>错误</category>
+        <category>学习笔记</category>
       </categories>
       <tags>
-        <tag>Python错误</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--基本数据类型</title>
+    <url>/2021/03/08/Java/Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java的八大基本数据类型</p>
+<hr>
+<h1>Java八大基本数据类型</h1>
+<table>
+<thead>
+<tr>
+<th>Java基本数据类型</th>
+<th>类型</th>
+<th>封装器类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>整数类型</td>
+<td>Byte</td>
+<td>1字节，8位，最大存储数据量是255，存放的数据范围是-128~127之间。</td>
+</tr>
+<tr>
+<td>short</td>
+<td>整数类型</td>
+<td>Short</td>
+<td>2字节，16位，最大数据存储量是65536，数据范围是-32768~32767之间。</td>
+</tr>
+<tr>
+<td>int</td>
+<td>整数类型</td>
+<td>Integer</td>
+<td>4字节，32位，最大数据存储容量是2的32次方减1，数据范围是负的2的31次方到正的2的31次方减1。</td>
+</tr>
+<tr>
+<td>long</td>
+<td>整数类型</td>
+<td>Long</td>
+<td>8字节，64位，最大数据存储容量是2的64次方减1，数据范围为负的2的63次方到正的2的63次方减1。</td>
+</tr>
+<tr>
+<td>float</td>
+<td>浮点类型</td>
+<td>Float</td>
+<td>4字节，32位，数据范围在3.4e-45~1.4e38，直接赋值时必须在数字后加上<code>f</code>或<code>F</code>。</td>
+</tr>
+<tr>
+<td>double</td>
+<td>浮点类型</td>
+<td>Double</td>
+<td>8字节，64位，数据范围在4.9e-324~1.8e308，赋值时可以加<code>d</code>或<code>D</code>也可以不加。</td>
+</tr>
+<tr>
+<td>char</td>
+<td>字符型</td>
+<td>Character</td>
+<td>2字节，16位，存储<code>Unicode</code>码，用单引号赋值。</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>布尔型</td>
+<td>Boolean</td>
+<td>只有<code>true</code>和<code>false</code>两个取值</td>
+</tr>
+</tbody>
+</table>
+<h2 id="byte">byte</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">byte</span> a = <span class="number">127</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 127</span></span><br><span class="line"><span class="keyword">byte</span> b = -<span class="number">128</span>;</span><br><span class="line">System.out.println(b); <span class="comment">// -128</span></span><br></pre></td></tr></table></figure>
+<h2 id="short">short</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">short</span> a = <span class="number">32767</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 32767</span></span><br><span class="line"><span class="keyword">short</span> b = -<span class="number">32768</span>;</span><br><span class="line">System.out.println(b); <span class="comment">// -32768</span></span><br></pre></td></tr></table></figure>
+<h2 id="int">int</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h2 id="long">long</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">long</span> a = <span class="number">2</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h2 id="float">float</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">1.2f</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 1.2</span></span><br></pre></td></tr></table></figure>
+<h2 id="double">double</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> a = <span class="number">1.4d</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// 1.4</span></span><br></pre></td></tr></table></figure>
+<h2 id="char">char</h2>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> a = <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// c</span></span><br></pre></td></tr></table></figure>
+<h2 id="boolean">boolean</h2>
+<h2 id="code￼7"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> a = <span class="keyword">true</span>;</span><br><span class="line">System.out.println(a); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></h2>
+<h1>数据类型转换</h1>
+<p>合法的基本类型转换原则是指：从取值范围窄的类型向取值范围宽的类型转换。如果是从取值范围宽的类型向取值范围窄的类型转换，则会产生编译错误。</p>
+<p>转换规则：</p>
+<ul>
+<li>布尔型和其它基本数据类型之间不能相互转换</li>
+<li>byte型可以转换为short、int、、long、float和double</li>
+<li>short可转换为int、long、float和double</li>
+<li>char可转换为int、long、float和double</li>
+<li>int可转换为long、float和double</li>
+<li>long可转换为float和double</li>
+<li>float可转换为double</li>
+</ul>
+<p><strong>注意：类型强转可能会导致数据精度降低</strong></p>
+<p>举例：</p>
+<h2 id="code￼8"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">50.4f</span>;</span><br><span class="line"><span class="keyword">int</span> b = (<span class="keyword">int</span>) a;</span><br><span class="line">System.out.println(b); <span class="comment">// 50</span></span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<p>在一般情况下不轻易使用数据类型转换，可能导致错误。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--HelloWorld</title>
+    <url>/2021/03/08/Java/Java--HelloWorld/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>Java学习之后搁置了很长时间，有很多东西都记不住了，因此决定重新过一遍，并做好学习记录。</p>
+<p>看看能做到什么程度吧（真的是唯爱Java）</p>
+<hr>
+<h1>打印 Hello World</h1>
+<p>编写第一个程序：Hello World</p>
+<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
+<h1>后记</h1>
+<p>计划回头复习，竟连最基本的语法都忘记了。。。。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--数组</title>
+    <url>/2021/03/09/Java/Java-%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java数组的创建与使用。</p>
+<hr>
+<h2 id="数组的概念">数组的概念</h2>
+<p>数组是相同类型数据的有序集合。<br>
+数组描述的是相同类型的若干个数据，按照一定的先后次序排列组合而成。其中，每一个数据称作一个数组元素，每个数组元素可以通过一个下标来访问他们</p>
+<h2 id="数组的初始化">数组的初始化</h2>
+<h3 id="动态初始化">动态初始化</h3>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayA = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<p>可以拆分为两个步骤：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayA;</span><br><span class="line">arrayC = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="静态初始化">静态初始化</h3>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayB = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以拆分为两个步骤：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayB;</span><br><span class="line">arrayB = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>静态初始化时可以简化书写：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrayB = &#123;<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="内存分析">内存分析</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaarray1.png" alt=""></p>
+<h2 id="数组的特点">数组的特点</h2>
+<ul>
+<li>
+<p>其长度是确定的。数组一旦被创建，它的大小就是不可以改变的。</p>
+</li>
+<li>
+<p>其元素必须是相同类型,不允许出现混合类型。</p>
+</li>
+<li>
+<p>数组中的元素可以是任何数据类型，包括基本类型和引用类型。</p>
+</li>
+<li>
+<p>数组变量属引用类型，数组也可以看成是对象，数组中的每个元素相当于该对象的成员变量。</p>
+</li>
+<li>
+<p>数组本身就是对象，Java中对象是在堆中的，因此数组无论保存原始类型还是其他对象类型,数组对象本身是在堆中的。</p>
+</li>
+<li>
+<p>关于数组边界：</p>
+<p>下标的合法区间：<code>[0，length-1]</code>,如果越界就会报错。</p>
+<p><code>ArraryIndexOutOfBoundsException</code>:数组下标越界异常！</p>
+</li>
+</ul>
+<h2 id="数组的使用">数组的使用</h2>
+<h3 id="for-Each-循环">for-Each 循环</h3>
+<p>适用于打印输出，不适合修改元素。</p>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
+<h3 id="数组做方法参数">数组做方法参数</h3>
+<p>数组可以作为参数传递给方法。</p>
+<p>示例：求和传入数组（整形）的和</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> s = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">            s = s + array[i];</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(s); <span class="comment">//10</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        sum(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br></pre></td></tr></table></figure>
+<h3 id="数组做返回值">数组做返回值</h3>
+<p>示例：实现数组翻转</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] reverse(<span class="keyword">int</span>[] list) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[list.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = result.length - <span class="number">1</span>; i &lt; list.length; i++, j--) &#123;</span><br><span class="line">            result[j] = list[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = reverse(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : result)&#123;</span><br><span class="line">            System.out.println(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<h3 id="多维数组">多维数组</h3>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] arrays = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">2</span>];<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] arrays = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">2</span>]; <span class="comment">//创建二维数组</span></span><br><span class="line">        arrays[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        System.out.println(arrays[<span class="number">0</span>][<span class="number">0</span>]); <span class="comment">//1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<h2 id="code￼13"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/Monuomeng/article/details/114394469?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161527709316780261922515%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=161527709316780261922515&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114394469.first_rank_v2_pc_rank_v29&amp;utm_term=java%E6%95%B0%E7%BB%84">《Java数组详解》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--方法重载</title>
+    <url>/2021/03/09/Java/Java-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java中方法重载的概念以及使用</p>
+<hr>
+<h1>方法重载</h1>
+<h2 id="概念">概念</h2>
+<p>在同一个类中，允许存在一个以上的同名方法，只要他们的参数个数或者参数的类型不同即可。</p>
+<h2 id="特点">特点</h2>
+<p>重载的方法与返回值类型无关，只看参数列表，且参数列表必须不同（参数个数或者参数类型）。调用时，根据方法参数列表的不同来区别。</p>
+<h2 id="示例">示例</h2>
+<p>写一个求和类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="comment">//两个整型数求和</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        System.out.println(a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//三个整形数求和</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        System.out.println(a+b+c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//两个浮点数求和</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">double</span> a,<span class="keyword">double</span> b)</span></span>&#123;</span><br><span class="line">        System.out.print((<span class="keyword">int</span>) (a+b));</span><br><span class="line">        System.out.println(<span class="string">&quot;  (打印整数部分)&quot;</span>);</span><br><span class="line">        System.out.print(a+b);</span><br><span class="line">        System.out.println(<span class="string">&quot;  (打印浮点数)&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        sum(<span class="number">10</span>,<span class="number">20</span>); <span class="comment">//30</span></span><br><span class="line">        sum(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>); <span class="comment">//60</span></span><br><span class="line">        sum(<span class="number">11.1</span>,<span class="number">22.2</span>); <span class="comment">//33  (打印整数部分) 33.3  (打印浮点数)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<h2 id="code￼1"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">30</span><br><span class="line">60</span><br><span class="line">33  (打印整数部分)</span><br><span class="line">33.3  (打印浮点数)</span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<p>在构建类的时候，一般默认会构建两个方法：</p>
+<ul>
+<li>无参数的构造方法（默认构造方法）</li>
+<li>全参的构造方法</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--类和对象</title>
+    <url>/2021/03/11/Java/Java-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本篇文章将介绍Java类和对象的相关内容。</p>
+<hr>
+<h1>关于面向对象</h1>
+<p>传统的结构化程序设计通过设计一系列的过程（即算法）来求解问题。一旦确定了这些过程，就要考虑存储数据的方式（即：算法 + 数据结构 = 程序）。注意在这种设计模式中，算法是第一位的，数据结构是第二位的。但是**面向对象程序设计（OOP）**调换了这一顺序：将数据放在第一位，然后再考虑操作数据的算法。</p>
+<p>面向对象与面向过程的区别：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>面向对象程序设计</th>
+<th>面向过程程序设计（结构化编程）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>面向对象顾名思义就是把现实中的事务都抽象成为程序设计中的“对象”，其基本思想是一切皆对象，是一种“自下而上”的设计语言，先设计组件，再完成拼装。</td>
+<td>面向过程是“自上而下”的设计语言，先定好框架，再增砖添瓦。通俗点，就是先定好main()函数，然后再逐步实现mian()函数中所要用到的其他方法。</td>
+</tr>
+<tr>
+<td>特点</td>
+<td>封装、继承、多态</td>
+<td>算法 + 数据结构</td>
+</tr>
+<tr>
+<td>优势</td>
+<td>适用于大型复杂系统，方便复用</td>
+<td>适用于简单系统，容易理解</td>
+</tr>
+<tr>
+<td>劣势</td>
+<td>比较抽象、性能比面向过程低</td>
+<td>难以应对复杂系统，难以复用，不易维护、不易扩展</td>
+</tr>
+<tr>
+<td>对比</td>
+<td>易维护、易复用、易扩展，由于面向对象有封装、继承、多态性的特性，可以设计出低耦合的系统，使系统 更加灵活、更加易于维护</td>
+<td>性能比面向对象高，因为类调用时需要实例化，开销比较大，比较消耗资源;比如单片机、嵌入式开发、 Linux/Unix等一般采用面向过程开发，性能是最重要的因素。</td>
+</tr>
+<tr>
+<td>设计语言</td>
+<td>Java、Smalltalk、EIFFEL、C++、Objective-、C#、Python等</td>
+<td>C、Fortran</td>
+</tr>
+</tbody>
+</table>
+<p>面向对象的基本特征：</p>
+<ul>
+<li>封装：保护内部的操作不被破坏；</li>
+<li>继承：在原本的基础之上继续进行扩充；</li>
+<li>多态：在一个指定的范围之内进行概念的转换。</li>
+</ul>
+<h1>类与对象的基本概念</h1>
+<p>把数据以及对数据的操作方法放在一起，作为一个相互依存的整体，这就是<strong>对象</strong>；对同类对象抽象出其共性，从而形成<strong>类</strong>。类与对象是整个面向对象中最基础的组成单元。</p>
+<ul>
+<li>类：是抽象的概念集合，表示的是一个共性的产物，类之中定义的是属性和行为（方法）；</li>
+<li>对象：对象是一种个性的表示，表示一个独立的个体，每个对象拥有自己独立的属性，依靠属性来区分不同对象。</li>
+</ul>
+<h1>类与对象的定义和使用</h1>
+<h2 id="定义标准类">定义标准类</h2>
+<p>定义一个标准类，通常拥有以下四个组成部分：</p>
+<ul>
+<li>所有成员变量都要使用<code>private</code>关键字修饰</li>
+<li>为每一个成员变量编写一对<code>Getter/Setter</code>方法</li>
+<li>编写一个无参数的构造方法</li>
+<li>编写一个全参数的构造方法</li>
+</ul>
+<p>这样标准的类也叫做<strong>Java Bean</strong>，定义语法如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类名称 </span>&#123;</span><br><span class="line">      <span class="keyword">private</span> 属性 (变量) ;</span><br><span class="line">      <span class="keyword">private</span> 行为 (方法) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如下示例，定义一个<code>Student</code>类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age; <span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123; <span class="comment">//无参数的构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123; <span class="comment">//全参数的构造方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123; <span class="comment">//变量name的Getter方法</span></span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123; <span class="comment">//变量name的Setter方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123; <span class="comment">//变量age的Getter方法</span></span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123; <span class="comment">//变量age的Setter方法</span></span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类的使用">类的使用</h2>
+<p>类的定义完成之后，无法直接使用。如果要使用，首先需要<strong>导包</strong>（这不是必须的）：</p>
+<ul>
+<li>导包需要指出使用的类</li>
+<li>对于和当前类属于同一个包的情况，可省略导包语句不写</li>
+<li><code>java.lang</code>包下的内容不需要导包</li>
+<li>导包格式：<code>import 包名称.类名称;</code>（举例：import java.lang）</li>
+</ul>
+<p>使用类必须依靠对象，实例化对象的方法有如下两种方式：</p>
+<p>方式一：声明并实例化对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">类名称 对象名称 = <span class="keyword">new</span> 类名称 () ;</span><br></pre></td></tr></table></figure>
+<p>方式二：先声明对象，然后实例化对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">类名称 对象名称 = <span class="keyword">null</span> ;</span><br><span class="line">对象名称 = <span class="keyword">new</span> 类名称 () ;</span><br></pre></td></tr></table></figure>
+<p>示例，实例化一个<code>student</code>对象：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//方式一</span></span><br><span class="line">Student student = <span class="keyword">new</span> Student();</span><br><span class="line"></span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line">Student student = <span class="keyword">null</span></span><br><span class="line">student = <span class="keyword">new</span> Student();</span><br></pre></td></tr></table></figure>
+<p>解释语句：实例化对象语句分为两个部分，<code>new Student()</code>构造了一个Student类型的对象，并且它的值是对新创建对象的引用。这个引用存储在变量<code>student</code>中。</p>
+<blockquote>
+<p>引用数据类型与基本数据类型最大的不同在于：引用数据类型需要内存的分配和使用。所以，关键字new的主要功能就是分配内存空间，也就是说，只要使用引用数据类型，就要使用关键字new来分配内存空间。</p>
+</blockquote>
+<p>实例化对象之后，可以按照如下方式进行类的操作：</p>
+<ul>
+<li>调用类中的属性（变量）：<code>对象名.成员变量名;</code>（前提是类中的属性没有被关键字<code>Private</code>修饰）</li>
+<li>调用类中的方法：<code>对象名.成员方法名(参数);</code></li>
+</ul>
+<p>示例：操作Student类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student();  <span class="comment">//声明并实例化对象（调用一个无参的构造方法）</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line"></span><br><span class="line">        Student stu2 = <span class="keyword">null</span>; <span class="comment">//声明对象</span></span><br><span class="line">        stu2 = <span class="keyword">new</span> Student(<span class="string">&quot;李四&quot;</span>, <span class="number">21</span>); <span class="comment">//实例化对象（调用一个全参的构造方法）</span></span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名：张三，年龄：20</span><br><span class="line">姓名：李四，年龄：21</span><br></pre></td></tr></table></figure>
+<h2 id="区分不同实例化的方式">区分不同实例化的方式</h2>
+<p>从内存的角度分析。当然首先要给出两种内存空间的概念：</p>
+<ul>
+<li>堆内存：保存对象的属性内容。堆内存需要用new关键字来分配空间；</li>
+<li>栈内存：保存的是堆内存的地址（在这里为了分析方便，可以简单理解为栈内存保存的是对象的名字）。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess.png" alt=""></p>
+<p>在任何情况下，只要看见关键字<code>new</code>，都表示要分配新的堆内存空间，一旦堆内存空间分配了，里面就会有类中定义的属性，并且属性内容都是其对应数据类型的默认值。</p>
+<p>以上两种实例化对象方式内存表示如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess4.png" alt=""></p>
+<p>两种方式的差别在于①②，第一种声明并实例化的方式实际就是①②组合在一起，而第二种先声明然后实例化是把①和②分步骤来。</p>
+<p>如果没有实例化对象的过程，直接使用类，如下（则会报错）：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">null</span>; <span class="comment">//声明对象</span></span><br><span class="line">        <span class="comment">//stu1 = new Student(); //取消实例化对象步骤</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.NullPointerException</span><br><span class="line">	at Demo.Demo.main(Demo.java:8)</span><br></pre></td></tr></table></figure>
+<p>此时，程序只声明了Student对象，但并没有实例化Student对象（只有了栈内存，并没有对应的堆内存空间），则程序在编译的时候不会出现任何的错误，但是在执行的时候出现了上面的错误信息。这个错误信息表示的是“NullPointerException（空指向异常）”，这种异常只要是应用数据类型都有可能出现。</p>
+<h1>对象引用传递分析</h1>
+<p>同一块堆内存空间，可以同时被多个栈内存所指向，不同的栈可以修改同一块堆内存的内容。</p>
+<p>引用传递代码示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu1</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line"></span><br><span class="line">        Student stu2 = stu1; <span class="comment">//引用传递</span></span><br><span class="line">        stu2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">21</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名：张三，年龄：20</span><br><span class="line">姓名：李四，年龄：21</span><br></pre></td></tr></table></figure>
+<p>对应的内存分配图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess6.png" alt=""></p>
+<p>我们来看另一种情况：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu1</span></span><br><span class="line">        Student stu2 = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu2</span></span><br><span class="line">        stu1.setName(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">        stu1.setAge(<span class="number">20</span>);</span><br><span class="line">        stu2.setName(<span class="string">&quot;李四&quot;</span>);</span><br><span class="line">        stu2.setAge(<span class="number">21</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu1.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu1.getAge());</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line"></span><br><span class="line">        stu2 = stu1; <span class="comment">//引用传递</span></span><br><span class="line">        stu2.setName(<span class="string">&quot;王五&quot;</span>);</span><br><span class="line">        stu2.setAge(<span class="number">22</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu2.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu2.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名：张三，年龄：20</span><br><span class="line">姓名：李四，年龄：21</span><br><span class="line">姓名：王五，年龄：22</span><br></pre></td></tr></table></figure>
+<p>对应的内存分配图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/Javaprocess7.png" alt=""></p>
+<blockquote>
+<p>垃圾：指的是在程序开发之中没有任何对象所指向的一块堆内存空间，这块空间就成为垃圾，所有的垃圾将等待GC（垃圾收集器）不定期的进行回收与空间的释放。</p>
+</blockquote>
+<h1>关于封装性</h1>
+<p>前文提到面向对象的程序设计具有<strong>封装性</strong>。通俗的理解就是外部在调用类使用时，无法直接访问其内部属性，相当于对外不可见。举例如下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student(); <span class="comment">//声明并实例化对象stu</span></span><br><span class="line">        stu.name = <span class="string">&quot;张三&quot;</span>; <span class="comment">//直接访问name属性</span></span><br><span class="line">        stu.age = <span class="number">20</span>; <span class="comment">//直接访问age属性</span></span><br><span class="line">        System.out.println(<span class="string">&quot;姓名：&quot;</span> + stu.getName() + <span class="string">&quot;，年龄：&quot;</span> + stu.getAge());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上在该段代码编写阶段就会直接提示错误信息，运行后可以也可以看到错误提示，name与age变量在Student类中是private访问控制。这就是封装性的具体体现，在Student类中，变量受到private关键字修饰，致使外部无法通过直接调用其属性并修改或访问。但是我们可以在定义类中增添对应属性的Setter/Getter方法来修改、访问。这就是具有封装性的标准类的一般创建方式。</p>
+<h1>关于构造方法</h1>
+<p>构造方法是在对象使用关键字new实例化的时候被调用。</p>
+<p>构造方法与普通方法最大的区别在于：构造方法在实例化对象（new）的时候只调用一次，而普通方法是在实例化对象之后可以随意调用多次。</p>
+<p>在创建类中会默认生成一个无参数的构造方法，但是一旦定义了一个构造方法，无参构造方法将不会自动生成。一个类中至少存在一个构造方法。</p>
+<p>同样的，构造方法也属于方法，同样可以重载，一般在构建类的时候，会创建一个无参数的构造的方法以及一个全参数的构造方法。（如有需要，可以自行创建其他参数形式的构造方法）：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name; <span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age; <span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123; <span class="comment">//无参数的构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123; <span class="comment">//全参数的构造方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在进行构造方法重载时有一个编写建议：所有重载的构造方法按照参数的个数由多到少，或者是由少到多排列。</p>
+</blockquote>
+<h1>关于匿名对象</h1>
+<p>没名字的对象称为匿名对象，对象的名字按照之前的内存关系来讲，在栈内存之中，而对象的具体内容在堆内存之中保存，这样，没有栈内存指向堆内存空间，就是一个匿名对象。</p>
+<p>先定义一个<code>Book</code>类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">()</span> </span>&#123; <span class="comment">//无参的构造方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">(String name, <span class="keyword">double</span> price)</span> </span>&#123; <span class="comment">//全参的构造方法</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;书名：&quot;</span> + name + <span class="string">&quot;，价格：&quot;</span> + price);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建并使用匿名对象：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">new</span> Book(<span class="string">&quot;Java核心技术 卷Ⅰ&quot;</span>,<span class="number">149.00</span>).getInfo(); <span class="comment">//创建并使用匿名对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">书名：Java核心技术 卷Ⅰ，价格：149.0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>匿名对象由于没有对应的栈内存指向，所以只能使用一次，一次之后就将成为垃圾，并且等待被GC回收释放。</p>
+</blockquote>
+<hr>
+<h1>结尾</h1>
+<p>参考资料：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/wei_zhi/article/details/52745268?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161542246216780357270501%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=161542246216780357270501&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-52745268.first_rank_v2_pc_rank_v29&amp;utm_term=java%E7%B1%BB">《Java类和对象 详解（一）》</a></p>
+<p><a href="https://blog.csdn.net/wei_zhi/article/details/52750933?spm=1001.2014.3001.5501">《Java类和对象 详解（二）》</a></p>
+<p>《Java核心技术·卷 I Core Java Volume Ⅰ-Fundamentls（Eleven Edition）》</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--运算符</title>
+    <url>/2021/03/08/Java/Java-%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java运算符的类型及其使用方法</p>
+<hr>
+<h1>运算符</h1>
+<h2 id="算数运算符">算数运算符</h2>
+<table>
+<thead>
+<tr>
+<th>算数运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>加法运算；字符串连接运算</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法运算</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法运算</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除法运算</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模运算（两数相除取余数）</td>
+</tr>
+<tr>
+<td>++ / –</td>
+<td>自增 / 自减运算</td>
+</tr>
+</tbody>
+</table>
+<h2 id="赋值运算符">赋值运算符</h2>
+<table>
+<thead>
+<tr>
+<th>赋值运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td></td>
+</tr>
+<tr>
+<td>+=</td>
+<td>a += 3    相当于       a = a + 3</td>
+</tr>
+<tr>
+<td>-=</td>
+<td>b -= 4     相当于       b = b - 4</td>
+</tr>
+<tr>
+<td>*=</td>
+<td>c *= 5     相当于       c = c * 5</td>
+</tr>
+<tr>
+<td>/=</td>
+<td>d /= 6     相当于       d = d / 6</td>
+</tr>
+<tr>
+<td>%=</td>
+<td>e %= 7     相当于       e = e % 7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="比较运算符">比较运算符</h2>
+<table>
+<thead>
+<tr>
+<th>比较运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>==</td>
+<td>是否相等</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>是否小于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>是否大于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>是否小于等于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>是否大于等于</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>是否不等</td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑运算符">逻辑运算符</h2>
+<table>
+<thead>
+<tr>
+<th>逻辑运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;&amp;</td>
+<td>与（并且）==&gt;   &amp;&amp; 全都是true，才是true；否则就是false</td>
+</tr>
+<tr>
+<td>||</td>
+<td>或（或者） ==&gt;  || 至少一个是true，就是true；全都是false，才是false</td>
+</tr>
+<tr>
+<td>！</td>
+<td>非（取反） ==&gt;  !  本来是true，变成false；本来是false，变成true</td>
+</tr>
+</tbody>
+</table>
+<h2 id="三元运算符">三元运算符</h2>
+<p>格式：<code>数据类型 变量名称 = 条件判断 ? 表达式A : 表达式B;</code></p>
+<p>判断条件是否成立：</p>
+<ul>
+<li>
+<p>如果成立为true，那么将表达式A的值赋值给左侧的变量；</p>
+</li>
+<li>
+<p>如果不成立为false，那么将表达式B的值赋值给左侧的变量；</p>
+</li>
+</ul>
+<p>举例：</p>
+<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a , b;</span><br><span class="line">a = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 a 等于 1 成立，则设置 b 为 20，否则为 30</span></span><br><span class="line">b = (a == <span class="number">1</span>) ? <span class="number">20</span> : <span class="number">30</span>;</span><br><span class="line">System.out.println( <span class="string">&quot;Value of b is : &quot;</span> +  b ); <span class="comment">//Value of b is : 30</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 a 等于 10 成立，则设置 b 为 20，否则为 30</span></span><br><span class="line">b = (a == <span class="number">10</span>) ? <span class="number">20</span> : <span class="number">30</span>;</span><br><span class="line">System.out.println( <span class="string">&quot;Value of b is : &quot;</span> + b ); <span class="comment">//Value of b is : 20</span></span><br></pre></td></tr></table></figure></h2>
+<h1>运算符优先级</h1>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>（）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>!    +(正)    -(负)    ++    –</td>
+</tr>
+<tr>
+<td>3</td>
+<td>*    /    %</td>
+</tr>
+<tr>
+<td>4</td>
+<td>+(加)    -(减)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>&lt;    &lt;=    &gt;    &gt;=</td>
+</tr>
+<tr>
+<td>6</td>
+<td>==    !=</td>
+</tr>
+<tr>
+<td>7</td>
+<td>^</td>
+</tr>
+<tr>
+<td>8</td>
+<td>&amp;&amp;</td>
+</tr>
+<tr>
+<td>9</td>
+<td>||</td>
+</tr>
+<tr>
+<td>10</td>
+<td>?:</td>
+</tr>
+<tr>
+<td>11</td>
+<td>=    +=    -=    *=    /=    %=</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1>结尾</h1>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--选择结构</title>
+    <url>/2021/03/08/Java/Java-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java选择结构的相关语法</p>
+<hr>
+<h1>Java选择结构</h1>
+<h2 id="条件语句">条件语句</h2>
+<h3 id="if语句">if语句</h3>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式为true将执行的语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>( x &lt; <span class="number">20</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;若满足条件，该语句打印&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">若满足条件，该语句打印</span><br></pre></td></tr></table></figure>
+<h3 id="if…else语句">if…else语句</h3>
+<p>语法:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式的值为true</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式的值为false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">30</span>;</span><br><span class="line">        <span class="keyword">if</span>( x &lt; <span class="number">20</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;若满足条件，该语句打印&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;若不满足条件，该语句打印&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">若不满足条件，该语句打印</span><br></pre></td></tr></table></figure>
+<h3 id="if…else-if…else语句">if…else if…else语句</h3>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(布尔表达式 <span class="number">1</span>)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式 1的值为true执行代码</span></span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(布尔表达式 <span class="number">2</span>)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式 2的值为true执行代码</span></span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(布尔表达式 <span class="number">3</span>)&#123;</span><br><span class="line">   <span class="comment">//如果布尔表达式 3的值为true执行代码</span></span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="comment">//如果以上布尔表达式都不为true执行代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">40</span>;</span><br><span class="line">        <span class="keyword">if</span>( x == <span class="number">10</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;Value of X is 10&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>( x == <span class="number">20</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;Value of X is 20&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>( x == <span class="number">30</span> )&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;Value of X is 30&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;条件都不满足，该语句打印&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">条件都不满足，该语句打印</span><br></pre></td></tr></table></figure>
+<h2 id="switch-case-语句">switch case 语句</h2>
+<blockquote>
+<p>switch case 语句判断一个变量与一系列值中某个值是否相等，每个值称为一个分支。</p>
+</blockquote>
+<p>说明：</p>
+<ul>
+<li>switch 语句中的变量类型可以是： byte、short、int 或者 char。从 Java SE 7 开始，switch 支持字符串 String 类型，同时 case 标签必须为字符串常量或字面量。</li>
+<li>switch 语句可以拥有多个 case 语句。每个 case 后面跟一个要比较的值和冒号。</li>
+<li>case 语句中的值的数据类型必须与变量的数据类型相同，而且只能是常量或者字面常量。</li>
+<li>当变量的值与 case 语句的值相等时，那么 case 语句之后的语句开始执行，直到 break 语句出现才会跳出 switch 语句。</li>
+<li>当遇到 break 语句时，switch 语句终止。程序跳转到 switch 语句后面的语句执行。case 语句不必须要包含 break 语句。如果没有 break 语句出现，程序会继续执行下一条 case 语句，直到出现 break 语句。</li>
+<li>switch 语句可以包含一个 default 分支，该分支一般是 switch 语句的最后一个分支（可以在任何位置，但建议在最后一个）。default 在没有 case 语句的值和变量值相等的时候执行。default 分支不需要 break 语句。</li>
+</ul>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span>(expression)&#123;</span><br><span class="line">    <span class="keyword">case</span> value :</span><br><span class="line">       <span class="comment">//语句</span></span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">//可选</span></span><br><span class="line">    <span class="keyword">case</span> value :</span><br><span class="line">       <span class="comment">//语句</span></span><br><span class="line">       <span class="keyword">break</span>; <span class="comment">//可选</span></span><br><span class="line">    <span class="comment">//可以有任意数量的case语句</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">//可选</span></span><br><span class="line">       <span class="comment">//语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> grade = <span class="string">&#x27;C&#x27;</span>;</span><br><span class="line">        <span class="keyword">switch</span>(grade)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;A&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;优秀&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;B&#x27;</span> :</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;C&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;良好&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;及格&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;F&#x27;</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;你需要再努力努力&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span> :</span><br><span class="line">                System.out.println(<span class="string">&quot;未知等级&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;你的等级是 &quot;</span> + grade);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果:</p>
+<h2 id="code￼11"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">良好</span><br><span class="line">你的等级是 C</span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java学习记录</title>
+    <url>/2021/03/28/Java/Java%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><p><em><strong>写这篇算作目录，方便查询</strong></em></p>
+<hr>
+<h1>Hello World</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline larger" href="/2021/03/08/Java/Java--HelloWorld/" 
+  title="点击跳转 至 《HelloWorld》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《HelloWorld》</span></a>
+</div>
+<h1>基本数据类型</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline blue larger" href="/2021/03/08/Java/Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" 
+  title="点击跳转 至 《基本数据类型》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《基本数据类型》</span></a>
+</div>
+<h1>运算符</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline pink larger" href="/2021/03/08/Java/Java-%E8%BF%90%E7%AE%97%E7%AC%A6/" 
+  title="点击跳转 至 《运算符》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《运算符》</span></a>
+</div>
+<h1>循环结构</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline red larger" href="/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/" 
+  title="点击跳转 至 《循环结构》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《循环结构》</span></a>
+</div>
+<h1>选择结构</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline purple larger" href="/2021/03/08/Java/Java-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84/" 
+  title="点击跳转 至 《选择结构》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《选择结构》</span></a>
+</div>
+<h1>方法重载</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline orange larger" href="/2021/03/09/Java/Java-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" 
+  title="点击跳转 至 《方法重载》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《方法重载》</span></a>
+</div>
+<h1>数组</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline green larger" href="/2021/03/09/Java/Java-%E6%95%B0%E7%BB%84/" 
+  title="点击跳转 至 《数组》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《数组》</span></a>
+</div>
+<h1>类和对象</h1>
+<div class="btn-center">
+<a class="btn-beautify button--animated block outline larger" href="/2021/03/11/Java/Java-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" 
+  title="点击跳转 至 《类和对象》"><i class="far fa-hand-point-right"></i><span>点击跳转 至 《类和对象》</span></a>
+</div>]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -3469,6 +3447,28 @@ break 跳出最里层的循环，并且继续执行该循环下面的语句。</
       </categories>
       <tags>
         <tag>Scrapy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python OSError: [Errno 22] Invalid argument 错误解决</title>
+    <url>/2021/02/06/Python/Python%20OSError-Errno-22-Invalid-argument%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>问题描述</h1>
+<p>在爬取视频数据并保存到本地时报错：<code>OSError: [Errno 22] Invalid argument</code></p>
+<h2 id="code￼0"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">OSError: [Errno <span class="number">22</span>] Invalid argument: <span class="string">&#x27;练习/汪涵与那些了不起的敦煌人|辗转千年，终其一生.mp4&#x27;</span></span><br></pre></td></tr></table></figure></h2>
+<h1>解决思路</h1>
+<p>在爬取其他视频时并没有报此错误，对比后发现是视频名称的问题：在调用<code>open</code>函数时，文件路径中含有字符<code>|</code>，导致报错。</p>
+<h2 id="code￼1"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(video_path+<span class="string">&#x27;.mp4&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">	fp.write(video_data)</span><br></pre></td></tr></table></figure></h2>
+<h1>问题解决</h1>
+<p>在爬取文件名时，将符号<code>|</code>替换掉。这里直接将其删去。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = new_tree.xpath(<span class="string">&#x27;//*[@id=&quot;detailsbd&quot;]/div[1]/div[2]/div/div[1]/h1/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">	name = name.replace(<span class="string">&quot;|&quot;</span>,<span class="string">&quot;&quot;</span>)  <span class="comment"># 将文件名中的“|”删去</span></span><br></pre></td></tr></table></figure>
+<p>至此问题得以解决。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>错误</category>
+      </categories>
+      <tags>
+        <tag>Python错误</tag>
       </tags>
   </entry>
   <entry>
