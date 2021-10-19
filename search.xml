@@ -1056,68 +1056,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo增添公告栏计时器小部件</title>
-    <url>/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%85%AC%E5%91%8A%E6%A0%8F%E8%AE%A1%E6%97%B6%E5%99%A8%E5%B0%8F%E9%83%A8%E4%BB%B6/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
-<p>本问将介绍如何在公告栏增加计时器小部件，效果如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/ggldemo.png" alt=""></p>
-<blockquote>
-<p>教程链接：<a href="https://surpsec.cn/3178170368.html">https://surpsec.cn/3178170368.html</a></p>
-</blockquote>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>在<code>\themes\butterfly\source\js</code>目录下创建一个<code>timing.js</code>文件，并将如下代码写入该文件：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> oSpan = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;timing&quot;</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">let</span> localhostTime = <span class="keyword">new</span> <span class="built_in">Date</span>();<span class="comment">//获取页面打开的时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tow</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n &gt;= <span class="number">0</span> &amp;&amp; n &lt; <span class="number">10</span> ? <span class="string">&#x27;0&#x27;</span> + n : <span class="string">&#x27;&#x27;</span> + n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> goTime = <span class="keyword">new</span> <span class="built_in">Date</span>();<span class="comment">//获取动态时间</span></span><br><span class="line">    <span class="keyword">let</span> diffTime = goTime.getTime() - localhostTime.getTime();</span><br><span class="line">    <span class="keyword">var</span> second = <span class="built_in">Math</span>.floor(diffTime / <span class="number">1000</span>);<span class="comment">//未来时间距离现在的秒数</span></span><br><span class="line">    <span class="keyword">var</span> day = <span class="built_in">Math</span>.floor(second / <span class="number">86400</span>);<span class="comment">//整数部分代表的是天；一天有24*60*60=86400秒 ；</span></span><br><span class="line">    second = second % <span class="number">86400</span>;<span class="comment">//余数代表剩下的秒数；</span></span><br><span class="line">    <span class="keyword">var</span> hour = <span class="built_in">Math</span>.floor(second / <span class="number">3600</span>);<span class="comment">//整数部分代表小时；</span></span><br><span class="line">    second %= <span class="number">3600</span>; <span class="comment">//余数代表 剩下的秒数；</span></span><br><span class="line">    <span class="keyword">var</span> minute = <span class="built_in">Math</span>.floor(second / <span class="number">60</span>);</span><br><span class="line">    second %= <span class="number">60</span>;</span><br><span class="line">    <span class="comment">// var str = tow(day) + &#x27;&lt;span class=&quot;time&quot;&gt;天&lt;/span&gt;&#x27;</span></span><br><span class="line">    <span class="comment">//     + tow(hour) + &#x27;&lt;span class=&quot;time&quot;&gt;小时&lt;/span&gt;&#x27;</span></span><br><span class="line">    <span class="comment">//     + tow(minute) + &#x27;&lt;span class=&quot;time&quot;&gt;分钟&lt;/span&gt;&#x27;</span></span><br><span class="line">    <span class="comment">//     + tow(second) + &#x27;&lt;span class=&quot;time&quot;&gt;秒&lt;/span&gt;&#x27;;</span></span><br><span class="line">    <span class="keyword">var</span> str = tow(hour) + <span class="string">&#x27;&lt;span class=&quot;time&quot;&gt;小时&lt;/span&gt;&#x27;</span></span><br><span class="line">        + tow(minute) + <span class="string">&#x27;&lt;span class=&quot;time&quot;&gt;分钟&lt;/span&gt;&#x27;</span></span><br><span class="line">        + tow(second) + <span class="string">&#x27;&lt;span class=&quot;time&quot;&gt;秒&lt;/span&gt;&#x27;</span>;</span><br><span class="line">    oSpan.innerHTML = <span class="string">&quot;您已浏览网页&quot;</span> + str;</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入该js文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/js/timing.js&quot;&gt;&lt;/script&gt;</span> <span class="comment"># 公告栏计时器插件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>在<code>\themes\butterfly\layout\includes\widget</code>目录下找到<code>card_announcement.pug</code>文件，添加<code>timing</code>（<strong>注意缩进</strong>）：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/gglcardcode.png" alt=""></p>
-</li>
-<li>
-<p>重新部署，启动，就可以看到效果啦。</p>
-</li>
-</ol>
-<hr>
-<h1>结尾</h1>
-<p>一个小小的改动，还不错。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo增添上升气泡效果</title>
-    <url>/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E4%B8%8A%E5%8D%87%E6%B0%94%E6%B3%A1%E6%95%88%E6%9E%9C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍如何增添上升气泡效果，效果如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/bubble.png" alt=""></p>
-<p>教程链接：<a href="https://weilining.cf/95.html">https://weilining.cf/95.html</a></p>
-<hr>
-<h1>操作</h1>
-<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入以下文件:</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">defer</span> <span class="string">src=&quot;https://cdn.jsdelivr.net/combine/npm/jquery@latest/dist/jquery.min.js,gh/weilining/jsdelivr/jquery/circlemagic/circlemagic.min.js,gh/weilining/jsdelivr@latest/jquery/circlemagic/butterflycirclemagic.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p>重新部署，启动，就可以看到效果啦。</p>
-<hr>
-<h1>结尾</h1>
-<p>还是很好看的一个效果（虽然我没采用，因为画面太乱了）。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo在顶部增加天气小部件</title>
     <url>/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%A2%9E%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E9%83%A8%E4%BB%B6/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
@@ -1160,6 +1098,68 @@
 <hr>
 <h1>结尾</h1>
 <p>慢慢地开始接触并修改源文件了。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo增添上升气泡效果</title>
+    <url>/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E4%B8%8A%E5%8D%87%E6%B0%94%E6%B3%A1%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍如何增添上升气泡效果，效果如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/bubble.png" alt=""></p>
+<p>教程链接：<a href="https://weilining.cf/95.html">https://weilining.cf/95.html</a></p>
+<hr>
+<h1>操作</h1>
+<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入以下文件:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">defer</span> <span class="string">src=&quot;https://cdn.jsdelivr.net/combine/npm/jquery@latest/dist/jquery.min.js,gh/weilining/jsdelivr/jquery/circlemagic/circlemagic.min.js,gh/weilining/jsdelivr@latest/jquery/circlemagic/butterflycirclemagic.js&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重新部署，启动，就可以看到效果啦。</p>
+<hr>
+<h1>结尾</h1>
+<p>还是很好看的一个效果（虽然我没采用，因为画面太乱了）。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo增添公告栏计时器小部件</title>
+    <url>/butterfly/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%85%AC%E5%91%8A%E6%A0%8F%E8%AE%A1%E6%97%B6%E5%99%A8%E5%B0%8F%E9%83%A8%E4%BB%B6/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
+<p>本问将介绍如何在公告栏增加计时器小部件，效果如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/ggldemo.png" alt=""></p>
+<blockquote>
+<p>教程链接：<a href="https://surpsec.cn/3178170368.html">https://surpsec.cn/3178170368.html</a></p>
+</blockquote>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\js</code>目录下创建一个<code>timing.js</code>文件，并将如下代码写入该文件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> oSpan = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;timing&quot;</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">let</span> localhostTime = <span class="keyword">new</span> <span class="built_in">Date</span>();<span class="comment">//获取页面打开的时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tow</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n &gt;= <span class="number">0</span> &amp;&amp; n &lt; <span class="number">10</span> ? <span class="string">&#x27;0&#x27;</span> + n : <span class="string">&#x27;&#x27;</span> + n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> goTime = <span class="keyword">new</span> <span class="built_in">Date</span>();<span class="comment">//获取动态时间</span></span><br><span class="line">    <span class="keyword">let</span> diffTime = goTime.getTime() - localhostTime.getTime();</span><br><span class="line">    <span class="keyword">var</span> second = <span class="built_in">Math</span>.floor(diffTime / <span class="number">1000</span>);<span class="comment">//未来时间距离现在的秒数</span></span><br><span class="line">    <span class="keyword">var</span> day = <span class="built_in">Math</span>.floor(second / <span class="number">86400</span>);<span class="comment">//整数部分代表的是天；一天有24*60*60=86400秒 ；</span></span><br><span class="line">    second = second % <span class="number">86400</span>;<span class="comment">//余数代表剩下的秒数；</span></span><br><span class="line">    <span class="keyword">var</span> hour = <span class="built_in">Math</span>.floor(second / <span class="number">3600</span>);<span class="comment">//整数部分代表小时；</span></span><br><span class="line">    second %= <span class="number">3600</span>; <span class="comment">//余数代表 剩下的秒数；</span></span><br><span class="line">    <span class="keyword">var</span> minute = <span class="built_in">Math</span>.floor(second / <span class="number">60</span>);</span><br><span class="line">    second %= <span class="number">60</span>;</span><br><span class="line">    <span class="comment">// var str = tow(day) + &#x27;&lt;span class=&quot;time&quot;&gt;天&lt;/span&gt;&#x27;</span></span><br><span class="line">    <span class="comment">//     + tow(hour) + &#x27;&lt;span class=&quot;time&quot;&gt;小时&lt;/span&gt;&#x27;</span></span><br><span class="line">    <span class="comment">//     + tow(minute) + &#x27;&lt;span class=&quot;time&quot;&gt;分钟&lt;/span&gt;&#x27;</span></span><br><span class="line">    <span class="comment">//     + tow(second) + &#x27;&lt;span class=&quot;time&quot;&gt;秒&lt;/span&gt;&#x27;;</span></span><br><span class="line">    <span class="keyword">var</span> str = tow(hour) + <span class="string">&#x27;&lt;span class=&quot;time&quot;&gt;小时&lt;/span&gt;&#x27;</span></span><br><span class="line">        + tow(minute) + <span class="string">&#x27;&lt;span class=&quot;time&quot;&gt;分钟&lt;/span&gt;&#x27;</span></span><br><span class="line">        + tow(second) + <span class="string">&#x27;&lt;span class=&quot;time&quot;&gt;秒&lt;/span&gt;&#x27;</span>;</span><br><span class="line">    oSpan.innerHTML = <span class="string">&quot;您已浏览网页&quot;</span> + str;</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入该js文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">bottom:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;/js/timing.js&quot;&gt;&lt;/script&gt;</span> <span class="comment"># 公告栏计时器插件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>在<code>\themes\butterfly\layout\includes\widget</code>目录下找到<code>card_announcement.pug</code>文件，添加<code>timing</code>（<strong>注意缩进</strong>）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/gglcardcode.png" alt=""></p>
+</li>
+<li>
+<p>重新部署，启动，就可以看到效果啦。</p>
+</li>
+</ol>
+<hr>
+<h1>结尾</h1>
+<p>一个小小的改动，还不错。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1384,35 +1384,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo文章页透明效果</title>
-    <url>/butterfly/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%96%87%E7%AB%A0%E9%A1%B5%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
-<p>在不妨碍正常阅读的情况下想更好地展示背景或者一些效果，实现文章页透明是一种不错的选择。</p>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>在<code>\themes\butterfly\source\css</code>路径下创建一个<code>xxx.css</code>文件，在文件中添加如下代码：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 首页文章栏背景透明 */</span></span><br><span class="line"><span class="selector-id">#recent-posts</span>&gt;<span class="selector-class">.recent-post-item</span>,<span class="selector-class">.layout_page</span>&gt;<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child<span class="selector-pseudo">:not</span>(<span class="selector-class">.recent-posts</span>),<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#page</span>,<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span>,<span class="selector-class">.read-mode</span> <span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 侧边栏透明 */</span></span><br><span class="line"><span class="selector-id">#aside-content</span> <span class="selector-class">.card-widget</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>然后将该文件引入到<code>_config.butterfly.yml</code>文件中<code>inject</code>的<code>head</code>处：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>至此，重新部署后就可以看到效果啦</p>
-<hr>
-<h1>结尾</h1>
-<p>没得结尾。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo添加两句诗词</title>
     <url>/butterfly/2021/05/29/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%B7%BB%E5%8A%A0%E4%B8%A4%E5%8F%A5%E8%AF%97%E8%AF%8D/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
@@ -1466,6 +1437,35 @@
 <p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p>
 <p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com/</a></p>
 <p>可以访问：<a href="https://v2.jinrishici.com/one.json">https://v2.jinrishici.com/one.json</a> 查看效果</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo文章页透明效果</title>
+    <url>/butterfly/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%96%87%E7%AB%A0%E9%A1%B5%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
+<p>在不妨碍正常阅读的情况下想更好地展示背景或者一些效果，实现文章页透明是一种不错的选择。</p>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\css</code>路径下创建一个<code>xxx.css</code>文件，在文件中添加如下代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 首页文章栏背景透明 */</span></span><br><span class="line"><span class="selector-id">#recent-posts</span>&gt;<span class="selector-class">.recent-post-item</span>,<span class="selector-class">.layout_page</span>&gt;<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child<span class="selector-pseudo">:not</span>(<span class="selector-class">.recent-posts</span>),<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#page</span>,<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span>,<span class="selector-class">.read-mode</span> <span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 侧边栏透明 */</span></span><br><span class="line"><span class="selector-id">#aside-content</span> <span class="selector-class">.card-widget</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后将该文件引入到<code>_config.butterfly.yml</code>文件中<code>inject</code>的<code>head</code>处：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>至此，重新部署后就可以看到效果啦</p>
+<hr>
+<h1>结尾</h1>
+<p>没得结尾。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1819,26 +1819,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo站点加载动画修改（巫师、钢铁侠核心、稻草人、自定义效果）</title>
-    <url>/butterfly/2021/03/06/Hexo%E9%AD%94%E6%94%B9/Hexo%E7%AB%99%E7%82%B9%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E4%BF%AE%E6%94%B9%EF%BC%88%E5%B7%AB%E5%B8%88%E3%80%81%E9%92%A2%E9%93%81%E4%BE%A0%E6%A0%B8%E5%BF%83%E3%80%81%E7%A8%BB%E8%8D%89%E4%BA%BA%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%88%E6%9E%9C%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><p>效果见本站。</p>
-<p>需要改动大量主题源码，谨慎修改。</p>
-<blockquote>
-<p>参考博客：<strong>Akilarの糖果屋</strong>（<a href="https://akilar.top/">https://akilar.top/</a> ）</p>
-<p>参考文章：《Loading Animation》（<a href="https://akilar.top/posts/3d221bf2/">https://akilar.top/posts/3d221bf2/</a> ）</p>
-</blockquote>
-<hr>
-<h1>后记</h1>
-<p>Akilar大神帮助我了很多，在此特别鸣谢。🚀🚀🚀🚀</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo站点加载动画修改（齿轮效果）</title>
     <url>/butterfly/2021/02/25/Hexo%E9%AD%94%E6%94%B9/Hexo%E7%AB%99%E7%82%B9%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E4%BF%AE%E6%94%B9%EF%BC%88%E9%BD%BF%E8%BD%AE%E6%95%88%E6%9E%9C%EF%BC%89/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
@@ -1888,6 +1868,26 @@
 <hr>
 <h1>结尾</h1>
 <p>慢慢改动源码的时候也在不断探索，学习其中的内容。之前看到过一篇文章提到，自己没事查看源码，有一些文件的语法根本没有学过，可以通过其中的一些常见的标记大概猜测每个代码块是什么作用，进而逐渐掌握其中的规律。确实是一种很好的自我探索的方法。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo站点加载动画修改（巫师、钢铁侠核心、稻草人、自定义效果）</title>
+    <url>/butterfly/2021/03/06/Hexo%E9%AD%94%E6%94%B9/Hexo%E7%AB%99%E7%82%B9%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E4%BF%AE%E6%94%B9%EF%BC%88%E5%B7%AB%E5%B8%88%E3%80%81%E9%92%A2%E9%93%81%E4%BE%A0%E6%A0%B8%E5%BF%83%E3%80%81%E7%A8%BB%E8%8D%89%E4%BA%BA%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%88%E6%9E%9C%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><p>效果见本站。</p>
+<p>需要改动大量主题源码，谨慎修改。</p>
+<blockquote>
+<p>参考博客：<strong>Akilarの糖果屋</strong>（<a href="https://akilar.top/">https://akilar.top/</a> ）</p>
+<p>参考文章：《Loading Animation》（<a href="https://akilar.top/posts/3d221bf2/">https://akilar.top/posts/3d221bf2/</a> ）</p>
+</blockquote>
+<hr>
+<h1>后记</h1>
+<p>Akilar大神帮助我了很多，在此特别鸣谢。🚀🚀🚀🚀</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -2173,6 +2173,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Java--HelloWorld</title>
+    <url>/butterfly/2021/03/08/Java/Java--HelloWorld/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
+<p>Java学习之后搁置了很长时间，有很多东西都记不住了，因此决定重新过一遍，并做好学习记录。</p>
+<p>看看能做到什么程度吧（真的是唯爱Java）</p>
+<hr>
+<h1>打印 Hello World</h1>
+<p>编写第一个程序：Hello World</p>
+<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
+<h1>后记</h1>
+<p>计划回头复习，竟连最基本的语法都忘记了。。。。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java--基本数据类型</title>
     <url>/butterfly/2021/03/08/Java/Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
@@ -2281,99 +2301,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java--HelloWorld</title>
-    <url>/butterfly/2021/03/08/Java/Java--HelloWorld/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
-<p>Java学习之后搁置了很长时间，有很多东西都记不住了，因此决定重新过一遍，并做好学习记录。</p>
-<p>看看能做到什么程度吧（真的是唯爱Java）</p>
-<hr>
-<h1>打印 Hello World</h1>
-<p>编写第一个程序：Hello World</p>
-<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
-<h1>后记</h1>
-<p>计划回头复习，竟连最基本的语法都忘记了。。。。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--循环结构</title>
-    <url>/butterfly/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java循环结构的相关语法</p>
-<hr>
-<h1>Java循环结构</h1>
-<h2 id="while循环">while循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>( 布尔表达式 )  &#123;</span><br><span class="line">	<span class="comment">//循环内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( x &lt; <span class="number">10</span> ) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
-<h2 id="do…while循环">do…while循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">       <span class="comment">//代码语句,至少执行一次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(布尔表达式);</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;<span class="keyword">while</span>( x &lt; <span class="number">10</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
-<h2 id="for循环">for循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化; 布尔表达式; 更新) &#123;</span><br><span class="line">    <span class="comment">//代码语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>说明：</p>
-<ul>
-<li>最先执行初始化步骤。可以声明一种类型，但可初始化一个或多个循环控制变量，也可以是空语句。</li>
-<li>然后，检测布尔表达式的值。如果为 true，循环体被执行。如果为false，循环终止，开始执行循环体后面的语句。</li>
-<li>执行一次循环后，更新循环控制变量。</li>
-<li>再次检测布尔表达式。循环执行上面的过程。</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">11</span>; x &lt; <span class="number">10</span>; x++, y++) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value of y : &quot;</span> + y +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of y : 11</span><br><span class="line"></span><br><span class="line">value of x : 2</span><br><span class="line">value of y : 12</span><br><span class="line"></span><br><span class="line">value of x : 3</span><br><span class="line">value of y : 13</span><br><span class="line"></span><br><span class="line">value of x : 4</span><br><span class="line">value of y : 14</span><br><span class="line"></span><br><span class="line">value of x : 5</span><br><span class="line">value of y : 15</span><br><span class="line"></span><br><span class="line">value of x : 6</span><br><span class="line">value of y : 16</span><br><span class="line"></span><br><span class="line">value of x : 7</span><br><span class="line">value of y : 17</span><br><span class="line"></span><br><span class="line">value of x : 8</span><br><span class="line">value of y : 18</span><br><span class="line"></span><br><span class="line">value of x : 9</span><br><span class="line">value of y : 19</span><br></pre></td></tr></table></figure>
-<h2 id="增强for循环">增强for循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
-<h2 id="break关键字">break关键字</h2>
-<blockquote>
-<p>break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。<br>
-break 跳出最里层的循环，并且继续执行该循环下面的语句。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时跳出循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
-<h2 id="continue关键字">continue关键字</h2>
-<blockquote>
-<p>continue 适用于任何循环控制结构中。作用是让程序立刻跳转到下一次循环的迭代。<br>
-在 for 循环中，continue 语句使程序立即跳转到更新语句。<br>
-在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时直接进入下一循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果:</p>
-<h2 id="code￼15"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java--数组</title>
     <url>/butterfly/2021/03/09/Java/Java-%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
@@ -2448,6 +2375,79 @@ break 跳出最里层的循环，并且继续执行该循环下面的语句。</
 <h1>结尾</h1>
 <blockquote>
 <p>参考：<a href="https://blog.csdn.net/Monuomeng/article/details/114394469?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161527709316780261922515%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=161527709316780261922515&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114394469.first_rank_v2_pc_rank_v29&amp;utm_term=java%E6%95%B0%E7%BB%84">《Java数组详解》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--循环结构</title>
+    <url>/butterfly/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java循环结构的相关语法</p>
+<hr>
+<h1>Java循环结构</h1>
+<h2 id="while循环">while循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>( 布尔表达式 )  &#123;</span><br><span class="line">	<span class="comment">//循环内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( x &lt; <span class="number">10</span> ) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
+<h2 id="do…while循环">do…while循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">       <span class="comment">//代码语句,至少执行一次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(布尔表达式);</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;<span class="keyword">while</span>( x &lt; <span class="number">10</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
+<h2 id="for循环">for循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化; 布尔表达式; 更新) &#123;</span><br><span class="line">    <span class="comment">//代码语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>最先执行初始化步骤。可以声明一种类型，但可初始化一个或多个循环控制变量，也可以是空语句。</li>
+<li>然后，检测布尔表达式的值。如果为 true，循环体被执行。如果为false，循环终止，开始执行循环体后面的语句。</li>
+<li>执行一次循环后，更新循环控制变量。</li>
+<li>再次检测布尔表达式。循环执行上面的过程。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">11</span>; x &lt; <span class="number">10</span>; x++, y++) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value of y : &quot;</span> + y +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of y : 11</span><br><span class="line"></span><br><span class="line">value of x : 2</span><br><span class="line">value of y : 12</span><br><span class="line"></span><br><span class="line">value of x : 3</span><br><span class="line">value of y : 13</span><br><span class="line"></span><br><span class="line">value of x : 4</span><br><span class="line">value of y : 14</span><br><span class="line"></span><br><span class="line">value of x : 5</span><br><span class="line">value of y : 15</span><br><span class="line"></span><br><span class="line">value of x : 6</span><br><span class="line">value of y : 16</span><br><span class="line"></span><br><span class="line">value of x : 7</span><br><span class="line">value of y : 17</span><br><span class="line"></span><br><span class="line">value of x : 8</span><br><span class="line">value of y : 18</span><br><span class="line"></span><br><span class="line">value of x : 9</span><br><span class="line">value of y : 19</span><br></pre></td></tr></table></figure>
+<h2 id="增强for循环">增强for循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
+<h2 id="break关键字">break关键字</h2>
+<blockquote>
+<p>break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。<br>
+break 跳出最里层的循环，并且继续执行该循环下面的语句。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时跳出循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+<h2 id="continue关键字">continue关键字</h2>
+<blockquote>
+<p>continue 适用于任何循环控制结构中。作用是让程序立刻跳转到下一次循环的迭代。<br>
+在 for 循环中，continue 语句使程序立即跳转到更新语句。<br>
+在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时直接进入下一循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果:</p>
+<h2 id="code￼15"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
 </blockquote>
 ]]></content>
       <categories>
@@ -7374,6 +7374,303 @@ and domain name pairs.（被属性和域定义的关系）</p>
       </tags>
   </entry>
   <entry>
+    <title>操作系统学习笔记-信号量相关问题</title>
+    <url>/butterfly/2021/04/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
+<p><em>正在学习操作系统，记录笔记。</em></p>
+<p>（补充一下与信号量相关的问题类型以及解决思路）</p>
+<blockquote>
+<p>参考资料：</p>
+<p>《操作系统（精髓与设计原理 第6版） 》</p>
+<p>王道考研：<a href="https://www.bilibili.com/video/BV1YE411D7nH?from=search&amp;seid=12220712596266554764">2019 王道考研 操作系统_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p>
+</blockquote>
+<hr>
+<h1>正文</h1>
+<p>先声明：为了方便（就是我懒），下文可能会用<code>P操作</code>来指代<code>semWait(x)</code>；用<code>V操作</code>来指代<code>semSignal(x)</code>。</p>
+<h2 id="生产者-消费者问题">生产者-消费者问题</h2>
+<p>问题描述：</p>
+<ul>
+<li>
+<p>系统中有一组生产者进程和一组消费者进程，生产者进程每次生产一个产品放入缓冲区，消费者进程每次从缓冲区中取出一个产品并使用。（注：这里的“产品理解为某种数据”）</p>
+</li>
+<li>
+<p>生产者、消费者共享一个初始为空、大小为n的缓冲区。</p>
+</li>
+<li>
+<p>只有缓冲区没满时，生产者才能把产品放入缓冲区，否则必须等待。</p>
+</li>
+<li>
+<p>只有缓冲区不空时，消费者才能从中取出产品，否则必须等待。</p>
+</li>
+<li>
+<p>缓冲区是临界资源，各进程必须互斥地访问（只允许一个生产者放入消息，也只允许一个消费者拿出消息）。</p>
+<blockquote>
+<p>再次详细解释一下最后一点。意思是，同一个时刻只能是一个生产者或者一个消费者操作缓冲区，禁止以下情况：多个生产者或者多个消费者操作缓冲区；同样，一个生产者和一个消费者同时操作也是禁止的。</p>
+</blockquote>
+</li>
+</ul>
+<p>分析：</p>
+<ul>
+<li>互斥关系：不允许有两方及以上同时访问缓冲区。</li>
+<li>同步关系：存在两种同步关系，分别为缓冲区满、缓冲区空。（当消费者消费一个产品，应该告诉生产者，缓冲区有一个空位；当生产者生产一个商品，应该告诉消费者，缓冲区非空）</li>
+</ul>
+<p>所以根据以上分析得知：应该需要三对P、V操作。因此需要定义如下三个信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//互斥信号量，实现对缓冲区的访问</span></span><br><span class="line">semaphore empty = n;    <span class="comment">//同步信号量，表示空闲缓冲区的数量（初始值为n）</span></span><br><span class="line">semaphore full = <span class="number">0</span>;    <span class="comment">//同步信号量，表示产品的数量，也即非缓冲区的数量（初始值为0）</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*producer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">producer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*生产一个产品*/</span>;</span><br><span class="line">        semWait(empty);    <span class="comment">//检查有无缓冲区可用  (Ⅰ)</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//互斥操作  (Ⅱ)</span></span><br><span class="line">        <span class="comment">/*将产品放入缓冲区*/</span>;</span><br><span class="line">        semSignal(mutex);    <span class="comment">//互斥操作</span></span><br><span class="line">        semSignal(full);    <span class="comment">//告诉消费者“生产了一个产品”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*consumer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(full);    <span class="comment">//检查有无产品（非空缓冲区）  (Ⅲ)</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//互斥操作  (Ⅳ)</span></span><br><span class="line">        <span class="comment">/*从缓冲区中取出一个产品*/</span>;</span><br><span class="line">        semSignal(mutex);    <span class="comment">//互斥操作</span></span><br><span class="line">        semSignal(empty);    <span class="comment">//告诉生产者“取走了一个产品，缓冲区有空闲”</span></span><br><span class="line">        <span class="comment">/*使用产品*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(producer(), consumer());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>思考：能否改变相邻P、V操作的顺序？（即调换<code>(Ⅰ)</code>、<code>(Ⅱ)</code>以及<code>(Ⅲ)</code>、<code>(Ⅳ)</code>的顺序）</p>
+<p>分析：</p>
+<ul>
+<li>分析此种情况：若缓冲区内已经放满产品，则empty=0，full=n。</li>
+<li>则生产者先执行<code>(Ⅱ)</code>（semWait(mutex)）操作使得mutex变为0，在执行<code>(Ⅰ)</code>操作（semWait(empty)），由于已经没有空闲缓冲区，因此生产者被阻塞。接着切换至消费者进程。消费者进程首先执行<code>(Ⅳ)</code>（semWait(mutex)）操作，由于mutex为0，即生产者还没有释放对临界资源的控制权，因此消费者也被阻塞。</li>
+<li>这就出现了<strong>死锁</strong>的情况（生产者等待消费者释放空闲缓冲区，而消费者又等待生产者释放临界区）</li>
+<li>同样的我们分析另一种情况：若缓冲区中没有产品，即empty=n，full=0。按照<code>(Ⅳ)``(Ⅲ)``(Ⅱ)</code>的顺序也会发生死锁情况。</li>
+</ul>
+<p>因此：</p>
+<ul>
+<li><strong>实现互斥的P操作一定要在实现同步的P操作之后。</strong></li>
+<li><strong>V操作不会导致进程阻塞，因此两个V操作顺序可以交换。</strong></li>
+</ul>
+<p>还需要注意的一点：</p>
+<p>生产者<code>“生产一个产品”</code>的操作以及消费者<code>“使用产品”</code>的操作可以放置P、V操作之间，但是要意识到这些操作是非必要的，如果放置在临界区操作则会导致其代码量变大，在一个进程访问临界区的同时就要耗费更多的时间，这会导致进程之间的并发度降低。（<strong>只在临界区做必要操作</strong>）</p>
+</blockquote>
+<h2 id="多生产者-多消费者问题">多生产者-多消费者问题</h2>
+<p>问题描述：</p>
+<p>桌子上有一只盘子，每次只能向其中放入一个水果。爸爸专向盘子中放苹果，妈妈专向盘子中放橘子，儿子专等着吃盘子中的橘子，女儿专等着吃盘子中的苹果。只有盘子空时，爸爸或妈妈才可向盘子中放一个水果。仅当盘子中有自己需要的水果时，儿子或女儿可以从盘子中取出水果。用P、V操作实现上述过程。</p>
+<p>分析：</p>
+<ul>
+<li>互斥关系：将盘子视为缓冲区。每个人（进程）对其访问都是互斥的。</li>
+<li>同步关系：
+<ol>
+<li>父亲将苹果放入盘子后，女儿才能取苹果。</li>
+<li>母亲将橘子放入盘子后，儿子才能取橘子。</li>
+<li>只有盘子为空时，父亲或母亲才能放入水果。（盘子为空事件可由儿子或者女儿触发）</li>
+</ol>
+</li>
+</ul>
+<p>所以根据以上分析得知，需要定义如下四个信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//实现互斥访问盘子（临界区）</span></span><br><span class="line">semaphore apple = <span class="number">0</span>;    <span class="comment">//盘子中有几个苹果（初始值为0）</span></span><br><span class="line">semaphore orange = <span class="number">0</span>;    <span class="comment">//盘子中有几个橘子（初始值为0）</span></span><br><span class="line">semaphore plate = <span class="number">1</span>;    <span class="comment">//盘子中还可以放多少个水果</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*dad*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dad</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*准备一个苹果*/</span>;</span><br><span class="line">        semWait(plate);    <span class="comment">//检查盘子是否为空</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*把苹果放入盘子*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(apple);    <span class="comment">//告诉女儿“盘子里有苹果了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*mom*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mom</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*准备一个橘子*/</span>;</span><br><span class="line">        semWait(plate);    <span class="comment">//检查盘子是否为空</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*把橘子放入盘子*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(orange);    <span class="comment">//告诉儿子“盘子里有橘子了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*daughter*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">daughter</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(apple);    <span class="comment">//检查盘子里有没有苹果</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*从盘子中取出苹果*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(plate);    <span class="comment">//告诉父母“盘子为空了”</span></span><br><span class="line">        <span class="comment">/*吃掉苹果*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*son*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">son</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(orange);    <span class="comment">//检查盘子里有没有橘子</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*从盘子中取出橘子*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(plate);    <span class="comment">//告诉父母“盘子为空了”</span></span><br><span class="line">        <span class="comment">/*吃掉橘子*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(dad(), mom(), daughter(), son());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>思考：上述案例可不可以不使用互斥信号量（mutex）呢？</p>
+<p>分析（删除上述代码中所有的<code>semWait(mutex)</code>以及<code>semSignal(mutex)</code>操作）：</p>
+<ul>
+<li>刚开始，儿子、女儿进程即使上处理机运行也会被阻塞。</li>
+<li>如果刚开始是父亲进程先上处理机运行，则：
+<ul>
+<li>父亲执行<code>semWait(plate)</code>操作，可以访问盘子。</li>
+<li>母亲执行<code>semWait(plate)</code>操作，被阻塞等待盘子。</li>
+<li>父亲执行<code>semSignal(apple)</code>操作，放入苹果。</li>
+<li>女儿i进程被唤醒（其他进程即使运行也会阻塞）。</li>
+<li>女儿执行<code>semWait(apple)</code>操作，访问盘子。并接着执行<code>semSignal(plate)</code>操作。</li>
+<li>父亲或者母亲进程再次被唤醒（儿子进程访问会被阻塞）。</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<p>以上分析可以得出结论，即便没有互斥信号量（mutex），也不影响正常运行。</p>
+<p>原因在于：本题中的缓冲区大小为1，在任何时刻，apple、orange、plate三个同步信号量中最多只有一个是1。因此在任何时刻，最多只有一个进程的<code>P操作</code>不会被阻塞，并顺利地进入临界区。</p>
+<p>但是加入此题盘子的容量为2及以上，就无法保证进程互斥访问盘子。（分析过程省略）</p>
+<p><strong>最好直接就设置互斥信号量（mutex），以防出错。</strong></p>
+</blockquote>
+<h2 id="吸烟者问题">吸烟者问题</h2>
+<p>问题描述：</p>
+<p>假设一个系统有三个抽烟者进程和一个供应者进程。每个抽烟者不停地卷烟并抽掉它，但是要卷起并抽掉一支烟，抽烟者需要有三种材料：烟草、纸和胶水。三个抽烟者中，第一个拥有烟草、第二个拥有纸、第三个拥有胶水。供应者进程无限地提供三种材料，供应者每次将两种材料放桌子上，拥有剩下第三种材料的抽烟者卷一根烟并抽掉它，并给供应者进程一个信号告诉完成了，供应者就会放另外两种材料再桌上，这个过程一直重复（让三个抽烟者轮流地抽烟）</p>
+<p>分析：</p>
+<ul>
+<li>
+<p>互斥关系：将桌子视为缓冲区，每个进程对其访问都是互斥的。</p>
+<blockquote>
+<p>值得注意的是，尽管供应者每次会将两种材料放置在桌子上，但是桌子（缓冲区）的容量仍为1，我们应该将不同的两种材料视为一种组合：</p>
+<ul>
+<li>组合一：纸 + 胶水</li>
+<li>组合二：烟草 + 胶水</li>
+<li>组合三：烟草 + 纸</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>同步关系：</p>
+<ol>
+<li>桌上有组合一 → 第一个抽烟者取走东西。</li>
+<li>桌上有组合二 → 第二个抽烟者取走东西。</li>
+<li>桌上有组合三 → 第三个抽烟者取走东西。</li>
+<li>抽烟者抽完烟 → 供应者将下一种组合材料放到桌子上。</li>
+</ol>
+</li>
+<li>
+<p>需要让三个抽烟者轮流地抽烟。</p>
+</li>
+</ul>
+<p>所以根据以上分析得知，需要定义如下四个信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore offer1 = <span class="number">0</span>;    <span class="comment">//桌上组合一的数量</span></span><br><span class="line">semaphore offer2 = <span class="number">0</span>;    <span class="comment">//桌上组合二的数量</span></span><br><span class="line">semaphore offer3 = <span class="number">0</span>;    <span class="comment">//桌上组合三的数量</span></span><br><span class="line">semaphore finish = <span class="number">0</span>;    <span class="comment">//抽烟是否完成</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;    <span class="comment">//用于实现“三个抽烟者轮流地抽烟”</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*provider*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">provider</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">/*将组合一放桌上*/</span>;</span><br><span class="line">            semSignal(offer1);    <span class="comment">//告诉第一个抽烟者“桌上有组合一”</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(i == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">/*将组合二放桌上*/</span>;</span><br><span class="line">            semSignal(offer2);    <span class="comment">//告诉第二个抽烟者“桌上有组合二”</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(i == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="comment">/*将组合三放桌上*/</span>;</span><br><span class="line">            semSignal(offer3);    <span class="comment">//告诉第三个抽烟者“桌上有组合三”</span></span><br><span class="line">        &#125;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">3</span>;</span><br><span class="line">        semWait(finish);    <span class="comment">//判断抽烟者是否已经完成吸烟</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*smoker1*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">smoker1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(offer1);    <span class="comment">//判断桌子上有没有组合一</span></span><br><span class="line">        <span class="comment">/*从桌子上拿走组合一；卷烟；抽掉*/</span>;</span><br><span class="line">        semSignal(finish);    <span class="comment">//告诉提供者“桌子上已经空了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*smoker2*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">smoker2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(offer2);    <span class="comment">//判断桌子上有没有组合二</span></span><br><span class="line">        <span class="comment">/*从桌子上拿走组合二；卷烟；抽掉*/</span>;</span><br><span class="line">        semSignal(finish);    <span class="comment">//告诉提供者“桌子上已经空了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*smoker3*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">smoker3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(offer3);    <span class="comment">//判断桌子上有没有组合三</span></span><br><span class="line">        <span class="comment">/*从桌子上拿走组合三；卷烟；抽掉*/</span>;</span><br><span class="line">        semSignal(finish);    <span class="comment">//告诉提供者“桌子上已经空了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(provider(), smoker1(), smoker2(), smoker3());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分析：是否需要专门再设置一个互斥信号量（mutex）？</p>
+<p>因为桌子的容量为1（同上面一个例子相同），因此不必设置也不会出错。</p>
+</blockquote>
+<h2 id="读者-写者问题">读者-写者问题</h2>
+<p>问题描述：</p>
+<p>有读者和写者两组并发进程，共享一个文件，当两个或两个以上的读进程同时访问共享数据时不会产生副作用，但若某个写进程和其他进程（读进程或写进程）同时访问共享数据时则可能导致数据不一致的错误。因此我们要求：</p>
+<ul>
+<li>允许多个读者可以同时对文件执行读操作；</li>
+<li>只允许一个写者往文件中写信息；</li>
+<li>任一写者在完成写操作之前不允许其他读者或写者工作；</li>
+<li>写者执行写操作前，应让已有的读者和写者全部退出。</li>
+</ul>
+<p>分析：</p>
+<ul>
+<li>
+<p>互斥关系：</p>
+<ol>
+<li>
+<p>写进程——写进程</p>
+</li>
+<li>
+<p>写进程——读进程</p>
+<p>（读进程之间不存在互斥关系，因此可以同时读文件，如何实现该操作是此类问题的关键）</p>
+</li>
+</ol>
+</li>
+</ul>
+<p>所以根据以上分析得知，需要定义如下三个信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore rw = <span class="number">1</span>;    <span class="comment">//用于实现对文件的互斥访问。表示当前是否有进程在访问共享文件</span></span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;    <span class="comment">//用于记录当前有几个读进程在访问文件</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//用于保证对count变量的互斥访问</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*writer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(rw);    <span class="comment">//在写文件之前“上锁”</span></span><br><span class="line">        <span class="comment">/*写文件*/</span>;</span><br><span class="line">        semSignal(rw);    <span class="comment">//在写完之后“解锁”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*reader*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count</span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semWait(rw);    <span class="comment">//第一个读进程负责“上锁”</span></span><br><span class="line">        &#125;</span><br><span class="line">        count++;    <span class="comment">//访问文件的读进程数加一</span></span><br><span class="line">        semSignal(mutex);    </span><br><span class="line">        <span class="comment">/*读文件*/</span>;</span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count</span></span><br><span class="line">        count--;    <span class="comment">//访问文件的读进程数减一</span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semSignal(rw);    <span class="comment">//最后一个读进程负责“解锁”</span></span><br><span class="line">        &#125;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(writer(), reader1(), reader2(),...,readern());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分析：</p>
+<p>mutex变量的设置是为了解决读进程对count的访问（解决多个读进程访问的操作）</p>
+<ul>
+<li>第一个读进程执行<code>semWait(mutex)</code>操作，顺利通过，并执行之后的<code>semWait(rw)</code>操作（保证了读进程与写进程的互斥）</li>
+<li>若此时另一个读进程访问，在执行<code>semWait(mutex)</code>操作会被阻塞，直到第一个读进程执行<code>semSignal(mutex)</code>操作（“解锁”对count的访问，注意此时count值为1）</li>
+<li>当count“解锁”后，另一个读进程再执行<code>semWait(mutex)</code>操作，判断count的值不为0，直接跳过<code>semWait(rw)</code>访问，这样就避免了各个读进程之间的互斥访问</li>
+</ul>
+<p>再仔细体会会发现上述代码存在一个潜在的问题，即：如果读进程一直在不停地访问（count值永不为0），就无法对文件“解锁”，写者进程就可能“饿死”。</p>
+<p>因此该种写法是<strong>读进程优先</strong>。</p>
+</blockquote>
+<p>如何实现写进程优先呢？</p>
+<p>这里我们再增加一个信号量：<code>semaphore w = 1</code>。</p>
+<p>即现在一共有如下四个信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore rw = <span class="number">1</span>;    <span class="comment">//用于实现对文件的互斥访问。表示当前是否有进程在访问共享文件</span></span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;    <span class="comment">//用于记录当前有几个读进程在访问文件</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//用于保证对count变量的互斥访问</span></span><br><span class="line">semaphore w = <span class="number">1</span>;    <span class="comment">//用于实现“写进程优先”</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*writer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(w);    <span class="comment">//Ⅰ</span></span><br><span class="line">        semWait(rw);    <span class="comment">//在写文件之前“上锁”  Ⅱ</span></span><br><span class="line">        <span class="comment">/*写文件*/</span>;</span><br><span class="line">        semSignal(rw);    <span class="comment">//在写完之后“解锁”  Ⅲ</span></span><br><span class="line">        semSignal(w);    <span class="comment">//Ⅳ</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*reader*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(w);    <span class="comment">//Ⅴ</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count  </span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semWait(rw);    <span class="comment">//第一个读进程负责“上锁”  Ⅵ</span></span><br><span class="line">        &#125;</span><br><span class="line">        count++;    <span class="comment">//访问文件的读进程数加一</span></span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(w);    <span class="comment">//Ⅶ</span></span><br><span class="line">        <span class="comment">/*读文件*/</span>;</span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count</span></span><br><span class="line">        count--;    <span class="comment">//访问文件的读进程数减一</span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semSignal(rw);    <span class="comment">//最后一个读进程负责“解锁”  Ⅷ</span></span><br><span class="line">        &#125;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(writer(), reader1(), reader2(),...,readern());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分析：<em>（容我吐槽一下，简直头皮发麻）</em></p>
+<ol>
+<li>
+<p>读者1 → 读者2</p>
+<ul>
+<li>第一个读进程顺利通过<code>Ⅴ（semWait(w)）</code>操作，并对文件（rw）“上锁”，count++，…，到最后顺利地读文件。</li>
+<li>第二个读进程同上。</li>
+<li>即在增添了<code>Ⅴ（semWait(w)）</code>操作以及<code>Ⅶ（semSignal(w)）</code>对多个读进程并发访问文件是没有影响的。</li>
+</ul>
+</li>
+<li>
+<p>写者1 → 写者2</p>
+<ul>
+<li>第一个写进程会顺利通过<code>Ⅰ（semWait(w)）</code>操作，<code>Ⅱ（semWait(rw)）</code>操作，并顺利写文件。</li>
+<li>第二个写进程如果并发执行会被阻塞在Ⅰ处，直到第一个写进程执行<code>Ⅳ（semSignal(w)）</code>“解锁写操作”，才可以继续执行。</li>
+<li>实现了多个写进程之间的互斥。</li>
+</ul>
+</li>
+<li>
+<p>写者1 → 读者1</p>
+<ul>
+<li>写着进程顺利通过<code>Ⅰ（semWait(w)）</code>操作，<code>Ⅱ（semWait(rw)）</code>操作，开始写文件。</li>
+<li>此时如果读进程要执行，就会被阻塞在<code>Ⅴ（semWait(w)）</code>操作，直到写进程执行完<code>Ⅳ（semSignal(w)）</code>“解锁写操作”，才可以继续执行。</li>
+<li>实现了读者与写者的互斥。</li>
+</ul>
+</li>
+<li>
+<p>读者1 → 写者1 → 读者2</p>
+<ul>
+<li>第一个读进程可以顺利执行到<code>读文件</code>操作。</li>
+<li>此时若写进程执行，可以顺利执行<code>Ⅰ（semWait(w)）</code>操作，但在<code>Ⅱ（semWait(rw)）</code>操作会被阻塞。</li>
+<li>然后第二个读进程并发执行，由于上一步读进程顺利执行<code>Ⅰ（semWait(w)）</code>操作，所以第二个读进程会被阻塞在<code>Ⅴ（semWait(w)）</code>操作。</li>
+<li>直到第一个读进程执行完<code>Ⅷ（semSignal(rw)）</code>操作对文件“解锁”，此时写进程就可以被唤醒，开始写文件。</li>
+<li>第二个读进程依然被阻塞在<code>Ⅴ（semWait(w)）</code>操作，直到写进程执行完<code>Ⅳ（semSignal(w)）</code>操作，第二个读进程才可以继续执行。</li>
+<li>所以这种情况并不会导致写进程“饥饿”。</li>
+</ul>
+</li>
+<li>
+<p>写者1 → 读者1 → 写者2</p>
+<ul>
+<li>
+<p>第一个写进程顺利执行前面的操作，开始写文件。</p>
+</li>
+<li>
+<p>此时如果读进程执行，则会被阻塞在<code>Ⅴ（semWait(w)）</code>操作。</p>
+</li>
+<li>
+<p>此时如果第二个写进程执行，则也会被阻塞在<code>Ⅰ（semWait(w)）</code>操作。</p>
+</li>
+<li>
+<p>如果第一个写进程执行完<code>Ⅳ（semSignal(w)）</code>操作，则此时会根据“先来先得”的原则，首先唤醒读进程，读进程顺利执行。</p>
+</li>
+<li>
+<p>然后读进程会执行<code>Ⅵ（semWait(rw)）</code>操作对文件“上锁”，在执行完<code>Ⅶ（semWait(w)）</code>操作时释放对写进程的操作，第二个写进程就继续执行，但是会被阻塞在<code>Ⅱ（semWait(rw)）</code>操作。</p>
+</li>
+<li>
+<p>读进程继续执行，直到结束，释放对文件的访问控制，第二个写进程才可以顺利执行。</p>
+</li>
+<li>
+<blockquote>
+<p>在这种情况我们可以分析出，尽管不会使得写进程“饥饿”，但也不是真正的“写进程优先”，而是符合相对公平的先来先服务的原则。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h2 id="哲学家进餐问题">哲学家进餐问题</h2>
+<p>问题描述：</p>
+<p>一张圆桌上坐着5名哲学家，每两个哲学家之间的桌上摆一根筷子，桌子的中间是一碗米饭。哲学家们倾注毕生的精力用于思考和进餐，哲学家在思考时，并不影响他人。只有当哲学家饥饿时，才试图拿起左、右两根筷子（一根一根地拿起）。如果筷子已在他人手上，则需等待。饥饿的哲学家只有同时拿起两根筷子才可以开始进餐，当进餐完毕后，放下筷子继续思考。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%93%B2%E5%AD%A6%E5%AE%B6%E8%BF%9B%E9%A4%90%E9%97%AE%E9%A2%98.png" alt=""></p>
+<p>分析：</p>
+<ul>
+<li>
+<p>互斥关系：系统中有5个哲学家进程，5位哲学家与左右邻居对其中间筷子的访问是互斥关系。</p>
+<blockquote>
+<p>这个问题中只有互斥关系，但与之前遇到的问题不同的是，每个哲学家进程需要同时持有两个临界资源才能开始吃饭。如何避免临界资源分配不当造成的死锁现象，是哲学家问题的关键。</p>
+</blockquote>
+</li>
+</ul>
+<p>所以根据以上分析得知，需要定义如下信号量数组以及一个互斥信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;    <span class="comment">//用于实现对5根筷子的互斥访问</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//互斥地取筷子</span></span><br></pre></td></tr></table></figure>
+<p>并规定对哲学家按0~4编号，哲学家 i 左边的筷子编号为 i，右边的筷子编号为 <code>( i + 1 ) % 5</code>。</p>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*philosopher*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">        semWait(mutex);</span><br><span class="line">        semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">        semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        <span class="comment">/*进餐*/</span>;</span><br><span class="line">        semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">        semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin (philosopher(<span class="number">0</span>), philosopher(<span class="number">1</span>), philosopher(<span class="number">2</span>), philosopher(<span class="number">3</span>), philosopher(<span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分析：</p>
+<p>哲学家进程要想正常进行就需要同时拿起左右两根筷子，一旦请求资源无法满足，就会进入阻塞态。</p>
+</blockquote>
+<p>方法二：</p>
+<p>分析：根据“鸽笼原理”，只要最多只有四位哲学家并发争夺筷子进餐，那么肯定会有一位哲学家可以同时拿到两根筷子。为此我们定义如下信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;    <span class="comment">//用于实现对5根筷子的互斥访问</span></span><br><span class="line">semaphore room = <span class="number">4</span>;    <span class="comment">//最多允许4为哲学家进餐</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*philosopher*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">        semWait(room);</span><br><span class="line">        semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">        semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">        <span class="comment">/*进餐*/</span>;</span><br><span class="line">        semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">        semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">        semSignal(room);</span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin (philosopher(<span class="number">0</span>), philosopher(<span class="number">1</span>), philosopher(<span class="number">2</span>), philosopher(<span class="number">3</span>), philosopher(<span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法三：</p>
+<p>要求奇数号哲学家先拿左边的筷子，然后再拿右边的筷子；而偶数号的哲学家相反，先拿右边的筷子，再拿左边的筷子。在这种策略下，如果相邻的两个奇偶号哲学家都想吃饭，那么只会有其中一个可以拿起第一只筷子，另一个会直接阻塞。这就避免了占有一支后再等待另一支的情况。</p>
+<p>首先定义如下信号量：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;    <span class="comment">//用于实现对5根筷子的互斥访问</span></span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*philosopher*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">1</span>)&#123;    <span class="comment">//奇数号哲学家</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">            semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">            semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">            <span class="comment">/*进餐*/</span>;</span><br><span class="line">            semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">            semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span>)&#123;    <span class="comment">//偶数号哲学家</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">            semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">            semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">            <span class="comment">/*进餐*/</span>;</span><br><span class="line">            semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">            semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin (philosopher(<span class="number">0</span>), philosopher(<span class="number">1</span>), philosopher(<span class="number">2</span>), philosopher(<span class="number">3</span>), philosopher(<span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>后记</h1>
+<p>本篇还没结束，持续更新中。</p>
+<p><em>（欢迎评论区批评指正）</em></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>操作系统学习笔记-内存管理</title>
     <url>/butterfly/2021/05/23/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
@@ -7955,303 +8252,6 @@ and domain name pairs.（被属性和域定义的关系）</p>
 <h1>后记</h1>
 <p>本篇已完结</p>
 <p>（如有修改或补充欢迎评论）</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>操作系统学习笔记-信号量相关问题</title>
-    <url>/butterfly/2021/04/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BF%A1%E5%8F%B7%E9%87%8F%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\butterfly\css\APlayer.min.css"><script src="\butterfly\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\butterfly\js\Meting.min.js"></script><h1>前言</h1>
-<p><em>正在学习操作系统，记录笔记。</em></p>
-<p>（补充一下与信号量相关的问题类型以及解决思路）</p>
-<blockquote>
-<p>参考资料：</p>
-<p>《操作系统（精髓与设计原理 第6版） 》</p>
-<p>王道考研：<a href="https://www.bilibili.com/video/BV1YE411D7nH?from=search&amp;seid=12220712596266554764">2019 王道考研 操作系统_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p>
-</blockquote>
-<hr>
-<h1>正文</h1>
-<p>先声明：为了方便（就是我懒），下文可能会用<code>P操作</code>来指代<code>semWait(x)</code>；用<code>V操作</code>来指代<code>semSignal(x)</code>。</p>
-<h2 id="生产者-消费者问题">生产者-消费者问题</h2>
-<p>问题描述：</p>
-<ul>
-<li>
-<p>系统中有一组生产者进程和一组消费者进程，生产者进程每次生产一个产品放入缓冲区，消费者进程每次从缓冲区中取出一个产品并使用。（注：这里的“产品理解为某种数据”）</p>
-</li>
-<li>
-<p>生产者、消费者共享一个初始为空、大小为n的缓冲区。</p>
-</li>
-<li>
-<p>只有缓冲区没满时，生产者才能把产品放入缓冲区，否则必须等待。</p>
-</li>
-<li>
-<p>只有缓冲区不空时，消费者才能从中取出产品，否则必须等待。</p>
-</li>
-<li>
-<p>缓冲区是临界资源，各进程必须互斥地访问（只允许一个生产者放入消息，也只允许一个消费者拿出消息）。</p>
-<blockquote>
-<p>再次详细解释一下最后一点。意思是，同一个时刻只能是一个生产者或者一个消费者操作缓冲区，禁止以下情况：多个生产者或者多个消费者操作缓冲区；同样，一个生产者和一个消费者同时操作也是禁止的。</p>
-</blockquote>
-</li>
-</ul>
-<p>分析：</p>
-<ul>
-<li>互斥关系：不允许有两方及以上同时访问缓冲区。</li>
-<li>同步关系：存在两种同步关系，分别为缓冲区满、缓冲区空。（当消费者消费一个产品，应该告诉生产者，缓冲区有一个空位；当生产者生产一个商品，应该告诉消费者，缓冲区非空）</li>
-</ul>
-<p>所以根据以上分析得知：应该需要三对P、V操作。因此需要定义如下三个信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//互斥信号量，实现对缓冲区的访问</span></span><br><span class="line">semaphore empty = n;    <span class="comment">//同步信号量，表示空闲缓冲区的数量（初始值为n）</span></span><br><span class="line">semaphore full = <span class="number">0</span>;    <span class="comment">//同步信号量，表示产品的数量，也即非缓冲区的数量（初始值为0）</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*producer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">producer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*生产一个产品*/</span>;</span><br><span class="line">        semWait(empty);    <span class="comment">//检查有无缓冲区可用  (Ⅰ)</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//互斥操作  (Ⅱ)</span></span><br><span class="line">        <span class="comment">/*将产品放入缓冲区*/</span>;</span><br><span class="line">        semSignal(mutex);    <span class="comment">//互斥操作</span></span><br><span class="line">        semSignal(full);    <span class="comment">//告诉消费者“生产了一个产品”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*consumer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(full);    <span class="comment">//检查有无产品（非空缓冲区）  (Ⅲ)</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//互斥操作  (Ⅳ)</span></span><br><span class="line">        <span class="comment">/*从缓冲区中取出一个产品*/</span>;</span><br><span class="line">        semSignal(mutex);    <span class="comment">//互斥操作</span></span><br><span class="line">        semSignal(empty);    <span class="comment">//告诉生产者“取走了一个产品，缓冲区有空闲”</span></span><br><span class="line">        <span class="comment">/*使用产品*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(producer(), consumer());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>思考：能否改变相邻P、V操作的顺序？（即调换<code>(Ⅰ)</code>、<code>(Ⅱ)</code>以及<code>(Ⅲ)</code>、<code>(Ⅳ)</code>的顺序）</p>
-<p>分析：</p>
-<ul>
-<li>分析此种情况：若缓冲区内已经放满产品，则empty=0，full=n。</li>
-<li>则生产者先执行<code>(Ⅱ)</code>（semWait(mutex)）操作使得mutex变为0，在执行<code>(Ⅰ)</code>操作（semWait(empty)），由于已经没有空闲缓冲区，因此生产者被阻塞。接着切换至消费者进程。消费者进程首先执行<code>(Ⅳ)</code>（semWait(mutex)）操作，由于mutex为0，即生产者还没有释放对临界资源的控制权，因此消费者也被阻塞。</li>
-<li>这就出现了<strong>死锁</strong>的情况（生产者等待消费者释放空闲缓冲区，而消费者又等待生产者释放临界区）</li>
-<li>同样的我们分析另一种情况：若缓冲区中没有产品，即empty=n，full=0。按照<code>(Ⅳ)``(Ⅲ)``(Ⅱ)</code>的顺序也会发生死锁情况。</li>
-</ul>
-<p>因此：</p>
-<ul>
-<li><strong>实现互斥的P操作一定要在实现同步的P操作之后。</strong></li>
-<li><strong>V操作不会导致进程阻塞，因此两个V操作顺序可以交换。</strong></li>
-</ul>
-<p>还需要注意的一点：</p>
-<p>生产者<code>“生产一个产品”</code>的操作以及消费者<code>“使用产品”</code>的操作可以放置P、V操作之间，但是要意识到这些操作是非必要的，如果放置在临界区操作则会导致其代码量变大，在一个进程访问临界区的同时就要耗费更多的时间，这会导致进程之间的并发度降低。（<strong>只在临界区做必要操作</strong>）</p>
-</blockquote>
-<h2 id="多生产者-多消费者问题">多生产者-多消费者问题</h2>
-<p>问题描述：</p>
-<p>桌子上有一只盘子，每次只能向其中放入一个水果。爸爸专向盘子中放苹果，妈妈专向盘子中放橘子，儿子专等着吃盘子中的橘子，女儿专等着吃盘子中的苹果。只有盘子空时，爸爸或妈妈才可向盘子中放一个水果。仅当盘子中有自己需要的水果时，儿子或女儿可以从盘子中取出水果。用P、V操作实现上述过程。</p>
-<p>分析：</p>
-<ul>
-<li>互斥关系：将盘子视为缓冲区。每个人（进程）对其访问都是互斥的。</li>
-<li>同步关系：
-<ol>
-<li>父亲将苹果放入盘子后，女儿才能取苹果。</li>
-<li>母亲将橘子放入盘子后，儿子才能取橘子。</li>
-<li>只有盘子为空时，父亲或母亲才能放入水果。（盘子为空事件可由儿子或者女儿触发）</li>
-</ol>
-</li>
-</ul>
-<p>所以根据以上分析得知，需要定义如下四个信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//实现互斥访问盘子（临界区）</span></span><br><span class="line">semaphore apple = <span class="number">0</span>;    <span class="comment">//盘子中有几个苹果（初始值为0）</span></span><br><span class="line">semaphore orange = <span class="number">0</span>;    <span class="comment">//盘子中有几个橘子（初始值为0）</span></span><br><span class="line">semaphore plate = <span class="number">1</span>;    <span class="comment">//盘子中还可以放多少个水果</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*dad*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dad</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*准备一个苹果*/</span>;</span><br><span class="line">        semWait(plate);    <span class="comment">//检查盘子是否为空</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*把苹果放入盘子*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(apple);    <span class="comment">//告诉女儿“盘子里有苹果了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*mom*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mom</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*准备一个橘子*/</span>;</span><br><span class="line">        semWait(plate);    <span class="comment">//检查盘子是否为空</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*把橘子放入盘子*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(orange);    <span class="comment">//告诉儿子“盘子里有橘子了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*daughter*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">daughter</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(apple);    <span class="comment">//检查盘子里有没有苹果</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*从盘子中取出苹果*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(plate);    <span class="comment">//告诉父母“盘子为空了”</span></span><br><span class="line">        <span class="comment">/*吃掉苹果*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*son*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">son</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(orange);    <span class="comment">//检查盘子里有没有橘子</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//实现对盘子这一缓冲区的互斥访问</span></span><br><span class="line">        <span class="comment">/*从盘子中取出橘子*/</span>;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(plate);    <span class="comment">//告诉父母“盘子为空了”</span></span><br><span class="line">        <span class="comment">/*吃掉橘子*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(dad(), mom(), daughter(), son());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>思考：上述案例可不可以不使用互斥信号量（mutex）呢？</p>
-<p>分析（删除上述代码中所有的<code>semWait(mutex)</code>以及<code>semSignal(mutex)</code>操作）：</p>
-<ul>
-<li>刚开始，儿子、女儿进程即使上处理机运行也会被阻塞。</li>
-<li>如果刚开始是父亲进程先上处理机运行，则：
-<ul>
-<li>父亲执行<code>semWait(plate)</code>操作，可以访问盘子。</li>
-<li>母亲执行<code>semWait(plate)</code>操作，被阻塞等待盘子。</li>
-<li>父亲执行<code>semSignal(apple)</code>操作，放入苹果。</li>
-<li>女儿i进程被唤醒（其他进程即使运行也会阻塞）。</li>
-<li>女儿执行<code>semWait(apple)</code>操作，访问盘子。并接着执行<code>semSignal(plate)</code>操作。</li>
-<li>父亲或者母亲进程再次被唤醒（儿子进程访问会被阻塞）。</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<p>以上分析可以得出结论，即便没有互斥信号量（mutex），也不影响正常运行。</p>
-<p>原因在于：本题中的缓冲区大小为1，在任何时刻，apple、orange、plate三个同步信号量中最多只有一个是1。因此在任何时刻，最多只有一个进程的<code>P操作</code>不会被阻塞，并顺利地进入临界区。</p>
-<p>但是加入此题盘子的容量为2及以上，就无法保证进程互斥访问盘子。（分析过程省略）</p>
-<p><strong>最好直接就设置互斥信号量（mutex），以防出错。</strong></p>
-</blockquote>
-<h2 id="吸烟者问题">吸烟者问题</h2>
-<p>问题描述：</p>
-<p>假设一个系统有三个抽烟者进程和一个供应者进程。每个抽烟者不停地卷烟并抽掉它，但是要卷起并抽掉一支烟，抽烟者需要有三种材料：烟草、纸和胶水。三个抽烟者中，第一个拥有烟草、第二个拥有纸、第三个拥有胶水。供应者进程无限地提供三种材料，供应者每次将两种材料放桌子上，拥有剩下第三种材料的抽烟者卷一根烟并抽掉它，并给供应者进程一个信号告诉完成了，供应者就会放另外两种材料再桌上，这个过程一直重复（让三个抽烟者轮流地抽烟）</p>
-<p>分析：</p>
-<ul>
-<li>
-<p>互斥关系：将桌子视为缓冲区，每个进程对其访问都是互斥的。</p>
-<blockquote>
-<p>值得注意的是，尽管供应者每次会将两种材料放置在桌子上，但是桌子（缓冲区）的容量仍为1，我们应该将不同的两种材料视为一种组合：</p>
-<ul>
-<li>组合一：纸 + 胶水</li>
-<li>组合二：烟草 + 胶水</li>
-<li>组合三：烟草 + 纸</li>
-</ul>
-</blockquote>
-</li>
-<li>
-<p>同步关系：</p>
-<ol>
-<li>桌上有组合一 → 第一个抽烟者取走东西。</li>
-<li>桌上有组合二 → 第二个抽烟者取走东西。</li>
-<li>桌上有组合三 → 第三个抽烟者取走东西。</li>
-<li>抽烟者抽完烟 → 供应者将下一种组合材料放到桌子上。</li>
-</ol>
-</li>
-<li>
-<p>需要让三个抽烟者轮流地抽烟。</p>
-</li>
-</ul>
-<p>所以根据以上分析得知，需要定义如下四个信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore offer1 = <span class="number">0</span>;    <span class="comment">//桌上组合一的数量</span></span><br><span class="line">semaphore offer2 = <span class="number">0</span>;    <span class="comment">//桌上组合二的数量</span></span><br><span class="line">semaphore offer3 = <span class="number">0</span>;    <span class="comment">//桌上组合三的数量</span></span><br><span class="line">semaphore finish = <span class="number">0</span>;    <span class="comment">//抽烟是否完成</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;    <span class="comment">//用于实现“三个抽烟者轮流地抽烟”</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*provider*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">provider</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">/*将组合一放桌上*/</span>;</span><br><span class="line">            semSignal(offer1);    <span class="comment">//告诉第一个抽烟者“桌上有组合一”</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(i == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">/*将组合二放桌上*/</span>;</span><br><span class="line">            semSignal(offer2);    <span class="comment">//告诉第二个抽烟者“桌上有组合二”</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(i == <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="comment">/*将组合三放桌上*/</span>;</span><br><span class="line">            semSignal(offer3);    <span class="comment">//告诉第三个抽烟者“桌上有组合三”</span></span><br><span class="line">        &#125;</span><br><span class="line">        i = (i + <span class="number">1</span>) % <span class="number">3</span>;</span><br><span class="line">        semWait(finish);    <span class="comment">//判断抽烟者是否已经完成吸烟</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*smoker1*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">smoker1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(offer1);    <span class="comment">//判断桌子上有没有组合一</span></span><br><span class="line">        <span class="comment">/*从桌子上拿走组合一；卷烟；抽掉*/</span>;</span><br><span class="line">        semSignal(finish);    <span class="comment">//告诉提供者“桌子上已经空了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*smoker2*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">smoker2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(offer2);    <span class="comment">//判断桌子上有没有组合二</span></span><br><span class="line">        <span class="comment">/*从桌子上拿走组合二；卷烟；抽掉*/</span>;</span><br><span class="line">        semSignal(finish);    <span class="comment">//告诉提供者“桌子上已经空了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*smoker3*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">smoker3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(offer3);    <span class="comment">//判断桌子上有没有组合三</span></span><br><span class="line">        <span class="comment">/*从桌子上拿走组合三；卷烟；抽掉*/</span>;</span><br><span class="line">        semSignal(finish);    <span class="comment">//告诉提供者“桌子上已经空了”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(provider(), smoker1(), smoker2(), smoker3());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>分析：是否需要专门再设置一个互斥信号量（mutex）？</p>
-<p>因为桌子的容量为1（同上面一个例子相同），因此不必设置也不会出错。</p>
-</blockquote>
-<h2 id="读者-写者问题">读者-写者问题</h2>
-<p>问题描述：</p>
-<p>有读者和写者两组并发进程，共享一个文件，当两个或两个以上的读进程同时访问共享数据时不会产生副作用，但若某个写进程和其他进程（读进程或写进程）同时访问共享数据时则可能导致数据不一致的错误。因此我们要求：</p>
-<ul>
-<li>允许多个读者可以同时对文件执行读操作；</li>
-<li>只允许一个写者往文件中写信息；</li>
-<li>任一写者在完成写操作之前不允许其他读者或写者工作；</li>
-<li>写者执行写操作前，应让已有的读者和写者全部退出。</li>
-</ul>
-<p>分析：</p>
-<ul>
-<li>
-<p>互斥关系：</p>
-<ol>
-<li>
-<p>写进程——写进程</p>
-</li>
-<li>
-<p>写进程——读进程</p>
-<p>（读进程之间不存在互斥关系，因此可以同时读文件，如何实现该操作是此类问题的关键）</p>
-</li>
-</ol>
-</li>
-</ul>
-<p>所以根据以上分析得知，需要定义如下三个信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore rw = <span class="number">1</span>;    <span class="comment">//用于实现对文件的互斥访问。表示当前是否有进程在访问共享文件</span></span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;    <span class="comment">//用于记录当前有几个读进程在访问文件</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//用于保证对count变量的互斥访问</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*writer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(rw);    <span class="comment">//在写文件之前“上锁”</span></span><br><span class="line">        <span class="comment">/*写文件*/</span>;</span><br><span class="line">        semSignal(rw);    <span class="comment">//在写完之后“解锁”</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*reader*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count</span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semWait(rw);    <span class="comment">//第一个读进程负责“上锁”</span></span><br><span class="line">        &#125;</span><br><span class="line">        count++;    <span class="comment">//访问文件的读进程数加一</span></span><br><span class="line">        semSignal(mutex);    </span><br><span class="line">        <span class="comment">/*读文件*/</span>;</span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count</span></span><br><span class="line">        count--;    <span class="comment">//访问文件的读进程数减一</span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semSignal(rw);    <span class="comment">//最后一个读进程负责“解锁”</span></span><br><span class="line">        &#125;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(writer(), reader1(), reader2(),...,readern());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>分析：</p>
-<p>mutex变量的设置是为了解决读进程对count的访问（解决多个读进程访问的操作）</p>
-<ul>
-<li>第一个读进程执行<code>semWait(mutex)</code>操作，顺利通过，并执行之后的<code>semWait(rw)</code>操作（保证了读进程与写进程的互斥）</li>
-<li>若此时另一个读进程访问，在执行<code>semWait(mutex)</code>操作会被阻塞，直到第一个读进程执行<code>semSignal(mutex)</code>操作（“解锁”对count的访问，注意此时count值为1）</li>
-<li>当count“解锁”后，另一个读进程再执行<code>semWait(mutex)</code>操作，判断count的值不为0，直接跳过<code>semWait(rw)</code>访问，这样就避免了各个读进程之间的互斥访问</li>
-</ul>
-<p>再仔细体会会发现上述代码存在一个潜在的问题，即：如果读进程一直在不停地访问（count值永不为0），就无法对文件“解锁”，写者进程就可能“饿死”。</p>
-<p>因此该种写法是<strong>读进程优先</strong>。</p>
-</blockquote>
-<p>如何实现写进程优先呢？</p>
-<p>这里我们再增加一个信号量：<code>semaphore w = 1</code>。</p>
-<p>即现在一共有如下四个信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore rw = <span class="number">1</span>;    <span class="comment">//用于实现对文件的互斥访问。表示当前是否有进程在访问共享文件</span></span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;    <span class="comment">//用于记录当前有几个读进程在访问文件</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//用于保证对count变量的互斥访问</span></span><br><span class="line">semaphore w = <span class="number">1</span>;    <span class="comment">//用于实现“写进程优先”</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*writer*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(w);    <span class="comment">//Ⅰ</span></span><br><span class="line">        semWait(rw);    <span class="comment">//在写文件之前“上锁”  Ⅱ</span></span><br><span class="line">        <span class="comment">/*写文件*/</span>;</span><br><span class="line">        semSignal(rw);    <span class="comment">//在写完之后“解锁”  Ⅲ</span></span><br><span class="line">        semSignal(w);    <span class="comment">//Ⅳ</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*reader*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        semWait(w);    <span class="comment">//Ⅴ</span></span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count  </span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semWait(rw);    <span class="comment">//第一个读进程负责“上锁”  Ⅵ</span></span><br><span class="line">        &#125;</span><br><span class="line">        count++;    <span class="comment">//访问文件的读进程数加一</span></span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        semSignal(w);    <span class="comment">//Ⅶ</span></span><br><span class="line">        <span class="comment">/*读文件*/</span>;</span><br><span class="line">        semWait(mutex);    <span class="comment">//各读进程互斥访问count</span></span><br><span class="line">        count--;    <span class="comment">//访问文件的读进程数减一</span></span><br><span class="line">        <span class="keyword">if</span>(count == <span class="number">0</span>)&#123;</span><br><span class="line">            semSignal(rw);    <span class="comment">//最后一个读进程负责“解锁”  Ⅷ</span></span><br><span class="line">        &#125;</span><br><span class="line">        semSignal(mutex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin(writer(), reader1(), reader2(),...,readern());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>分析：<em>（容我吐槽一下，简直头皮发麻）</em></p>
-<ol>
-<li>
-<p>读者1 → 读者2</p>
-<ul>
-<li>第一个读进程顺利通过<code>Ⅴ（semWait(w)）</code>操作，并对文件（rw）“上锁”，count++，…，到最后顺利地读文件。</li>
-<li>第二个读进程同上。</li>
-<li>即在增添了<code>Ⅴ（semWait(w)）</code>操作以及<code>Ⅶ（semSignal(w)）</code>对多个读进程并发访问文件是没有影响的。</li>
-</ul>
-</li>
-<li>
-<p>写者1 → 写者2</p>
-<ul>
-<li>第一个写进程会顺利通过<code>Ⅰ（semWait(w)）</code>操作，<code>Ⅱ（semWait(rw)）</code>操作，并顺利写文件。</li>
-<li>第二个写进程如果并发执行会被阻塞在Ⅰ处，直到第一个写进程执行<code>Ⅳ（semSignal(w)）</code>“解锁写操作”，才可以继续执行。</li>
-<li>实现了多个写进程之间的互斥。</li>
-</ul>
-</li>
-<li>
-<p>写者1 → 读者1</p>
-<ul>
-<li>写着进程顺利通过<code>Ⅰ（semWait(w)）</code>操作，<code>Ⅱ（semWait(rw)）</code>操作，开始写文件。</li>
-<li>此时如果读进程要执行，就会被阻塞在<code>Ⅴ（semWait(w)）</code>操作，直到写进程执行完<code>Ⅳ（semSignal(w)）</code>“解锁写操作”，才可以继续执行。</li>
-<li>实现了读者与写者的互斥。</li>
-</ul>
-</li>
-<li>
-<p>读者1 → 写者1 → 读者2</p>
-<ul>
-<li>第一个读进程可以顺利执行到<code>读文件</code>操作。</li>
-<li>此时若写进程执行，可以顺利执行<code>Ⅰ（semWait(w)）</code>操作，但在<code>Ⅱ（semWait(rw)）</code>操作会被阻塞。</li>
-<li>然后第二个读进程并发执行，由于上一步读进程顺利执行<code>Ⅰ（semWait(w)）</code>操作，所以第二个读进程会被阻塞在<code>Ⅴ（semWait(w)）</code>操作。</li>
-<li>直到第一个读进程执行完<code>Ⅷ（semSignal(rw)）</code>操作对文件“解锁”，此时写进程就可以被唤醒，开始写文件。</li>
-<li>第二个读进程依然被阻塞在<code>Ⅴ（semWait(w)）</code>操作，直到写进程执行完<code>Ⅳ（semSignal(w)）</code>操作，第二个读进程才可以继续执行。</li>
-<li>所以这种情况并不会导致写进程“饥饿”。</li>
-</ul>
-</li>
-<li>
-<p>写者1 → 读者1 → 写者2</p>
-<ul>
-<li>
-<p>第一个写进程顺利执行前面的操作，开始写文件。</p>
-</li>
-<li>
-<p>此时如果读进程执行，则会被阻塞在<code>Ⅴ（semWait(w)）</code>操作。</p>
-</li>
-<li>
-<p>此时如果第二个写进程执行，则也会被阻塞在<code>Ⅰ（semWait(w)）</code>操作。</p>
-</li>
-<li>
-<p>如果第一个写进程执行完<code>Ⅳ（semSignal(w)）</code>操作，则此时会根据“先来先得”的原则，首先唤醒读进程，读进程顺利执行。</p>
-</li>
-<li>
-<p>然后读进程会执行<code>Ⅵ（semWait(rw)）</code>操作对文件“上锁”，在执行完<code>Ⅶ（semWait(w)）</code>操作时释放对写进程的操作，第二个写进程就继续执行，但是会被阻塞在<code>Ⅱ（semWait(rw)）</code>操作。</p>
-</li>
-<li>
-<p>读进程继续执行，直到结束，释放对文件的访问控制，第二个写进程才可以顺利执行。</p>
-</li>
-<li>
-<blockquote>
-<p>在这种情况我们可以分析出，尽管不会使得写进程“饥饿”，但也不是真正的“写进程优先”，而是符合相对公平的先来先服务的原则。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
-</blockquote>
-<h2 id="哲学家进餐问题">哲学家进餐问题</h2>
-<p>问题描述：</p>
-<p>一张圆桌上坐着5名哲学家，每两个哲学家之间的桌上摆一根筷子，桌子的中间是一碗米饭。哲学家们倾注毕生的精力用于思考和进餐，哲学家在思考时，并不影响他人。只有当哲学家饥饿时，才试图拿起左、右两根筷子（一根一根地拿起）。如果筷子已在他人手上，则需等待。饥饿的哲学家只有同时拿起两根筷子才可以开始进餐，当进餐完毕后，放下筷子继续思考。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/OS%E5%93%B2%E5%AD%A6%E5%AE%B6%E8%BF%9B%E9%A4%90%E9%97%AE%E9%A2%98.png" alt=""></p>
-<p>分析：</p>
-<ul>
-<li>
-<p>互斥关系：系统中有5个哲学家进程，5位哲学家与左右邻居对其中间筷子的访问是互斥关系。</p>
-<blockquote>
-<p>这个问题中只有互斥关系，但与之前遇到的问题不同的是，每个哲学家进程需要同时持有两个临界资源才能开始吃饭。如何避免临界资源分配不当造成的死锁现象，是哲学家问题的关键。</p>
-</blockquote>
-</li>
-</ul>
-<p>所以根据以上分析得知，需要定义如下信号量数组以及一个互斥信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;    <span class="comment">//用于实现对5根筷子的互斥访问</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>;    <span class="comment">//互斥地取筷子</span></span><br></pre></td></tr></table></figure>
-<p>并规定对哲学家按0~4编号，哲学家 i 左边的筷子编号为 i，右边的筷子编号为 <code>( i + 1 ) % 5</code>。</p>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*philosopher*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">        semWait(mutex);</span><br><span class="line">        semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">        semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">        semSignal(mutex);</span><br><span class="line">        <span class="comment">/*进餐*/</span>;</span><br><span class="line">        semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">        semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin (philosopher(<span class="number">0</span>), philosopher(<span class="number">1</span>), philosopher(<span class="number">2</span>), philosopher(<span class="number">3</span>), philosopher(<span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>分析：</p>
-<p>哲学家进程要想正常进行就需要同时拿起左右两根筷子，一旦请求资源无法满足，就会进入阻塞态。</p>
-</blockquote>
-<p>方法二：</p>
-<p>分析：根据“鸽笼原理”，只要最多只有四位哲学家并发争夺筷子进餐，那么肯定会有一位哲学家可以同时拿到两根筷子。为此我们定义如下信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;    <span class="comment">//用于实现对5根筷子的互斥访问</span></span><br><span class="line">semaphore room = <span class="number">4</span>;    <span class="comment">//最多允许4为哲学家进餐</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*philosopher*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">        semWait(room);</span><br><span class="line">        semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">        semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">        <span class="comment">/*进餐*/</span>;</span><br><span class="line">        semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">        semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">        semSignal(room);</span><br><span class="line">        <span class="comment">/*思考*/</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin (philosopher(<span class="number">0</span>), philosopher(<span class="number">1</span>), philosopher(<span class="number">2</span>), philosopher(<span class="number">3</span>), philosopher(<span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>方法三：</p>
-<p>要求奇数号哲学家先拿左边的筷子，然后再拿右边的筷子；而偶数号的哲学家相反，先拿右边的筷子，再拿左边的筷子。在这种策略下，如果相邻的两个奇偶号哲学家都想吃饭，那么只会有其中一个可以拿起第一只筷子，另一个会直接阻塞。这就避免了占有一支后再等待另一支的情况。</p>
-<p>首先定义如下信号量：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">semaphore chopstick[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;    <span class="comment">//用于实现对5根筷子的互斥访问</span></span><br></pre></td></tr></table></figure>
-<p>实现：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*philosopher*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">philosopher</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">1</span>)&#123;    <span class="comment">//奇数号哲学家</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">            semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">            semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">            <span class="comment">/*进餐*/</span>;</span><br><span class="line">            semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">            semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span>)&#123;    <span class="comment">//偶数号哲学家</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">            semWait(chopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//拿起右筷</span></span><br><span class="line">            semWait(chopstick[i]);    <span class="comment">//拿起左筷</span></span><br><span class="line">            <span class="comment">/*进餐*/</span>;</span><br><span class="line">            semSignal(shopstick[(i+<span class="number">1</span>)%<span class="number">5</span>]);    <span class="comment">//放下右筷</span></span><br><span class="line">            semSignal(chopstick[i]);    <span class="comment">//放下左筷</span></span><br><span class="line">            <span class="comment">/*思考*/</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    parbegin (philosopher(<span class="number">0</span>), philosopher(<span class="number">1</span>), philosopher(<span class="number">2</span>), philosopher(<span class="number">3</span>), philosopher(<span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h1>后记</h1>
-<p>本篇还没结束，持续更新中。</p>
-<p><em>（欢迎评论区批评指正）</em></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
