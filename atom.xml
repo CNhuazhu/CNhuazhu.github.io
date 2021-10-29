@@ -6,7 +6,7 @@
   <link href="https://cnhuazhu.top/atom.xml" rel="self"/>
   
   <link href="https://cnhuazhu.top/"/>
-  <updated>2021-10-28T12:53:18.337Z</updated>
+  <updated>2021-10-29T02:19:16.770Z</updated>
   <id>https://cnhuazhu.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://cnhuazhu.top/2021/10/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Nginx-uWSGI-Flask%E9%83%A8%E7%BD%B2%E8%87%B3Ubuntu/"/>
     <id>https://cnhuazhu.top/2021/10/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Nginx-uWSGI-Flask%E9%83%A8%E7%BD%B2%E8%87%B3Ubuntu/</id>
     <published>2021-10-28T03:01:09.000Z</published>
-    <updated>2021-10-28T12:53:18.337Z</updated>
+    <updated>2021-10-29T02:19:16.770Z</updated>
     
     
     <summary type="html">利用Nginx和uWSGI将Flask部署至Ubuntu</summary>
