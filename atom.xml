@@ -6,7 +6,7 @@
   <link href="https://cnhuazhu.top/atom.xml" rel="self"/>
   
   <link href="https://cnhuazhu.top/"/>
-  <updated>2021-10-19T02:28:32.913Z</updated>
+  <updated>2021-10-28T12:53:18.337Z</updated>
   <id>https://cnhuazhu.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx+uWSGI+Flask部署至Ubuntu</title>
+    <link href="https://cnhuazhu.top/2021/10/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Nginx-uWSGI-Flask%E9%83%A8%E7%BD%B2%E8%87%B3Ubuntu/"/>
+    <id>https://cnhuazhu.top/2021/10/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Nginx-uWSGI-Flask%E9%83%A8%E7%BD%B2%E8%87%B3Ubuntu/</id>
+    <published>2021-10-28T03:01:09.000Z</published>
+    <updated>2021-10-28T12:53:18.337Z</updated>
+    
+    
+    <summary type="html">利用Nginx和uWSGI将Flask部署至Ubuntu</summary>
+    
+    
+    
+    <category term="博客" scheme="https://cnhuazhu.top/categories/%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+    <category term="Flask" scheme="https://cnhuazhu.top/tags/Flask/"/>
+    
+    <category term="Ubuntu" scheme="https://cnhuazhu.top/tags/Ubuntu/"/>
+    
+  </entry>
   
   <entry>
     <title>Xftp传输文件失败解决方案</title>
@@ -37,10 +58,10 @@
   
   <entry>
     <title>Hexo部署至服务器（续）——建立引导页及分站</title>
-    <link href="https://cnhuazhu.top/2021/10/13/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E7%BB%AD%EF%BC%89%E2%80%94%E2%80%94%E5%BB%BA%E7%AB%8B%E5%BC%95%E5%AF%BC%E9%A1%B5%E5%8F%8A%E5%88%86%E7%AB%99/"/>
-    <id>https://cnhuazhu.top/2021/10/13/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E7%BB%AD%EF%BC%89%E2%80%94%E2%80%94%E5%BB%BA%E7%AB%8B%E5%BC%95%E5%AF%BC%E9%A1%B5%E5%8F%8A%E5%88%86%E7%AB%99/</id>
+    <link href="https://cnhuazhu.top/2021/10/13/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E7%BB%AD%EF%BC%89%E2%80%94%E2%80%94%E5%BB%BA%E7%AB%8B%E5%BC%95%E5%AF%BC%E9%A1%B5%E5%8F%8A%E5%88%86%E7%AB%99/"/>
+    <id>https://cnhuazhu.top/2021/10/13/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E7%BB%AD%EF%BC%89%E2%80%94%E2%80%94%E5%BB%BA%E7%AB%8B%E5%BC%95%E5%AF%BC%E9%A1%B5%E5%8F%8A%E5%88%86%E7%AB%99/</id>
     <published>2021-10-13T13:49:12.000Z</published>
-    <updated>2021-10-19T03:09:06.718Z</updated>
+    <updated>2021-10-28T03:05:09.553Z</updated>
     
     
     <summary type="html">从零开始将Hexo项目部署至服务器</summary>
@@ -51,15 +72,17 @@
     
     
     <category term="Hexo" scheme="https://cnhuazhu.top/tags/Hexo/"/>
+    
+    <category term="Ubuntu" scheme="https://cnhuazhu.top/tags/Ubuntu/"/>
     
   </entry>
   
   <entry>
     <title>Hexo部署至服务器（Ubuntu 20.04）</title>
-    <link href="https://cnhuazhu.top/2021/10/12/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu-20-04%EF%BC%89/"/>
-    <id>https://cnhuazhu.top/2021/10/12/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu-20-04%EF%BC%89/</id>
+    <link href="https://cnhuazhu.top/2021/10/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu-20-04%EF%BC%89/"/>
+    <id>https://cnhuazhu.top/2021/10/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu%EF%BC%89/Hexo%E9%83%A8%E7%BD%B2%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88Ubuntu-20-04%EF%BC%89/</id>
     <published>2021-10-12T07:13:40.000Z</published>
-    <updated>2021-10-19T02:24:12.903Z</updated>
+    <updated>2021-10-28T03:03:12.089Z</updated>
     
     
     <summary type="html">从零开始将Hexo项目部署至服务器</summary>
@@ -70,6 +93,8 @@
     
     
     <category term="Hexo" scheme="https://cnhuazhu.top/tags/Hexo/"/>
+    
+    <category term="Ubuntu" scheme="https://cnhuazhu.top/tags/Ubuntu/"/>
     
   </entry>
   
@@ -378,25 +403,6 @@
     
     
     <category term="计算机网络" scheme="https://cnhuazhu.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo建立分站</title>
-    <link href="https://cnhuazhu.top/2021/07/14/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%BB%BA%E7%AB%8B%E5%88%86%E7%AB%99/"/>
-    <id>https://cnhuazhu.top/2021/07/14/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%BB%BA%E7%AB%8B%E5%88%86%E7%AB%99/</id>
-    <published>2021-07-14T12:41:28.000Z</published>
-    <updated>2021-07-14T15:20:50.605Z</updated>
-    
-    
-    <summary type="html">本文将介绍如何添加不同主题的分站</summary>
-    
-    
-    
-    <category term="博客" scheme="https://cnhuazhu.top/categories/%E5%8D%9A%E5%AE%A2/"/>
-    
-    
-    <category term="Hexo" scheme="https://cnhuazhu.top/tags/Hexo/"/>
     
   </entry>
   
