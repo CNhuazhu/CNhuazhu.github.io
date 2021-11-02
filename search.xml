@@ -471,39 +471,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Flask前端用CSS修饰循环代码的注意事项</title>
-    <url>/2021/06/07/Flask/Flask%E5%89%8D%E7%AB%AF%E7%94%A8CSS%E4%BF%AE%E9%A5%B0%E5%BE%AA%E7%8E%AF%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>最近在写一个基于Flask框架的动态博客管理项目，在实践过程中遇到了很多问题，有一些在网上也找不到相应的解决办法，故记录一下。</p>
-<p>（并未系统性学过前端，都是临时查、学、套用）</p>
-<hr>
-<h1>问题描述&amp;解决</h1>
-<p>后端从数据库调取数据，由于数据记录数未知，因此把符合查询条件的记录以对象列表的形式传递给前端，前端通过<code>&#123;% for 名称 in 列表名 %&#125;</code>的形式加载数据。但是在利用CSS渲染的时候，只能渲染第一条数据：</p>
-<p>CSS代码：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-id">#container</span> &#123;</span><br><span class="line">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span><br><span class="line">        <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-<p>这里是想给列表对象加载一个宽度为800px的容器。</p>
-<p>被修饰的代码如下：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span>  &#123;# 标签在循环体外 #&#125;</span><br><span class="line">    &#123;% for ip in ip %&#125;</span><br><span class="line">       IP: &#123;&#123; ip.ip_num &#125;</span><br><span class="line">       地址: &#123;&#123; ip.ip_location &#125;&#125;</span><br><span class="line">       访问时间: &#123;&#123; ip.ip_datetime &#125;&#125;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>（这里为了简洁省去了其他的CSS渲染代码）</p>
-<p>这里<code>container</code>标签是在循环体外，但是这样只有第一条数据被修饰，具体效果如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/FL%E5%89%8D%E7%AB%AFCSS%E4%BF%AE%E9%A5%B0%E9%97%AE%E9%A2%98%E5%B1%95%E7%A4%BA1.png" alt=""></p>
-<p>这个情况还蛮有意思的，但是我不理解这是为何。</p>
-<p>然后将<code>container</code>标签放于循环体内，想要的效果就出来了，代码如下：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% for ip in ip %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span>  &#123;# 标签在循环体内 #&#125;</span><br><span class="line">       IP: &#123;&#123; ip.ip_num &#125;</span><br><span class="line">       地址: &#123;&#123; ip.ip_location &#125;&#125;</span><br><span class="line">       访问时间: &#123;&#123; ip.ip_datetime &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
-<p>效果展示如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/FL%E5%89%8D%E7%AB%AFCSS%E4%BF%AE%E9%A5%B0%E9%97%AE%E9%A2%98%E5%B1%95%E7%A4%BA2.png" alt=""></p>
-<hr>
-<h1>后记</h1>
-<p>真正在写一个项目的时候发现还是很锻炼人的，平时学习过程中没留意的问题会在实践过程中暴露出来。</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Flask</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Flask利用ajax实现前端到后端的数据传输</title>
     <url>/2021/06/07/Flask/Flask%E5%88%A9%E7%94%A8ajax%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E5%88%B0%E5%90%8E%E7%AB%AF%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -618,6 +585,39 @@
       </tags>
   </entry>
   <entry>
+    <title>Flask前端用CSS修饰循环代码的注意事项</title>
+    <url>/2021/06/07/Flask/Flask%E5%89%8D%E7%AB%AF%E7%94%A8CSS%E4%BF%AE%E9%A5%B0%E5%BE%AA%E7%8E%AF%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>最近在写一个基于Flask框架的动态博客管理项目，在实践过程中遇到了很多问题，有一些在网上也找不到相应的解决办法，故记录一下。</p>
+<p>（并未系统性学过前端，都是临时查、学、套用）</p>
+<hr>
+<h1>问题描述&amp;解决</h1>
+<p>后端从数据库调取数据，由于数据记录数未知，因此把符合查询条件的记录以对象列表的形式传递给前端，前端通过<code>&#123;% for 名称 in 列表名 %&#125;</code>的形式加载数据。但是在利用CSS渲染的时候，只能渲染第一条数据：</p>
+<p>CSS代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    <span class="selector-id">#container</span> &#123;</span><br><span class="line">        <span class="attribute">max-width</span>: <span class="number">800px</span>;</span><br><span class="line">        <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>这里是想给列表对象加载一个宽度为800px的容器。</p>
+<p>被修饰的代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span>  &#123;# 标签在循环体外 #&#125;</span><br><span class="line">    &#123;% for ip in ip %&#125;</span><br><span class="line">       IP: &#123;&#123; ip.ip_num &#125;</span><br><span class="line">       地址: &#123;&#123; ip.ip_location &#125;&#125;</span><br><span class="line">       访问时间: &#123;&#123; ip.ip_datetime &#125;&#125;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>（这里为了简洁省去了其他的CSS渲染代码）</p>
+<p>这里<code>container</code>标签是在循环体外，但是这样只有第一条数据被修饰，具体效果如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/FL%E5%89%8D%E7%AB%AFCSS%E4%BF%AE%E9%A5%B0%E9%97%AE%E9%A2%98%E5%B1%95%E7%A4%BA1.png" alt=""></p>
+<p>这个情况还蛮有意思的，但是我不理解这是为何。</p>
+<p>然后将<code>container</code>标签放于循环体内，想要的效果就出来了，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% for ip in ip %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;container&quot;</span>&gt;</span>  &#123;# 标签在循环体内 #&#125;</span><br><span class="line">       IP: &#123;&#123; ip.ip_num &#125;</span><br><span class="line">       地址: &#123;&#123; ip.ip_location &#125;&#125;</span><br><span class="line">       访问时间: &#123;&#123; ip.ip_datetime &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p>效果展示如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/FL%E5%89%8D%E7%AB%AFCSS%E4%BF%AE%E9%A5%B0%E9%97%AE%E9%A2%98%E5%B1%95%E7%A4%BA2.png" alt=""></p>
+<hr>
+<h1>后记</h1>
+<p>真正在写一个项目的时候发现还是很锻炼人的，平时学习过程中没留意的问题会在实践过程中暴露出来。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Flask</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HexoMAC代码框样式美化</title>
     <url>/2021/07/05/Hexo%E9%AD%94%E6%94%B9/HexoMAC%E4%BB%A3%E7%A0%81%E6%A1%86%E6%A0%B7%E5%BC%8F%E7%BE%8E%E5%8C%96/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -647,57 +647,6 @@
 <hr>
 <h1>后记</h1>
 <p>重新记录一下。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo在顶部增加天气小部件</title>
-    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%A2%9E%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E9%83%A8%E4%BB%B6/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍如何在顶部增加天气小部件，效果在顶部即可看到。</p>
-<blockquote>
-<p>教程链接：<a href="https://surpsec.cn/3178170368.html">https://surpsec.cn/3178170368.html</a></p>
-</blockquote>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>去<a href="https://cj.weather.com.cn/">中国天气</a>官网：<a href="https://cj.weather.com.cn/">https://cj.weather.com.cn/</a> 先注册一个账号，然后点击<code>自定义插件</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weatherWeb.png" alt=""></p>
-</li>
-<li>
-<p>根据自己的需求创建插件样式，并生成代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weatherWeb2.png" alt=""></p>
-<p>复制图中框选的代码</p>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weathercreate.png" alt=""></p>
-</li>
-<li>
-<p>在<code>\themes\butterfly\source\js</code>目录下创建一个<code>weather.js</code>文件，将刚刚复制的代码写入该文件：</p>
-<p>（<strong>注意</strong>：<code>key</code>处要替换为你自己的key值）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">WIDGET = &#123;</span><br><span class="line">  CONFIG: &#123;</span><br><span class="line">    <span class="string">&quot;modules&quot;</span>: <span class="string">&quot;01234&quot;</span>,</span><br><span class="line">    <span class="string">&quot;background&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;tmpColor&quot;</span>: <span class="string">&quot;FFFFFF&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tmpSize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&quot;cityColor&quot;</span>: <span class="string">&quot;FFFFFF&quot;</span>,</span><br><span class="line">    <span class="string">&quot;citySize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&quot;aqiSize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&quot;weatherIconSize&quot;</span>: <span class="number">24</span>,</span><br><span class="line">    <span class="string">&quot;alertIconSize&quot;</span>: <span class="number">18</span>,</span><br><span class="line">    <span class="string">&quot;padding&quot;</span>: <span class="string">&quot;10px 10px 10px 10px&quot;</span>,</span><br><span class="line">    <span class="string">&quot;shadow&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;language&quot;</span>: <span class="string">&quot;auto&quot;</span>,</span><br><span class="line">    <span class="string">&quot;borderRadius&quot;</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="string">&quot;fixed&quot;</span>: <span class="string">&quot;false&quot;</span>,</span><br><span class="line">    <span class="string">&quot;vertical&quot;</span>: <span class="string">&quot;middle&quot;</span>,</span><br><span class="line">    <span class="string">&quot;horizontal&quot;</span>: <span class="string">&quot;center&quot;</span>,</span><br><span class="line">    <span class="string">&quot;key&quot;</span>: <span class="string">&quot;替换为你自己的key&quot;</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入两个js文件，一个是刚刚创建的<code>weather.js</code>，另一个是如下文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apip.weatherdt.com/simple/static/js/weather-simple-common.js?v=2.0&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weatherwrite.png" alt=""></p>
-</li>
-<li>
-<p>在<code>\themes\butterfly\layout\includes\header</code>路径下找到<code>nav.pug</code>文件，添加如下代码（<strong>注意缩进）</strong>;</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">span#weather-v2-plugin-simple</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weathernavcode.png" alt=""></p>
-</li>
-<li>
-<p>重新部署，启动，就可以看到效果啦。</p>
-</li>
-</ol>
-<hr>
-<h1>结尾</h1>
-<p>慢慢地开始接触并修改源文件了。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -807,23 +756,40 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo增添头像卡片动态背景</title>
-    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%A4%B4%E5%83%8F%E5%8D%A1%E7%89%87%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/</url>
+    <title>Hexo在顶部增加天气小部件</title>
+    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%A2%9E%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E9%83%A8%E4%BB%B6/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍如何在侧边栏增添头像卡片动态背景。效果展示：将鼠标移至头像卡片即可看到。</p>
+<p>本文将介绍如何在顶部增加天气小部件，效果在顶部即可看到。</p>
 <blockquote>
-<p>教程链接：<a href="https://www.tqwba.com/x_d/jishu/298102.html">https://www.tqwba.com/x_d/jishu/298102.html</a></p>
+<p>教程链接：<a href="https://surpsec.cn/3178170368.html">https://surpsec.cn/3178170368.html</a></p>
 </blockquote>
 <hr>
 <h1>操作</h1>
 <ol>
 <li>
-<p>在<code>\themes\butterfly\source\css</code>目录下创建一个<code>css</code>文件，将如下代码写入该文件（有两种效果，选其一）:</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 效果一：彩带 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/H3342af90d24b4d62b9bbfec9688ccc25M.gif</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 效果二：花 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/20200530181856.gif</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>去<a href="https://cj.weather.com.cn/">中国天气</a>官网：<a href="https://cj.weather.com.cn/">https://cj.weather.com.cn/</a> 先注册一个账号，然后点击<code>自定义插件</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weatherWeb.png" alt=""></p>
 </li>
 <li>
-<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>head</code>处引入该css文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>根据自己的需求创建插件样式，并生成代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weatherWeb2.png" alt=""></p>
+<p>复制图中框选的代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weathercreate.png" alt=""></p>
+</li>
+<li>
+<p>在<code>\themes\butterfly\source\js</code>目录下创建一个<code>weather.js</code>文件，将刚刚复制的代码写入该文件：</p>
+<p>（<strong>注意</strong>：<code>key</code>处要替换为你自己的key值）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">WIDGET = &#123;</span><br><span class="line">  CONFIG: &#123;</span><br><span class="line">    <span class="string">&quot;modules&quot;</span>: <span class="string">&quot;01234&quot;</span>,</span><br><span class="line">    <span class="string">&quot;background&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;tmpColor&quot;</span>: <span class="string">&quot;FFFFFF&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tmpSize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&quot;cityColor&quot;</span>: <span class="string">&quot;FFFFFF&quot;</span>,</span><br><span class="line">    <span class="string">&quot;citySize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&quot;aqiSize&quot;</span>: <span class="number">16</span>,</span><br><span class="line">    <span class="string">&quot;weatherIconSize&quot;</span>: <span class="number">24</span>,</span><br><span class="line">    <span class="string">&quot;alertIconSize&quot;</span>: <span class="number">18</span>,</span><br><span class="line">    <span class="string">&quot;padding&quot;</span>: <span class="string">&quot;10px 10px 10px 10px&quot;</span>,</span><br><span class="line">    <span class="string">&quot;shadow&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;language&quot;</span>: <span class="string">&quot;auto&quot;</span>,</span><br><span class="line">    <span class="string">&quot;borderRadius&quot;</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="string">&quot;fixed&quot;</span>: <span class="string">&quot;false&quot;</span>,</span><br><span class="line">    <span class="string">&quot;vertical&quot;</span>: <span class="string">&quot;middle&quot;</span>,</span><br><span class="line">    <span class="string">&quot;horizontal&quot;</span>: <span class="string">&quot;center&quot;</span>,</span><br><span class="line">    <span class="string">&quot;key&quot;</span>: <span class="string">&quot;替换为你自己的key&quot;</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>bottom</code>处引入两个js文件，一个是刚刚创建的<code>weather.js</code>，另一个是如下文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">src=&quot;https://apip.weatherdt.com/simple/static/js/weather-simple-common.js?v=2.0&quot;&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weatherwrite.png" alt=""></p>
+</li>
+<li>
+<p>在<code>\themes\butterfly\layout\includes\header</code>路径下找到<code>nav.pug</code>文件，添加如下代码（<strong>注意缩进）</strong>;</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">span#weather-v2-plugin-simple</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/CNhuazhu/Image/weathernavcode.png" alt=""></p>
 </li>
 <li>
 <p>重新部署，启动，就可以看到效果啦。</p>
@@ -831,7 +797,7 @@
 </ol>
 <hr>
 <h1>结尾</h1>
-<p>一个很简单的小修改</p>
+<p>慢慢地开始接触并修改源文件了。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -871,6 +837,40 @@
 <hr>
 <h1>结尾</h1>
 <p>一个小小的改动，还不错。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo增添头像卡片动态背景</title>
+    <url>/2021/02/24/Hexo%E9%AD%94%E6%94%B9/Hexo%E5%A2%9E%E6%B7%BB%E5%A4%B4%E5%83%8F%E5%8D%A1%E7%89%87%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍如何在侧边栏增添头像卡片动态背景。效果展示：将鼠标移至头像卡片即可看到。</p>
+<blockquote>
+<p>教程链接：<a href="https://www.tqwba.com/x_d/jishu/298102.html">https://www.tqwba.com/x_d/jishu/298102.html</a></p>
+</blockquote>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\css</code>目录下创建一个<code>css</code>文件，将如下代码写入该文件（有两种效果，选其一）:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 效果一：彩带 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/H3342af90d24b4d62b9bbfec9688ccc25M.gif</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 效果二：花 */</span></span><br><span class="line"><span class="selector-class">.card-info-avatar</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">https://cdn.jsdelivr.net/gh/rigodlee/BLOGCDN/img/20200530181856.gif</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>找到主题配置文件<code>_config.butterfly.yml</code>，在<code>inject</code>的<code>head</code>处引入该css文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">  	<span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>重新部署，启动，就可以看到效果啦。</p>
+</li>
+</ol>
+<hr>
+<h1>结尾</h1>
+<p>一个很简单的小修改</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1061,35 +1061,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo文章页透明效果</title>
-    <url>/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%96%87%E7%AB%A0%E9%A1%B5%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>在不妨碍正常阅读的情况下想更好地展示背景或者一些效果，实现文章页透明是一种不错的选择。</p>
-<hr>
-<h1>操作</h1>
-<ol>
-<li>
-<p>在<code>\themes\butterfly\source\css</code>路径下创建一个<code>xxx.css</code>文件，在文件中添加如下代码：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 首页文章栏背景透明 */</span></span><br><span class="line"><span class="selector-id">#recent-posts</span>&gt;<span class="selector-class">.recent-post-item</span>,<span class="selector-class">.layout_page</span>&gt;<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child<span class="selector-pseudo">:not</span>(<span class="selector-class">.recent-posts</span>),<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#page</span>,<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span>,<span class="selector-class">.read-mode</span> <span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 侧边栏透明 */</span></span><br><span class="line"><span class="selector-id">#aside-content</span> <span class="selector-class">.card-widget</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>然后将该文件引入到<code>_config.butterfly.yml</code>文件中<code>inject</code>的<code>head</code>处：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>至此，重新部署后就可以看到效果啦</p>
-<hr>
-<h1>结尾</h1>
-<p>没得结尾。</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo添加两句诗词</title>
     <url>/2021/05/29/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%B7%BB%E5%8A%A0%E4%B8%A4%E5%8F%A5%E8%AF%97%E8%AF%8D/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -1143,6 +1114,35 @@
 <p>它可以通过图片和 JSON 格式调用。今日诗词 API 根据不同地点、时间、节日、季节、天气、景观、城市进行智能推荐。</p>
 <p>访问链接：<a href="https://www.jinrishici.com/">https://www.jinrishici.com/</a></p>
 <p>可以访问：<a href="https://v2.jinrishici.com/one.json">https://v2.jinrishici.com/one.json</a> 查看效果</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo文章页透明效果</title>
+    <url>/2021/02/19/Hexo%E9%AD%94%E6%94%B9/Hexo%E6%96%87%E7%AB%A0%E9%A1%B5%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>在不妨碍正常阅读的情况下想更好地展示背景或者一些效果，实现文章页透明是一种不错的选择。</p>
+<hr>
+<h1>操作</h1>
+<ol>
+<li>
+<p>在<code>\themes\butterfly\source\css</code>路径下创建一个<code>xxx.css</code>文件，在文件中添加如下代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 首页文章栏背景透明 */</span></span><br><span class="line"><span class="selector-id">#recent-posts</span>&gt;<span class="selector-class">.recent-post-item</span>,<span class="selector-class">.layout_page</span>&gt;<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child<span class="selector-pseudo">:not</span>(<span class="selector-class">.recent-posts</span>),<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#page</span>,<span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span>,<span class="selector-class">.read-mode</span> <span class="selector-class">.layout_post</span>&gt;<span class="selector-id">#post</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 侧边栏透明 */</span></span><br><span class="line"><span class="selector-id">#aside-content</span> <span class="selector-class">.card-widget</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">var</span>(--light_bg_color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>然后将该文件引入到<code>_config.butterfly.yml</code>文件中<code>inject</code>的<code>head</code>处：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/xxx.css&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>至此，重新部署后就可以看到效果啦</p>
+<hr>
+<h1>结尾</h1>
+<p>没得结尾。</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1440,26 +1440,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo站点加载动画修改（巫师、钢铁侠核心、稻草人、自定义效果）</title>
-    <url>/2021/03/06/Hexo%E9%AD%94%E6%94%B9/Hexo%E7%AB%99%E7%82%B9%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E4%BF%AE%E6%94%B9%EF%BC%88%E5%B7%AB%E5%B8%88%E3%80%81%E9%92%A2%E9%93%81%E4%BE%A0%E6%A0%B8%E5%BF%83%E3%80%81%E7%A8%BB%E8%8D%89%E4%BA%BA%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%88%E6%9E%9C%EF%BC%89/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><p>效果见本站。</p>
-<p>需要改动大量主题源码，谨慎修改。</p>
-<blockquote>
-<p>参考博客：<strong>Akilarの糖果屋</strong>（<a href="https://akilar.top/">https://akilar.top/</a> ）</p>
-<p>参考文章：《Loading Animation》（<a href="https://akilar.top/posts/3d221bf2/">https://akilar.top/posts/3d221bf2/</a> ）</p>
-</blockquote>
-<hr>
-<h1>后记</h1>
-<p>Akilar大神帮助我了很多，在此特别鸣谢。🚀🚀🚀🚀</p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo站点加载动画修改</title>
     <url>/2021/02/25/Hexo%E9%AD%94%E6%94%B9/Hexo%E7%AB%99%E7%82%B9%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E4%BF%AE%E6%94%B9/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -1507,6 +1487,26 @@
 <hr>
 <h1>结尾</h1>
 <p>慢慢改动源码的时候也在不断探索，学习其中的内容。之前看到过一篇文章提到，自己没事查看源码，有一些文件的语法根本没有学过，可以通过其中的一些常见的标记大概猜测每个代码块是什么作用，进而逐渐掌握其中的规律。确实是一种很好的自我探索的方法。</p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo站点加载动画修改（巫师、钢铁侠核心、稻草人、自定义效果）</title>
+    <url>/2021/03/06/Hexo%E9%AD%94%E6%94%B9/Hexo%E7%AB%99%E7%82%B9%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E4%BF%AE%E6%94%B9%EF%BC%88%E5%B7%AB%E5%B8%88%E3%80%81%E9%92%A2%E9%93%81%E4%BE%A0%E6%A0%B8%E5%BF%83%E3%80%81%E7%A8%BB%E8%8D%89%E4%BA%BA%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%88%E6%9E%9C%EF%BC%89/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><p>效果见本站。</p>
+<p>需要改动大量主题源码，谨慎修改。</p>
+<blockquote>
+<p>参考博客：<strong>Akilarの糖果屋</strong>（<a href="https://akilar.top/">https://akilar.top/</a> ）</p>
+<p>参考文章：《Loading Animation》（<a href="https://akilar.top/posts/3d221bf2/">https://akilar.top/posts/3d221bf2/</a> ）</p>
+</blockquote>
+<hr>
+<h1>后记</h1>
+<p>Akilar大神帮助我了很多，在此特别鸣谢。🚀🚀🚀🚀</p>
 ]]></content>
       <categories>
         <category>博客</category>
@@ -1850,6 +1850,99 @@
       </tags>
   </entry>
   <entry>
+    <title>Java--HelloWorld</title>
+    <url>/2021/03/08/Java/Java--HelloWorld/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>Java学习之后搁置了很长时间，有很多东西都记不住了，因此决定重新过一遍，并做好学习记录。</p>
+<p>看看能做到什么程度吧（真的是唯爱Java）</p>
+<hr>
+<h1>打印 Hello World</h1>
+<p>编写第一个程序：Hello World</p>
+<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
+<h1>后记</h1>
+<p>计划回头复习，竟连最基本的语法都忘记了。。。。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java--循环结构</title>
+    <url>/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
+<p>本文将介绍Java循环结构的相关语法</p>
+<hr>
+<h1>Java循环结构</h1>
+<h2 id="while循环">while循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>( 布尔表达式 )  &#123;</span><br><span class="line">	<span class="comment">//循环内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( x &lt; <span class="number">10</span> ) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
+<h2 id="do…while循环">do…while循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">       <span class="comment">//代码语句,至少执行一次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(布尔表达式);</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;<span class="keyword">while</span>( x &lt; <span class="number">10</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
+<h2 id="for循环">for循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化; 布尔表达式; 更新) &#123;</span><br><span class="line">    <span class="comment">//代码语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>最先执行初始化步骤。可以声明一种类型，但可初始化一个或多个循环控制变量，也可以是空语句。</li>
+<li>然后，检测布尔表达式的值。如果为 true，循环体被执行。如果为false，循环终止，开始执行循环体后面的语句。</li>
+<li>执行一次循环后，更新循环控制变量。</li>
+<li>再次检测布尔表达式。循环执行上面的过程。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">11</span>; x &lt; <span class="number">10</span>; x++, y++) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value of y : &quot;</span> + y +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of y : 11</span><br><span class="line"></span><br><span class="line">value of x : 2</span><br><span class="line">value of y : 12</span><br><span class="line"></span><br><span class="line">value of x : 3</span><br><span class="line">value of y : 13</span><br><span class="line"></span><br><span class="line">value of x : 4</span><br><span class="line">value of y : 14</span><br><span class="line"></span><br><span class="line">value of x : 5</span><br><span class="line">value of y : 15</span><br><span class="line"></span><br><span class="line">value of x : 6</span><br><span class="line">value of y : 16</span><br><span class="line"></span><br><span class="line">value of x : 7</span><br><span class="line">value of y : 17</span><br><span class="line"></span><br><span class="line">value of x : 8</span><br><span class="line">value of y : 18</span><br><span class="line"></span><br><span class="line">value of x : 9</span><br><span class="line">value of y : 19</span><br></pre></td></tr></table></figure>
+<h2 id="增强for循环">增强for循环</h2>
+<p>语法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
+<h2 id="break关键字">break关键字</h2>
+<blockquote>
+<p>break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。<br>
+break 跳出最里层的循环，并且继续执行该循环下面的语句。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时跳出循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+<h2 id="continue关键字">continue关键字</h2>
+<blockquote>
+<p>continue 适用于任何循环控制结构中。作用是让程序立刻跳转到下一次循环的迭代。<br>
+在 for 循环中，continue 语句使程序立即跳转到更新语句。<br>
+在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句。</p>
+</blockquote>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时直接进入下一循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果:</p>
+<h2 id="code￼15"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure></h2>
+<h1>结尾</h1>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java--基本数据类型</title>
     <url>/2021/03/08/Java/Java-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -1949,99 +2042,6 @@
 <h2 id="code￼8"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> a = <span class="number">50.4f</span>;</span><br><span class="line"><span class="keyword">int</span> b = (<span class="keyword">int</span>) a;</span><br><span class="line">System.out.println(b); <span class="comment">// 50</span></span><br></pre></td></tr></table></figure></h2>
 <h1>结尾</h1>
 <p>在一般情况下不轻易使用数据类型转换，可能导致错误。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--HelloWorld</title>
-    <url>/2021/03/08/Java/Java--HelloWorld/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>Java学习之后搁置了很长时间，有很多东西都记不住了，因此决定重新过一遍，并做好学习记录。</p>
-<p>看看能做到什么程度吧（真的是唯爱Java）</p>
-<hr>
-<h1>打印 Hello World</h1>
-<p>编写第一个程序：Hello World</p>
-<h2 id="code￼0"><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></h2>
-<h1>后记</h1>
-<p>计划回头复习，竟连最基本的语法都忘记了。。。。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java--循环结构</title>
-    <url>/2021/03/08/Java/Java-%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
-<p>本文将介绍Java循环结构的相关语法</p>
-<hr>
-<h1>Java循环结构</h1>
-<h2 id="while循环">while循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>( 布尔表达式 )  &#123;</span><br><span class="line">	<span class="comment">//循环内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>( x &lt; <span class="number">10</span> ) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
-<h2 id="do…while循环">do…while循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">       <span class="comment">//代码语句,至少执行一次</span></span><br><span class="line">&#125;<span class="keyword">while</span>(布尔表达式);</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            x++;</span><br><span class="line">        &#125;<span class="keyword">while</span>( x &lt; <span class="number">10</span> );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of x : 2</span><br><span class="line">value of x : 3</span><br><span class="line">value of x : 4</span><br><span class="line">value of x : 5</span><br><span class="line">value of x : 6</span><br><span class="line">value of x : 7</span><br><span class="line">value of x : 8</span><br><span class="line">value of x : 9</span><br></pre></td></tr></table></figure>
-<h2 id="for循环">for循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(初始化; 布尔表达式; 更新) &#123;</span><br><span class="line">    <span class="comment">//代码语句</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>说明：</p>
-<ul>
-<li>最先执行初始化步骤。可以声明一种类型，但可初始化一个或多个循环控制变量，也可以是空语句。</li>
-<li>然后，检测布尔表达式的值。如果为 true，循环体被执行。如果为false，循环终止，开始执行循环体后面的语句。</li>
-<li>执行一次循环后，更新循环控制变量。</li>
-<li>再次检测布尔表达式。循环执行上面的过程。</li>
-</ul>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">11</span>; x &lt; <span class="number">10</span>; x++, y++) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;value of x : &quot;</span> + x +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;value of y : &quot;</span> + y +<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">value of x : 1</span><br><span class="line">value of y : 11</span><br><span class="line"></span><br><span class="line">value of x : 2</span><br><span class="line">value of y : 12</span><br><span class="line"></span><br><span class="line">value of x : 3</span><br><span class="line">value of y : 13</span><br><span class="line"></span><br><span class="line">value of x : 4</span><br><span class="line">value of y : 14</span><br><span class="line"></span><br><span class="line">value of x : 5</span><br><span class="line">value of y : 15</span><br><span class="line"></span><br><span class="line">value of x : 6</span><br><span class="line">value of y : 16</span><br><span class="line"></span><br><span class="line">value of x : 7</span><br><span class="line">value of y : 17</span><br><span class="line"></span><br><span class="line">value of x : 8</span><br><span class="line">value of y : 18</span><br><span class="line"></span><br><span class="line">value of x : 9</span><br><span class="line">value of y : 19</span><br></pre></td></tr></table></figure>
-<h2 id="增强for循环">增强for循环</h2>
-<p>语法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(声明语句 : 表达式)&#123;</span><br><span class="line">   <span class="comment">//代码句子</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers )&#123;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">30</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
-<h2 id="break关键字">break关键字</h2>
-<blockquote>
-<p>break 主要用在循环语句或者 switch 语句中，用来跳出整个语句块。<br>
-break 跳出最里层的循环，并且继续执行该循环下面的语句。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时跳出循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
-<h2 id="continue关键字">continue关键字</h2>
-<blockquote>
-<p>continue 适用于任何循环控制结构中。作用是让程序立刻跳转到下一次循环的迭代。<br>
-在 for 循环中，continue 语句使程序立即跳转到更新语句。<br>
-在 while 或者 do…while 循环中，程序立即跳转到布尔表达式的判断语句。</p>
-</blockquote>
-<p>示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] numbers = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> x : numbers ) &#123;</span><br><span class="line">            <span class="comment">// x 等于 30 时直接进入下一循环</span></span><br><span class="line">            <span class="keyword">if</span>( x == <span class="number">30</span> ) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.print( x + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果:</p>
-<h2 id="code￼15"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10</span><br><span class="line">20</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure></h2>
-<h1>结尾</h1>
-<blockquote>
-<p>参考：<a href="https://blog.csdn.net/aiowang/article/details/114460730?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-114460730.first_rank_v2_pc_rank_v29">《从零打造IT知识体系-Java基础-Java基本数据类型与算法》</a></p>
-</blockquote>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -3212,6 +3212,28 @@ break 跳出最里层的循环，并且继续执行该循环下面的语句。</
       </tags>
   </entry>
   <entry>
+    <title>Python OSError: [Errno 22] Invalid argument 错误解决</title>
+    <url>/2021/02/06/Python/Python%20OSError-Errno-22-Invalid-argument%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>问题描述</h1>
+<p>在爬取视频数据并保存到本地时报错：<code>OSError: [Errno 22] Invalid argument</code></p>
+<h2 id="code￼0"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">OSError: [Errno <span class="number">22</span>] Invalid argument: <span class="string">&#x27;练习/汪涵与那些了不起的敦煌人|辗转千年，终其一生.mp4&#x27;</span></span><br></pre></td></tr></table></figure></h2>
+<h1>解决思路</h1>
+<p>在爬取其他视频时并没有报此错误，对比后发现是视频名称的问题：在调用<code>open</code>函数时，文件路径中含有字符<code>|</code>，导致报错。</p>
+<h2 id="code￼1"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(video_path+<span class="string">&#x27;.mp4&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">	fp.write(video_data)</span><br></pre></td></tr></table></figure></h2>
+<h1>问题解决</h1>
+<p>在爬取文件名时，将符号<code>|</code>替换掉。这里直接将其删去。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = new_tree.xpath(<span class="string">&#x27;//*[@id=&quot;detailsbd&quot;]/div[1]/div[2]/div/div[1]/h1/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">	name = name.replace(<span class="string">&quot;|&quot;</span>,<span class="string">&quot;&quot;</span>)  <span class="comment"># 将文件名中的“|”删去</span></span><br></pre></td></tr></table></figure>
+<p>至此问题得以解决。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>错误</category>
+      </categories>
+      <tags>
+        <tag>Python错误</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>快速搭建一个express服务器</title>
     <url>/2021/11/02/NodeJS/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAexpress%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>前言</h1>
@@ -3285,28 +3307,6 @@ break 跳出最里层的循环，并且继续执行该循环下面的语句。</
         <tag>Node</tag>
         <tag>Express</tag>
         <tag>Ajax</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python OSError: [Errno 22] Invalid argument 错误解决</title>
-    <url>/2021/02/06/Python/Python%20OSError-Errno-22-Invalid-argument%20%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\css\APlayer.min.css"><script src="\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\js\Meting.min.js"></script><h1>问题描述</h1>
-<p>在爬取视频数据并保存到本地时报错：<code>OSError: [Errno 22] Invalid argument</code></p>
-<h2 id="code￼0"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">OSError: [Errno <span class="number">22</span>] Invalid argument: <span class="string">&#x27;练习/汪涵与那些了不起的敦煌人|辗转千年，终其一生.mp4&#x27;</span></span><br></pre></td></tr></table></figure></h2>
-<h1>解决思路</h1>
-<p>在爬取其他视频时并没有报此错误，对比后发现是视频名称的问题：在调用<code>open</code>函数时，文件路径中含有字符<code>|</code>，导致报错。</p>
-<h2 id="code￼1"><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(video_path+<span class="string">&#x27;.mp4&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">	fp.write(video_data)</span><br></pre></td></tr></table></figure></h2>
-<h1>问题解决</h1>
-<p>在爬取文件名时，将符号<code>|</code>替换掉。这里直接将其删去。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">name = new_tree.xpath(<span class="string">&#x27;//*[@id=&quot;detailsbd&quot;]/div[1]/div[2]/div/div[1]/h1/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">	name = name.replace(<span class="string">&quot;|&quot;</span>,<span class="string">&quot;&quot;</span>)  <span class="comment"># 将文件名中的“|”删去</span></span><br></pre></td></tr></table></figure>
-<p>至此问题得以解决。</p>
-]]></content>
-      <categories>
-        <category>Python</category>
-        <category>错误</category>
-      </categories>
-      <tags>
-        <tag>Python错误</tag>
       </tags>
   </entry>
   <entry>
